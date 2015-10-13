@@ -17,7 +17,9 @@
 
  include  __SITE_PATH.'/simple-php-captcha/simple-php-captcha.php';
 
-
+ //setcookie("name", "John Watkin", time()+3600, "/","", 0);
+	echo $_SESSION['name'];
+	exit(0);
  /*** include the entity file ***/
 /*  function __autoload($class){
  	if(file_exists(__SITE_PATH . '/' . $class .".php")){

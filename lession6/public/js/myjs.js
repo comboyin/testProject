@@ -67,10 +67,7 @@ $(document).on('keyup', 'input[name="quantity"]', function(e){
 });
 
 var myjs = function () {
-
 	return {
-
-
 		init : function () {
 			var flag = 0;
 			var idProduct;

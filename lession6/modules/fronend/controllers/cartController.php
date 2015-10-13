@@ -218,8 +218,6 @@ class cartController extends baseController{
 			}
 		}
 
-
-
 		// check order product in session
 		$OrderProductTemp = $order->findOderProductByIdProduct( $idProduct );
 		if( $OrderProductTemp == null ){

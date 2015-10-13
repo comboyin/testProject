@@ -10,7 +10,6 @@ class Order {
 	private $idorder;
 	private $email;
 
-
 	public function __construct(){
 		$this->listorderproduct = array();
 	}
