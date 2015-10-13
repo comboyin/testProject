@@ -76,6 +76,12 @@ var myjs = function () {
 			updateTableOrderProduct();
 			reCreateCaptcha();
 
+			var dialogListOrder = $('#dialog-list-orderproduct').dialog({
+				 autoOpen: false,
+			      width: 700,
+			      modal: true
+			});
+
 			$('.search a').click(function(e){
 				if( flag == 0){
 					$('.container-search').css('display','inline-table');

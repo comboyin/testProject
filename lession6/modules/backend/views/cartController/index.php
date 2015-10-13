@@ -56,6 +56,7 @@
 		   </tbody>
 		</table>
 		</div>
+
 		<div class="pagination" id="menu-outer">
 			<?php echo $pagination->html()?>
 		</div>

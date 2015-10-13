@@ -51,6 +51,14 @@ $account = $_SESSION['acl']['account'];
     							</li>
     						<?php endforeach;?>
 
+    						<li>
+								<a href="<?php echo $router->url( array( 'module' => 'fronend', 'controller' => 'cart', 'action' => 'index' ) )?>">
+
+								   <img src="public/icon/history.png" />
+
+								</a>
+    						</li>
+
     						<li class="search">
 								<a href="#">
 								    <img src="http://limeorange.vn/template/default/images/icon-search.png">

@@ -209,6 +209,10 @@ class OrderModel extends baseModel{
 
 				if( $errorEmail != null ){
 					$error['Hóa đơn'][] = $errorEmail;
+				}else{
+					$listorder = $_COOKIE['listorder'];
+					array_push( $listorder , $order );
+					setcookie("listorder", $listorder, time()+3600, "/","", 0);
 				}
 
 			}

@@ -1,6 +1,30 @@
 <?php
 class cartController extends baseController{
 	public function index( $arg= array()){
+		$config_pagination = $this->registry->pagination;
+
+		$listOrder = $_COOKIE['listorder'];
+		var_dump($listOrder);
+
+		if(isset($arg[1])){
+			$config_pagination['current_page'] = $arg[1];
+		}
+
+		$config_pagination['total_record'] = count( $listOrder );
+
+		// link first
+		$config_pagination['link_first'] = $this->url(array('module'=>'fronend', 'controller'=>'cart', 'action' => 'index'));
+		// link page
+		$config_pagination['link_full'] = $this->url(array('module'=>'fronend', 'controller'=>'cart', 'action' => 'index')) . '/' . '{page}';
+
+		$pagination = new pagination($config_pagination);
+
+		$configPagiantion = $pagination->getConfig();
+
+		$listOrder = array_slice( $listOrder , $configPagiantion['start'] , $configPagiantion['limit'] );
+
+		$this->getView()->content->listOrder  = $listOrder;
+		$this->getView()->content->pagination = $pagination;
 
 	}
 

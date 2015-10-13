@@ -30,6 +30,10 @@ class acl {
 			$accountTemp->search = array();
 			$_SESSION['acl']['account'] = $accountTemp;
 		}
+
+		if( !isset( $_COOKIE['listorder'] ) ){
+			setcookie("listorder", array(), time()+3600, "/","", 0);
+		}
 		/* @var $account account */
 		$account = $_SESSION['acl']['account'];
 
