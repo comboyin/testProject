@@ -115,7 +115,6 @@ class acl {
 			// if isset "all" (all action)
 			if(isset($permissionController['all'])){
 				if($permissionController['all'] == 'all'){
-
 					$result = false;
 				}else if(in_array($type, $permissionController['all'])){
 					$result = false;
