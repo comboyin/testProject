@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;Model&apos; to &apos;model&apos;&#x0D;&#x0A;- Original element: &apos;lession3_MySQL/Model&apos;&#x0D;&#x0A;- Renamed element: &apos;lession3_MySQL/model&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings&#x0D;&#x0A;- Rename subpackages of the package" description="Rename package &apos;Model&apos;" flags="589830" hierarchical="true" id="org.eclipse.dltk.ui.rename.script.folder" input="/&lt;Model" name="model" qualified="false" references="true" stamp="1442394775510" textual="false" version="1.0"/>
+</session>
