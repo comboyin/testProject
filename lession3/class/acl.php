@@ -25,28 +25,26 @@ class acl {
 		$moduleName = $this->_router->module;
 		$controllerName = $this->_router->controller;
 		$actionName = $this->_router->action;
+
 		if(!isset($_SESSION['acl']['account'])){
-			$accountTemp = new account();
-			$accountTemp->search = array();
+			$accountTemp = new User();
 			$_SESSION['acl']['account'] = $accountTemp;
 		}
 
-		if( !isset( $_COOKIE['listorder'] ) ){
-			setcookie("listorder", array(), time()+3600, "/","", 0);
-		}
-		/* @var $account account */
+		/* @var $account User */
 		$account = $_SESSION['acl']['account'];
 
 
 		// check login form backend module
-		if($moduleName == 'backend'){
-			if($account->type < 0){
+		if($moduleName == 'user'){
+			if($account->getGroup()->getLevel() <= 0){
 				// redirect to login controller
 				$this->redirect(
 					$this->_router->url(
 						array(
-							'module' => 'fronend',
-							'controller' => 'login'
+
+							'module' => 'login'
+
 						)
 					)
 				);
@@ -57,7 +55,7 @@ class acl {
 			return;
 		}
 		// check pemission account
-		else if(!$this->checkPermission($moduleName, $controllerName, $actionName, $account->type)){
+		else if( !$this->checkPermission($moduleName, $controllerName, $actionName, $account->getGroup()->getLevel() )){
 			// redictect to deny page
 			$this->redirect(
 					$this->_router->url(

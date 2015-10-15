@@ -23,6 +23,7 @@ abstract class baseView{
 
 		$template = __SITE_PATH . '/' .$template . '.php';
 
+
 		if (! file_exists ( $template )) {
 			throw new ViewException ( 'The specified view template does not exist.' );
 		}

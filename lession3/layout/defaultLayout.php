@@ -1,229 +1,217 @@
-<?php
-$category = $category;
-$router = $router;
-$account = $_SESSION['acl']['account'];
-/* @var $router router */
-/* @var $category category */
-?>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="shortcut icon" href="http://limeorange.vn/template/default/images/favicon.ico"/>
-		<link rel="stylesheet" type="text/css" href="<?php echo __FOLDER.'public/css/main.css';?>">
-		<link rel="stylesheet" type="text/css" href="<?php echo __FOLDER.'public/css/hover.css';?>">
-		<link rel="stylesheet" type="text/css" href="<?php echo __FOLDER.'public/js/jquery-ui-1.11.4/jquery-ui.css';?>">
-		<link rel="stylesheet" type="text/css" href="<?php echo __FOLDER.'public/admin/Font-Face/style.css';?>">
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <title>NBOOK</title>
+    <meta charset="utf-8">
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	</head>
-	<body>
-		<div class="main">
-		<!-- ========================================LOGO - MENU==============================================================  -->
-		<header>
-    		<div class="logo">
-    			<a href="<?php echo $router->url(array('module'=>'fronend')) ?>">
-    				<span class="first">NHUT</span> <span class="last">SHOP</span>
-    			</a>
-    		</div>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    		<div class="menu" id="menu-outer">
-    			<div class="table">
-    					<ul class="horizontal-list">
-    						<?php /* @var $cate category */?>
-    						<?php
-    							if( $router->controller == 'listproduct' && $router->action == 'index' && isset($router->args[1]) ){
-									$idCategory = $router->args[1];
-								}else{
-									$idCategory = 0;
-								}
-    						?>
-    						<?php foreach ($category as $cate):?>
-    							<li>
-    								<a <?php echo ( $cate->id == $idCategory ) ? 'class="active"' : '' ?>
-    								 	href="<?php echo $router->url(array('module' => 'fronend','controller' => 'listproduct','action' => 'index')) . '/' . $cate->id ?>"
-    								>
-    								<img src="public/image/facial-cosmetic.png" />
+    <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/main.css" id="color-switcher-link">
+    <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/animations.css">
+    <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/fonts.css">
+    <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/customer.css">
+    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/modernizr-2.6.2.min.js"></script>
 
-    								<?php echo $cate->name ?>
+    <!--[if lt IE 9]>
+        <script src="js/vendor/html5shiv.min.js"></script>
+        <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
 
-    								</a>
-    							</li>
-    						<?php endforeach;?>
+</head>
+<body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
 
-    						<li>
-								<a href="<?php echo $router->url( array( 'module' => 'fronend', 'controller' => 'cart', 'action' => 'index' ) )?>">
+<!-- login modal -->
 
-								   <img src="public/icon/history.png" />
-
-								</a>
-    						</li>
-
-    						<li class="search">
-								<a href="#">
-								    <img src="http://limeorange.vn/template/default/images/icon-search.png">
-								</a>
-    						</li>
-    					</ul>
-
-    				</div>
-    		</div>
-
-    		<?php
-
-    		/*
-    		 * array (size=6)
-    		 'rt' => string 'fronend/listproduct/search' (length=26)
-    		 'keyword' => string '' (length=0)
-    		 'category' => string '0' (length=1)
-    		 'priceMin' => string '' (length=0)
-    		 'priceMax' => string '' (length=0)
-    		 'submit_search' => string 'Tìm kiếm' (length=11)
-    		 *
-    		 *   */
-
-    		?>
-
-    		<div class="container-search">
-
-			     <form action="<?php echo $router->url(array( 'module' => 'fronend', 'controller' => 'listproduct', 'action' => 'search' ))?>">
-			         <table class="form_table">
-    				      <tbody>
-    				         <input type="hidden" name="rt" value="fronend/listproduct/search" />
-    				         <tr>
-    				            <td>Từ khóa: </td>
-    				            <td><input class="form-control" type="text" name="keyword" value="<?php echo isset( $account->search['keyword'] ) ? $account->search['keyword'] : '' ?>" /></td>
-    				         </tr>
-
-    				         <tr>
-    				            <td>Danh mục: </td>
-    				            <td>
-        				             <select class="form-control" name="category">
-    						             <option value="0">Tất cả</option>
-    						             <?php foreach ($category as $cate):?>
-                							<option
-                							        value="<?php echo $cate->id?>"
-                							        <?php
-                							             if( isset( $account->search['category_id'] ) && $account->search['category_id'] == $cate->id ){
-                							                 echo 'selected';
-                							             }
-                							        ?>
-                							        >
-                							<?php echo $cate->name ?></option>
-                						<?php endforeach;?>
-    						        </select>
-    				            </td>
-    				         </tr>
-
-    				         <tr>
-    				            <td>Giá: </td>
-    				            <td>Từ: &ensp;&ensp;&ensp; <input value="<?php echo isset( $account->search['priceMin'] ) ? $account->search['priceMin'] : ''?>" class="form-control" type="number" name="priceMin" />
-        				            <br/>
-        				            <br/>
-        				            Đến: &ensp; <input value="<?php echo isset( $account->search['priceMax'] ) ? $account->search['priceMax'] : ''?>" class="form-control" type="number" name="priceMax" />
-    				            </td>
-    				         </tr>
-
-    				         <tr>
-    				            <td colspan="2" class="form-button">
-    				            	<input type="submit" class="btn btn-success hvr-pulse-grow" name="submit_search" value="Tìm kiếm">
-    				            	<button type="button" class="btn btn-danger close-search" >Đóng</button>
-    				            </td>
-				            </tr>
-
-    				      </tbody>
-    				   </table>
-			     </form>
-			</div>
-		</header>
+<div class="modal fade login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                 <h4 class="modal-title" id="loginModalLabel">N<span class="highlight">Book</span> Login</h4>
+            </div>
+            <form role="form" action="/">
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember Me
+                            </label>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="theme_button"><i class="rt-icon-ok"></i> Login</button>
+                    <a href="#" class="theme_button" data-dismiss="modal"><i class="rt-icon-times"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
-	    <!-- ========================================LOGO - MENU==============================================================  -->
-	            <div class="container">
-	                <?php echo $content->render()?>
+<div id="box_wrapper">
 
-		             <div class="cart">
-
-	             	<div class="container-cart" >
-	             			<span> <button class="close-cart" data-icon="&#xe0b3;"></button> </span>
-
-		             		<table class="form_table">
-		    				      <tbody>
-
-		    				         <tr>
-		    				            <td>Họ và tên: </td>
-		    				            <td><input type="text" name="cart_name" value="" /></td>
-		    				         </tr>
-
-		    				         <tr>
-		    				            <td>Số điện thoại: </td>
-		    				            <td><input type="number" name="cart_phone" value="" /></td>
-		    				         </tr>
-
-		    				          <tr>
-		    				            <td>Email: </td>
-		    				            <td><input type="email" name="cart_email" value="" /></td>
-		    				         </tr>
-
-		    				         <tr>
-		    				            <td>Captcha: </td>
-		    				            <td>
-		    				            	<img class="captcha" src=""/>
-		    				            	<br/>
-		    				            	<input type="text" name="cart_captch" />
-		    				            	<span> <div class="reset_capcha" data-icon="&#xe125;"></div> </span>
-		    				            </td>
-		    				         </tr>
-
-									<tr>
-		    				            <td colspan="2" class="form-button">
-		    				            	<button style="display: none" class="btn order-loading"><img alt="" src="<?php echo __FOLDER  . 'public/image/ajax-loader.gif'?>"></button>
-		    				            	<button class="btn order">Đặt hàng</button>
-		    				            	<button class="btn close-cart">Đóng</button>
-		    				            </td>
-					            	</tr>
-								</tbody>
-	    				   </table>
-						<div style="height: 200px;overflow: auto;">
-	    				   <table class="form_table">
-	    				   	  <thead>
-							      <tr>
-							         <th>Số lượng</th>
-							         <th>Tên</th>
-							         <th>Đơn giá</th>
-							         <th>Tổng</th>
-							         <th>Xóa</th>
-							      </tr>
-							   </thead>
-						   		<tbody class="cart-table">
-    				      		</tbody>
-	    				   </table>
-		           		</div>
-	           			<table class="form_table">
-    				      <tbody>
-    				         <tr>
-    				            <td>Tổng: </td>
-    				            <td><span class="cart_sum error"> </span></td>
-    				         </tr>
-    				      </tbody>
-    				   </table>
-		             </div>
-
-					<div class="container-button-show"> <button class="btn">Giỏ hàng</button>
-
-		        	</div>
-
-		        </div>
+    <section id="topline" class="grey_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <span>
+                        <i class="fa fa-envelope-o"></i> <a href="mailto:comboyin1@gmail.com">comboyin1@gmail.com</a>
+                    </span>
+                    <span>
+                        <i class="fa fa-phone"></i> +1 (900) 12345-123
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-	    <!-- ========================================footer==============================================================  -->
-				<footer>Copyright 2015 by Trần Minh Nhựt </footer>
-	    <!-- ========================================footer==============================================================  -->
-	        </div>
-	</body>
-    	<script type="text/javascript" src="<?php echo __FOLDER.'public/js/jquery-1.11.3.js';?>"></script>
-    	<script type="text/javascript" src="<?php echo __FOLDER.'public/js/jquery-ui-1.11.4/jquery-ui.js';?>"></script>
-    	<script type="text/javascript" src="<?php echo __FOLDER.'public/alertJquery/dalert.jquery.min.js';?>"></script>
-    	<script type="text/javascript" src="<?php echo __FOLDER.'public/js/create_account.js';?>"></script>
+    <section id="topinfo" class="action_section table_section light_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="./" class="navbar-brand"> N<span>BOOK</span></a>
+                </div>
 
-    	<script type="text/javascript" src="<?php echo __FOLDER.'public/js/create_account.js';?>"></script>
-    	<script type="text/javascript" src="<?php echo __FOLDER.'public/js/myjs.js';?>"></script>
+                <div class="col-sm-5 text-right">
+					    <div class="widget widget_search">
+                            <form role="search" method="get" id="searchform" class="searchform form-inline" action="">
+                                <div class="form-group">
+                                    <label class="screen-reader-text" for="search">Search for:</label>
+                                    <input type="text" value="" name="search" id="search" class="form-control" placeholder="Search...">
+                                </div>
+                                <button type="submit" id="searchsubmit" class="theme_button">Search</button>
+
+                            </form>
+                        </div>
+                </div>
+                <div class="col-sm-3 text-right">
+					    <h3> Hi ! comboyin</h3>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <header id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span id="toggle_mobile_menu"></span>
+                    <nav id="mainmenu_wrapper">
+                        <ul id="mainmenu" class="nav nav-justified sf-menu">
+                            <li class="active">
+                                <a href="index.html"><i class="rt-icon-home"></i> Home</a>
+                            </li>
+                            <li >
+                                <a href="index.html"><i class="rt-icon-comment"></i> Friend request (2)</a>
+                            </li>
+
+                            <li >
+                                <a href="index.html"><i class="rt-icon-list"></i> Follow list (20)</a>
+                            </li>
+
+                            <li>
+                                <a href="<?php echo $router->url( array( 'module'=>'login','controller'=>'index','action' => 'logout' ) )?>"><i class="rt-icon-share"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+	<div class="container">
+	<?php echo $content->render()?>
+	</div>
+
+
+
+    <footer id="footer" class="darkgrey_section">
+        <div class="container">
+
+        </div>
+    </footer>
+
+
+    <section id="copyright" class="dark_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p>&copy; Copyright 2014 - <span class="highlight">N</span>BOOK</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+</div><!-- eof #box_wrapper -->
+
+<div class="preloader">
+    <div class="preloader_image"></div>
+</div>
+
+
+        <!-- libraries -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.appear.js"></script>
+
+        <!-- superfish menu  -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.hoverIntent.js"></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/superfish.js"></script>
+
+        <!-- page scrolling -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.easing.1.3.js"></script>
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.nicescroll.min.js'></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.ui.totop.js"></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.localscroll-min.js"></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.scrollTo-min.js"></script>
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.parallax-1.1.3.js'></script>
+
+        <!-- widgets -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.easypiechart.min.js"></script><!-- pie charts -->
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.countTo.js'></script><!-- digits counting -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.prettyPhoto.js"></script><!-- lightbox photos -->
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.plugin.min.js'></script><!-- plugin creator for comingsoon counter -->
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.countdown.js'></script><!-- coming soon counter -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.elevateZoom-3.0.8.min.js"></script><!-- zoom images -->
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jflickrfeed.min.js'></script><!-- flickr -->
+        <script src='<?php echo __FOLDER . 'public/'?>twitter/jquery.tweet.min.js'></script><!-- twitter -->
+
+        <!-- sliders, filters, carousels -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.isotope.min.js"></script>
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/owl.carousel.min.js'></script>
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.fractionslider.min.js'></script>
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.flexslider-min.js'></script>
+        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.bxslider.min.js'></script>
+
+        <!-- custom scripts -->
+        <script src="<?php echo __FOLDER . 'public/'?>js/plugins.js"></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/main.js"></script>
+
+    </body>
 </html>

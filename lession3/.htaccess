@@ -2,7 +2,8 @@
 RewriteEngine on
 # Cho nay la duong dan chinh cua thu muc lam viec (http://localhost/) => RewriteBase/
 # Neu thuc muc la http://localhost/shop/ => RewriteBase /shop/
-RewriteBase /lession6
+RewriteBase /lession3
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?rt=$1 [L,QSA]
+RewriteRule ^(.*)$ index.php?rt=$1 [L]
+# RewriteRule ^(.*)$ index.php?rt=$1 [L,QSA]

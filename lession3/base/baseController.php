@@ -36,10 +36,10 @@ abstract class baseController
     protected function checkLogin(){
     	$result = false;
 		if(isset($_SESSION['acl']['account'])){
-			/* @var $account account */
+			/* @var $account User */
 			$account = $_SESSION['acl']['account'];
 
-			if($account->type > -1){
+			if( $account->getGroup()->getLevel() > 0 ){
 				$result = true;
 			}
 		}
@@ -75,7 +75,7 @@ abstract class baseController
     		$actionName = $option['action'];
     	}
 
-    	$uri = __FOLDER.'index.php?rt='.$moduleName.'/'.$controllerName.'/'.$actionName;
+    	$uri = __FOLDER . $moduleName.'/'.$controllerName.'/'.$actionName;
     	if($arg !=null){
     		foreach ($arg as $value){
     			$uri.='/'.$value;

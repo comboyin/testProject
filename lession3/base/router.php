@@ -168,13 +168,6 @@ class router
 				$controller->getView()->setTemplate('layout/defaultLayout');
 		}
 
-
-		if( strpos($controller->getView()->getTemplate(), 'layout/defaultLayout')  !== false ){
-			// get list category
-			$modelCategory = new categoryModel($this->registry);
-			$category = $modelCategory->listCategory();
-			$controller->getView()->category = $category;
-		}
     }
 
     /**
@@ -213,7 +206,7 @@ class router
 			$actionName = $option['action'];
 		}
 
-		$uri = __FOLDER.'index.php?rt='.$moduleName.'/'.$controllerName.'/'.$actionName;
+		$uri = __FOLDER . $moduleName.'/'.$controllerName.'/'.$actionName;
 		if($arg !=null){
 			foreach ($arg as $value){
 				$uri.='/'.$value;
@@ -241,7 +234,7 @@ class router
         $route = (empty($_GET['rt'])) ? '' : $_GET['rt'];
 
         if (empty($route)) {
-            $this->module = "fronend";
+            $this->module = "login";
             $this->controller = "index";
             $this->action = "index";
         } else {
@@ -268,7 +261,7 @@ class router
         }
 
         if(empty($this->module)){
-        	$this->controller = 'fronend';
+        	$this->controller = 'login';
         }
 
         if (empty($this->controller)) {
@@ -286,6 +279,7 @@ class router
          * * set the file path **
          */
         $this->file = $this->path . '/' . $this->module . '/controllers/' . $this->controller . 'Controller.php';
+
 
     }
 }
