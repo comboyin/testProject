@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;lession3/lampart.sql&apos; to &apos;lession3.sql&apos;" description="Rename resource &apos;lampart.sql&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="lampart.sql" name="lession3.sql" stamp="1444817859459" updateReferences="true"/>
+</session>
