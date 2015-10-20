@@ -10,15 +10,27 @@ class User {
 	private $address;
 	private $introduction;
 	private $email;
+	
+	private $totalFriendList;
+	private $totalFavorite;
+	
 	private $group_id;
 	/**
 	 *
 	 * @var Group  */
 	private $group;
+	
+	/**
+	 * 
+	 * @var array */
+	private $pictures;
+	
 
 	public function __construct(){
 		$this->group = new Group();
+		$this->pictures = array();
 	}
+	
 	public function getId() {
 		return $this->id;
 	}
@@ -49,6 +61,9 @@ class User {
 	}
 	public function getSex() {
 		return $this->sex;
+	}
+	public function getStringSex() {
+		return ( $this->sex = 1 ) ? 'Female':'male';
 	}
 	public function setSex($sex) {
 		$this->sex = $sex;
@@ -96,6 +111,29 @@ class User {
 		$this->group = $group;
 		return $this;
 	}
+	public function getPictures() {
+		return $this->pictures;
+	}
+	public function setPictures(array $pictures) {
+		$this->pictures = $pictures;
+		return $this;
+	}
+	public function getTotalFriendList() {
+		return $this->totalFriendList;
+	}
+	public function setTotalFriendList($totalFriendList) {
+		$this->totalFriendList = $totalFriendList;
+		return $this;
+	}
+	public function getTotalFavorite() {
+		return $this->totalFavorite;
+	}
+	public function setTotalFavorite($totalFavorite) {
+		$this->totalFavorite = $totalFavorite;
+		return $this;
+	}
+	
+	
 
 
 }

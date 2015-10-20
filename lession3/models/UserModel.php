@@ -1,6 +1,6 @@
 <?php
-class UserModel extends baseModel{
-
+class UserModel extends baseModel{	
+	
 	/**
 	 *
 	 * @param string $user
@@ -15,14 +15,22 @@ class UserModel extends baseModel{
     		$stmt->execute();
     		/* @var $result User */
     		$result = $stmt->fetch();
-			$idGroup = $result->getGroupId();
+    				
     		if( $result  !== false ){
+    			$idGroup = $result->getGroupId();
 				$sqlGroup = "select * from `group` where `group`.id = $idGroup";
 				$stmt = $this->getPdo()->prepare ( $sqlGroup );
 				$stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Group');
 				$stmt->execute();
 				$resultGroup = $stmt->fetch();
 				$result->setGroup( $resultGroup );
+				
+				$id_user = $result->getId();
+				// get list picture
+				$pictures = $this->listTableByWhere( 'Picture' , array( "user_id = $id_user" ));
+				
+				$result->setPictures( $pictures );
+				
     		}
 			return $result;
     	} catch (Exception $e) {

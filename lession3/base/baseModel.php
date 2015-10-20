@@ -91,5 +91,87 @@ class baseModel
     		$this->pdo=null;
     	}
     }
+    
+    
+    public function listTableByWhere( $StringTable, $stringWhere , $option = array() ){
+    	$listObj = array();
+    	try {
+    		// create string sql
+    		$string = "";
+    		if( !empty( $stringWhere ) ){
+    			foreach ( $stringWhere as $key=>$where ){
+    				if( $key == 0 ){
+    					$string .= " WHERE $where ";
+    				}else{
+    					$string .= " and $where ";
+    				}
+    			}
+    		}
+    		
+    		$nameTable = strtolower($StringTable);
+    		if( $option == null ){
+    			$sql = " SELECT * FROM $nameTable $string ORDER BY id desc ";
+    		} else{
+    			$start = $option['start'];
+    			$limit = $option['limit'];
+    			$sql = " SELECT * FROM $nameTable $string ORDER BY id desc LIMIT $start,$limit ";
+    		}
+    
+    		$sth = $this->getPdo()->prepare($sql);
+    
+    		$sth->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $StringTable);
+    		$sth->execute();
+    
+    		$listObj = $sth->fetchAll();
+    
+    		return $listObj;
+    
+    	} catch (Exception $e) {
+    		echo $e->getMessage();
+    	}
+    	return $listObj;
+    }
+    /**
+     * Total recore in table from where
+     * @param string $StringTable
+     * @param array $stringWhere
+     * @param array $option  
+     * @return int 
+     * */
+    public function countListTableByWhere( $StringTable, $stringWhere , $option = array() ){
+    	$tong = 0;
+    	try {
+    		// create string sql
+    		$string = "";
+    		if( !empty( $stringWhere ) ){
+    			foreach ( $stringWhere as $key=>$where ){
+    				if( $key == 0 ){
+    					$string .= " WHERE $where ";
+    				}else{
+    					$string .= " and $where ";
+    				}
+    			}
+    		}
+    
+    		$nameTable = strtolower($StringTable);
+    		if( $option == null ){
+    			$sql = " SELECT count(*) as tong FROM $nameTable $string ORDER BY id desc ";
+    		} else{
+    			$start = $option['start'];
+    			$limit = $option['limit'];
+    			$sql = " SELECT count(*) as tong FROM $nameTable $string ORDER BY id desc LIMIT $start,$limit ";
+    		}
+    
+    		$sth = $this->getPdo()->prepare($sql);
+    		$sth->execute();
+    		$tong = $sth->fetch();
+    		$tong = $tong['tong'];
+    		return $tong;
+    
+    	} catch (Exception $e) {
+    		echo $e->getMessage();
+    	}
+    	return $tong;
+    }
 
 }

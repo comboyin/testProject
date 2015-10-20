@@ -1,3 +1,7 @@
+<?php 
+/* @var $user User */
+$user = $_SESSION['acl']['account'];
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -19,6 +23,8 @@
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/animations.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/fonts.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/customer.css">
+    
+    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/modernizr-2.6.2.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -104,7 +110,7 @@
                         </div>
                 </div>
                 <div class="col-sm-3 text-right">
-					    <h3> Hi ! comboyin</h3>
+					    <h3> Hi ! <?php echo $user->getUsername()?></h3>
                 </div>
 
 
@@ -176,7 +182,7 @@
 
 
         <!-- libraries -->
-        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
+        
         <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
         <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.appear.js"></script>
 
@@ -199,8 +205,8 @@
         <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.plugin.min.js'></script><!-- plugin creator for comingsoon counter -->
         <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jquery.countdown.js'></script><!-- coming soon counter -->
         <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.elevateZoom-3.0.8.min.js"></script><!-- zoom images -->
-        <script src='<?php echo __FOLDER . 'public/'?>js/vendor/jflickrfeed.min.js'></script><!-- flickr -->
-        <script src='<?php echo __FOLDER . 'public/'?>twitter/jquery.tweet.min.js'></script><!-- twitter -->
+        
+        
 
         <!-- sliders, filters, carousels -->
         <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.isotope.min.js"></script>

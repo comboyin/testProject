@@ -26,6 +26,17 @@ class Group {
 	public function getLevel() {
 		return $this->level;
 	}
+	
+	public function getStringLevel() {
+		if( $this->level == 1 ){
+			return 'Admin';
+		}else if( $this->level == 2 ){
+			return 'Operator';
+		}else if( $this->level == 3 ){
+			return 'User';
+		}
+	}
+	
 	public function setLevel($level) {
 		$this->level = $level;
 		return $this;
