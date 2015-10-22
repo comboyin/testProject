@@ -36,8 +36,8 @@ class acl {
 
 
 		// check login form backend module
-		if($moduleName == 'user'){
-			if($account->getGroup()->getLevel() <= 0){
+		if( $moduleName == 'user' ){
+			if( $account->getGroup()->getLevel() <= 0){
 				// redirect to login controller
 				$this->redirect(
 					$this->_router->url(

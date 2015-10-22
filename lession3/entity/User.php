@@ -63,7 +63,7 @@ class User {
 		return $this->sex;
 	}
 	public function getStringSex() {
-		return ( $this->sex = 1 ) ? 'Female':'male';
+		return ( $this->sex == 1 ) ? 'Female':'Male';
 	}
 	public function setSex($sex) {
 		$this->sex = $sex;

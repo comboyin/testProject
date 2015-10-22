@@ -2388,7 +2388,7 @@ animated elements
   left: 0;
   right: 0;
   position: relative;
-  z-index: 1000;
+  z-index: 99;
   -webkit-transition: all 0.2s ease-in-out 0s;
   -moz-transition: all 0.2s ease-in-out 0s;
   -o-transition: all 0.2s ease-in-out 0s;

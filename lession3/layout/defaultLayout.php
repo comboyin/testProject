@@ -19,12 +19,19 @@ $user = $_SESSION['acl']['account'];
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/main.css" id="color-switcher-link">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/animations.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/fonts.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/customer.css">
+    <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.css">
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
+    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/alertJquery/dalert.jquery.min.js"></script>
+    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+    
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/modernizr-2.6.2.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -183,7 +190,7 @@ $user = $_SESSION['acl']['account'];
 
         <!-- libraries -->
         
-        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
+        
         <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery.appear.js"></script>
 
         <!-- superfish menu  -->

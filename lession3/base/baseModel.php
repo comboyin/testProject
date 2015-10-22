@@ -92,6 +92,32 @@ class baseModel
     	}
     }
     
+    /**
+     * update table 
+     * return null => success
+     * return array => error
+     * example:
+     * 		$tableName = " user "
+     * 		$setValue  = " set fullname = tranminhnhut "
+     * 		$stringWhere = " where id = 1 "
+     * @param string $tableName
+     * @param string $setValue
+     * @param string $stringWhere  
+     * @return NULL|array 
+     * */
+    public function updateTableByWhere( $tableName, $setValue, $stringWhere ) {
+    	$is_error = null;
+    	try {
+    		 $lowerCaseTableName = strtolower( $tableName );
+    		 $sql = " UPDATE $lowerCaseTableName $setValue $stringWhere ";
+    		 $stmt = $this->getPdo()->prepare( $sql );
+    		 $stmt->execute();
+    	} catch (Exception $e) {
+    		echo $e->getMessage();
+    		$is_error[] = $e->getMessage();	
+    	}
+    	return $is_error;
+    }
     
     public function listTableByWhere( $StringTable, $stringWhere , $option = array() ){
     	$listObj = array();

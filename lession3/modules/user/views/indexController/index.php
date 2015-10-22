@@ -61,6 +61,40 @@ $pictures = $user->getPictures();
                              </span>
 						</div>
 
+
+						<div class="row">
+
+							<div class="col-xs-6">
+								<span class="product-vars">
+		                            <strong>
+		                                Sex :
+		                            </strong>
+                            	
+                            		<span sex="<?php echo $user->getSex()?>"><?php echo $user->getStringSex()?></span>
+                            		
+                            		<div style="display: none;" class="input_sex">
+                            			<div  class="radio">
+									  		<label><input value="1" type="radio" name="sex">Female</label>
+										</div>
+										
+										<div class="radio">
+									  		<label><input value="0" type="radio" name="sex">Male</label>
+										</div>
+										
+                            		</div>
+	                            	
+                        		</span>
+							</div>
+
+							 <div class="col-xs-6 text-right">
+                                    <span><a class="edit_sex" href="#">Edit</a></span>
+                                    	<span style="display: none" class="saveCancelInfo">
+	                                    	<a class="Save_sex" href="#">Save</a>
+	                                    	<a class="Cancel_sex" href="#">Cancel</a>
+                                    </span>
+                             </div>
+						</div>
+						
 						<div class="row">
 
 							<div class="col-xs-6">
@@ -68,31 +102,9 @@ $pictures = $user->getPictures();
                             		<strong>
                                 		Birthday :
                             		</strong>
-                            			<input style="display: none" type="text" value="" name="birthday" class="form-control" placeholder="">
+                            			<input style="display: none" type="text" value="" name="birthday" class="form-control" placeholder="yyyy-mm-dd">
                             			<span><?php echo $user->getBirthday()?></span>
                         		</span>
-							</div>
-
-							 <div class="col-xs-6 text-right">
-                                    <span><a class="edit_info" href="#">Edit</a></span>
-                                    	<span style="display: none" class="saveCancelInfo">
-	                                    	<a class="Save_info" href="#">Save</a>
-	                                    	<a class="Cancel_info" href="#">Cancel</a>
-                                    </span>
-                             </div>
-						</div>
-
-						<div class="row">
-
-							<div class="col-xs-6">
-								<span class="product-vars">
-                            <strong>
-                                Sex :
-                            </strong>
-                            	
-                            	<span><?php echo $user->getStringSex()?></span>
-                            	<input style="display: none" type="text" value="" name="sex" class="form-control" placeholder="">
-                        </span>
 							</div>
 
 							 <div class="col-xs-6 text-right">
@@ -112,7 +124,7 @@ $pictures = $user->getPictures();
                             		<strong>
                             		    Address :
                            		 </strong>
-                           		 	<input style="display: none" type="text" value="" name="sex" class="form-control" placeholder="">
+                           		 	<input style="display: none" type="text" value="" name="address" class="form-control" placeholder="">
 									<span><?php echo $user->getAddress()?></span>
 
                         		</span>
