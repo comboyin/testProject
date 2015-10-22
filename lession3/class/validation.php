@@ -85,9 +85,9 @@ class validation {
 		return isset($error) ? $error : null;
 	}
 
-	public function fileImageValidation($file,$option = array()){
+	public function fileImageValidation( $file , $option = array()){
 
-		if( !isset($file['name']) || strlen($file['name']) == '' ){
+		if( !isset( $file['name'] ) || strlen( $file['name'] ) == '' ){
 			$error[] = "Image not selected.";
 			return $error;
 		}
@@ -95,7 +95,7 @@ class validation {
 		$validation_max_file_size = isset( $option['size'] ) ? $option['size'] : 140000 ;
 
 
-		$target_dir = "uploads/";
+		$target_dir = __FOLDER_UPLOADS . "/";
 		$path_parts = pathinfo(basename($file["name"]));
         $fileName = $path_parts['filename'].uniqid().'.'.$path_parts['extension'];
 		$target_file = $target_dir.$fileName;
@@ -124,7 +124,7 @@ class validation {
 			$error[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
 		}
 		if(!isset($error)){
-		    if (move_uploaded_file($file["tmp_name"],$target_file)) {
+		    if (move_uploaded_file( $file["tmp_name"] , $target_file ) ) {
 
 		    }
 		    else{
@@ -133,6 +133,6 @@ class validation {
 		}
 
 
-		return isset($error) ? $error : $fileName;
+		return isset( $error ) ? $error : $fileName;
 	}
 }

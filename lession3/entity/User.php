@@ -10,6 +10,7 @@ class User {
 	private $address;
 	private $introduction;
 	private $email;
+	private $avatar;
 	
 	private $totalFriendList;
 	private $totalFavorite;
@@ -132,6 +133,19 @@ class User {
 		$this->totalFavorite = $totalFavorite;
 		return $this;
 	}
+	public function getAvatar() {
+		return $this->avatar;
+	}
+	public function setAvatar($avatar) {
+		$this->avatar = $avatar;
+		return $this;
+	}
+	
+	public function getLinkAvatar(){
+		$string = __FOLDER . __FOLDER_UPLOADS . "/" . $this->avatar;
+		return $string;
+	}
+	
 	
 	
 

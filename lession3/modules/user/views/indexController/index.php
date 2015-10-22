@@ -10,8 +10,8 @@ $pictures = $user->getPictures();
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="product-image text-center">
-                            <img id="product-image" src="<?php echo __FOLDER . 'public/' ?>example/shop/01.jpg" data-zoom-image="example/shop/01.jpg" alt="">
-                            <button class="btn">Change avatar</button>
+                            <img id="product-image" src="<?php echo $user->getLinkAvatar();?>" >
+                            <button class="btn change-avatar">Change avatar</button>
                         </div>
                     </div>
                     <div class="col-sm-8 single-product-description">
@@ -22,9 +22,9 @@ $pictures = $user->getPictures();
                                     	<input style="display: none" type="text" value="" name="fullname" class="form-control" placeholder=""> 
                                     	<h1>
                                     		<strong>
-	                                    			<span>
-		                                    			<?php echo $user->getFullname()?>
-	                                    			</span>
+                                    			<span>
+	                                    			<?php echo $user->getFullname()?>
+                                    			</span>
 	                                    	</strong>
                                     	</h1>
                                     </span>
@@ -186,7 +186,7 @@ $pictures = $user->getPictures();
                                 <div class="tab-pane fade" id="tab-Picture">
 					                  <div id="product_listing">
 					                    <div class="row">
-					                    	<div class="col-sm-3 shop-product">
+					                    	<div class="col-sm-3 shop-product add-picture">
 											    <div class="product-wrapper">
 					                                <div class="product-image">
 					                                    <a href="">
@@ -195,9 +195,10 @@ $pictures = $user->getPictures();
 					                                </div>
 					                            </div>
 					                        </div>
-					                    	
-					                    	<?php  /* @var $picture Picture */ ?>
-					                    	<?php foreach ($pictures as $picture):?>
+					                        
+					                    	<span class="listPicture">
+					                    		<?php  /* @var $picture Picture */ ?>
+					                    		<?php foreach ($pictures as $picture):?>
 					                    		<div class="col-sm-3 shop-product">
 												    <div class="product-wrapper">
 						                                <div class="product-image">
@@ -221,13 +222,12 @@ $pictures = $user->getPictures();
 						                                            </div>
 						                                        </div>
 						                                    </div>
-						                                    <p>
-						                                        <?php echo $picture->getDescription()?>
-						                                    </p>
 						                                </div>
 						                            </div>
 					                        	</div>
 					                    		<?php endforeach;?>
+					                    	</span>
+					                    	
 					                        </div>   
 					                    </div>
 									</div>
@@ -243,5 +243,64 @@ $pictures = $user->getPictures();
                 </div>
 			</div>
 </section>
+
+
+<!--=============================BEGIN DIALOG CHANGE AVATAR================================================-->
+		<div id="dialog-change-avatar" title="Change avatar">
+			<div class="error_change_avatar">
+			
+			</div>
+			  <div class="border-style">
+				   <table class="form_table">
+				   		<caption>Avatar (JPEG, GIF, and PNG files up to 700kb)</caption>
+				      <tbody>
+				        <tr>
+							<td>Avatar: </td>
+				            <td>
+								<input maxlength="1" type="file" accept="gif|jpg|png" name="avatar" class="form-control multi with-preview"/>
+								<br/>
+								<img class="avatar" style="max-height: 100px;display: none" src="">
+						 	</td>
+						 </tr>
+
+				         <tr>
+				            <td colspan="2" style="text-align: center;">
+				            	<input class="btn btn-success" name="submit_change_avatar" value="Change">
+				            	<span style="display:none" class="progress-loading"><img src="<?php echo __FOLDER . 'public/img/AjaxLoader.gif'?>"></span>
+				            </td>
+				         </tr>
+				      </tbody>
+				   </table>
+			</div>
+		</div>
+<!--=============================END DIALOG CHANGE AVATAR================================================-->
+
+
+<!--=============================BEGIN DIALOG ADD LIST PICTURE================================================-->
+		<div id="dialog-add-list-picture" title="Add Pictures">
+			<div class="error_picture">
+			
+			</div>
+			  <div>
+				   <table style="margin: 0 auto;">
+				   		<caption>PICTURE (JPEG, GIF, and PNG files up to 700kb)</caption>
+				      <tbody>
+				        <tr class="list-image">
+							<td>Pictures</td>
+				            <td>
+								<input type="file" maxlength="10" accept="gif|jpg|png" name="pictures[]" class="form-control multi with-preview" multiple />
+						 	</td>
+						 </tr>
+						 <tr>
+				            <td colspan="2" style="text-align: center;">
+				            	<input class="btn btn-success" name="submit_add_picture" value="Add">
+				            	<span style="display:none" class="progress-loading-picture"><img src="<?php echo __FOLDER . 'public/img/AjaxLoader.gif'?>"></span>
+				            </td>
+				         </tr>
+				      </tbody>
+				   </table>
+			</div>
+		</div>
+<!--=============================BEGIN DIALOG ADD LIST PICTURE================================================-->
   
 <script type="text/javascript" src="<?php echo __FOLDER . 'public/js/UserModule/indexController/indexAction.js'?>"></script>

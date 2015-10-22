@@ -51,6 +51,172 @@ function generateHtmlAlertError( error ){
 var indexAction = function () {
 	return {
 		init : function () {
+			
+			dialogChangeAvatar = $("#dialog-change-avatar").dialog({
+				 autoOpen: false,
+			      modal: true,
+			      maxHeight: 600,
+			      maxWidth: 600
+			});
+			
+			dialogAddPicture = $("#dialog-add-list-picture").dialog({
+				autoOpen: false,
+				modal: true,
+			    maxHeight: 600,
+			    maxWidth: 600
+			});
+			
+			// == == == == == == == == == == begin Change avatar== == == == == == == == == == == == == == == == == == == == ==
+			
+			$('button.change-avatar').click(function(){
+				dialogChangeAvatar.dialog('open');
+			});
+			
+			$('input[name=submit_change_avatar]').click(function(){
+				changeAvatar();
+			});
+			
+			function changeAvatar(){
+
+
+				$(".progress-loading").css("display",'inline-block');
+				$('input[name="submit_change_avatar"]').css("display",'none');
+
+				fd = new FormData();
+				
+				// image
+				fd.append("avatar", $('input[name="avatar"]')[0].files[0] );
+
+				$.ajax({
+			        url: 'index.php?rt=user/index/changeAvatar',
+			        type: 'POST',
+			        data: fd,
+			        cache: false,
+			        dataType: 'json',
+			        processData: false, // Don't process the files
+			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			        success: function(data, textStatus, jqXHR)
+			        {
+			        	$(".progress-loading").css("display",'none');
+						$('input[name="submit_change_avatar"]').css("display",'inline-block');
+			        	var htmlError = '';
+			        	if(data.is_error != null){
+			        		// error
+			        		htmlError = generateHtmlAlertError( data.is_error );
+			        		$("div.error_change_avatar").html( htmlError );
+			        	}else if( data.is_error == null ){
+		        			$("div.error_change_avatar").html('');
+		        			// success
+			        		dalert.alert("Change avatar success.","Success",function callbackMe(){
+			        			window.location.reload();
+			                });	
+			        	}
+			        },
+			        error: function(jqXHR, textStatus, errorThrown)
+			        {
+			        	var error = ['ERRORS: ' + textStatus];
+			            // Handle errors here
+			        	dalert.alert(stringHtmlError(error),'Error');
+			        }
+			    });
+
+			}
+			
+			// == == == == == == == == == == end change avatar == == == == == == == == == == == == == == == == == == == == ==
+			
+			
+			// == == == == == == == == == == begin add picture == == == == == == == == == == == == == == == == == == == == ==
+			$("div.add-picture").click(function(e){
+				e.preventDefault();
+				dialogAddPicture.dialog('open');
+			});
+			
+			function resetListPicture(){
+				$.ajax({
+			        url: 'index.php?rt=user/index/getHtmlListPicture',
+			        type: 'GET',
+			        cache: false,
+			        dataType: 'json',
+			        processData: false, // Don't process the files
+			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			        success: function(data, textStatus, jqXHR)
+			        {
+			        	var content = data.content;
+			        	
+			        	$("span.listPicture").html( content );
+			        },
+			        
+			        
+			        error: function(jqXHR, textStatus, errorThrown)
+			        {
+			        	var error = ['ERRORS: ' + textStatus];
+			            // Handle errors here
+			        	dalert.alert(stringHtmlError(error),'Error');
+			        }
+			    });
+			}
+			
+			function addPicture(){
+				$(".progress-loading-picture").css("display",'inline-block');
+				$("input[name=submit_add_picture]").css("display",'none');
+				
+				fd = new FormData();
+				// list image
+				$.each( $('input[name="pictures[]"]') ,function(key,value){
+					var files = value.files;
+					$.each(files,function(keyF,valueF){
+						fd.append("pictures[]",valueF);
+					});
+				});
+				
+				$.ajax({
+			        url: 'index.php?rt=user/index/addPictures',
+			        type: 'POST',
+			        data: fd,
+			        cache: false,
+			        dataType: 'json',
+			        processData: false, // Don't process the files
+			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			        success: function(data, textStatus, jqXHR)
+			        {
+			        	
+			        	$(".progress-loading-picture").css("display",'none');
+						$("input[name=submit_add_picture]").css("display",'inline-block');
+			        	var htmlError = '';
+			        	// error
+			        	if(data.is_error != null){
+			        		htmlError = generateHtmlAlertError( data.is_error );
+			        		$("div.error_picture").html(htmlError);
+			        	}else{
+			        		$("div.error_picture").html('');
+			        		// remove image.
+			        		$( 'input[name="pictures[]"]' ).MultiFile( 'reset' );
+			        		// close dialog
+			        		dialogAddPicture.dialog( 'close' );
+			        		
+			        		dalert.alert("Add pictures success.","Success",function callbackMe(){
+			        			resetListPicture();
+			                });
+			        	}
+			        },
+			        
+			        
+			        error: function(jqXHR, textStatus, errorThrown)
+			        {
+			        	var error = ['ERRORS: ' + textStatus];
+			            // Handle errors here
+			        	dalert.alert(stringHtmlError(error),'Error');
+			        }
+			    });
+			}
+			
+			$("input[name=submit_add_picture]").click(function(e){
+				e.preventDefault();
+				addPicture();
+			});
+			// == == == == == == == == == == end add picture == == == == == == == == == == == == == == == == == == == == ==
+			
+			
 			// == == == == == == == == == == begin Edit user session == == == == == == == == == == == == == == == == == == == == ==
 			datepickerBirthday = $('input[name=birthday]').datepicker({
 			    format: 'yyyy-mm-dd'

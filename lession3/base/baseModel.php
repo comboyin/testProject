@@ -110,10 +110,11 @@ class baseModel
     	try {
     		 $lowerCaseTableName = strtolower( $tableName );
     		 $sql = " UPDATE $lowerCaseTableName $setValue $stringWhere ";
+    		 
     		 $stmt = $this->getPdo()->prepare( $sql );
     		 $stmt->execute();
     	} catch (Exception $e) {
-    		echo $e->getMessage();
+    		//echo $e->getMessage();
     		$is_error[] = $e->getMessage();	
     	}
     	return $is_error;

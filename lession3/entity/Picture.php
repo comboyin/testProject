@@ -7,7 +7,6 @@ class Picture {
 	private $like_number;
 	private $regist_datetime;
 	private $user_id;
-	private $description;
 	
 	/**
 	 * @var User 
@@ -27,6 +26,10 @@ class Picture {
 	}
 	public function getUrl() {
 		return $this->url;
+	}
+	public function getLinkUrl() {
+		$string = __FOLDER . __FOLDER_UPLOADS . '/' . $this->url;
+		return $string;
 	}
 	
 	public function getViewUrl(){
@@ -70,13 +73,6 @@ class Picture {
 	}
 	public function setUser(User $user) {
 		$this->user = $user;
-		return $this;
-	}
-	public function getDescription() {
-		return $this->description;
-	}
-	public function setDescription($description) {
-		$this->description = $description;
 		return $this;
 	}
 	

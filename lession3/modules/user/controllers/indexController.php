@@ -56,6 +56,186 @@ class indexController extends baseController{
 		exit(0);
 	}
 	
+	
+	
+	public function getHtmlListPicture(){
+		/* @var $accountSession User */
+		$accountSession = $_SESSION['acl']['account'];
+		$idAcc = $accountSession->getId();
+		
+		$html = "";
+		
+		/* @var $UserModel UserModel */
+		$UserModel = $this->model->get('User');
+		$pictures = $UserModel->listTableByWhere('Picture', array( "user_id = $idAcc" ));
+		/* @var $picture Picture */
+		foreach ( $pictures as $picture ){
+			$html .= '<div class="col-sm-3 shop-product">';
+			$html .= '<div class="product-wrapper">';
+			$html .= '<div class="product-image">';
+			$html .= '<a href="">';
+			$html .= '<img alt="" src="'. $picture->getLinkUrl() .'">';
+			$html .= '</a>';
+			$html .= '</div>';
+			$html .= '<div class="product-details">';
+			$html .= '<div class="row">';
+			$html .= '<div class="col-xs-12">';
+			$html .= '<div class="product-tools">';
+			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="Delete">';
+			$html .= '<i class="fa fa-remove"> | </i>';
+			$html .= '</a>';
+			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="View">'; 
+			$html .= '<i class="fa fa-eye ">('.$picture->getView().') |</i>'; 
+			$html .= '</a>';
+			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="Like">';
+			$html .= '<i class="fa fa-thumbs-o-up">('.$picture->getLikeNumber().')</i>';
+			$html .= '</a>';
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
+		}
+		header('Content-Type: application/json');
+		echo json_encode(
+				array(
+					'content' => $html	
+					)
+				);
+		exit();
+	}
+	
+	public function addPictures(){
+		
+		$is_error = null;
+		$listPicture = isset($_FILES['pictures']) ? $_FILES['pictures'] : array();
+		
+		$coutListImage = isset($listPicture['name']) ? count($listPicture['name']) : 0;
+		$listImageCustom = array();
+		for($i = 0 ; $i < $coutListImage ; $i++){
+			$listImageCustom[$i]['name'] = $listPicture['name'][$i];
+			$listImageCustom[$i]['type'] = $listPicture['type'][$i];
+			$listImageCustom[$i]['tmp_name'] = $listPicture['tmp_name'][$i];
+			$listImageCustom[$i]['error'] = $listPicture['error'][$i];
+			$listImageCustom[$i]['size'] = $listPicture['size'][$i];
+		}
+		
+		$valid = new validation();
+		
+		// list image
+		foreach ( $listImageCustom as $imageCustom ){
+			if( ( $errorImageCustom = $valid->fileImageValidation( $imageCustom , array( 'size' => 710000 ) ) ) != null){
+				if( is_array( $errorImageCustom ) ){
+					utility::pushArrayToArray( $is_error['List Pictures'][$imageCustom['name']] , $errorImageCustom);
+				}else if( is_string( $errorImageCustom ) ){
+					$listImageFileName[] = $errorImageCustom;
+				}
+			}
+		}
+		if( $is_error == null ){
+			
+			// validation success
+			$pictures = array();
+			/* @var $userSession User */
+			$userSession = $_SESSION['acl']['account'];
+			
+			foreach ( $listImageFileName as $ImageFileName ){
+				$picture = new Picture();
+				$picture->setUrl( $ImageFileName );
+				$picture->setView(0);
+				$picture->setLikeNumber(0);
+				$now = new DateTime();
+				$s = $now->format('Y-m-d');
+				$picture->setRegistDatetime( $s );
+				$picture->setUser( $userSession );
+				$pictures[] = $picture;
+			}
+			
+			/* @var $pictureModel PictureModel */
+			$pictureModel = $this->model->get('Picture');
+			$error = $pictureModel->addPicture( $pictures );
+			
+			if( $error != null ){
+				utility::pushArrayToArray( $is_error['SQL'] , $error );
+			}
+						
+		}
+		
+		if( $is_error != null ){
+			
+			// delete file
+			if( isset( $listImageFileName ) ){
+				foreach ( $listImageFileName as $imageFileName ){
+					if(file_exists(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$imageFileName)){
+						unlink(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$imageFileName);
+					}
+				}
+			}	
+		}
+		header('Content-Type: application/json');
+		echo json_encode( array(
+				'is_error' => $is_error
+		));
+		exit(0);
+		
+	}
+	
+	public function changeAvatar(){
+		$is_error = null;
+		$avatar = isset($_FILES['avatar']) ? $_FILES['avatar'] : array();
+		// validation
+		
+		$valid = new validation();
+		// avatar
+		if( ( $errorImage = $valid->fileImageValidation( $avatar , array( 'size' => 710000) ) ) != null){
+			if(is_array($errorImage)){
+				utility::pushArrayToArray( $is_error['avatar'] , $errorImage);
+			}else if( is_string( $errorImage ) ){
+				$imageFileName = $errorImage;
+			}
+		}
+		
+		if( $is_error == null ){
+			/* @var $accountSession User */
+			$accountSession = $_SESSION['acl']['account'];
+			$idAcc = $accountSession->getId();
+			/* @var $userModel UserModel */
+			$userModel = $this->model->get('User');
+			// delete avatar old
+			$acc = $userModel->listTableByWhere( 'User' , array( "id = $idAcc" ));
+			$acc = $acc[0];
+			$fileOld = $acc->getAvatar();
+			
+			$setValue = " set avatar = '$imageFileName' ";
+			$tableName = " user ";
+			
+			$stringWhere = " where id = $idAcc ";
+			$error = $userModel->updateTableByWhere($tableName, $setValue, $stringWhere);
+			
+			if( $error != null ){
+				// error
+				utility::pushArrayToArray($is_error['SQL'], $error);
+				if(file_exists(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$imageFileName)){
+					unlink(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$imageFileName);
+				}
+			}else{
+				if(file_exists(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$fileOld)){
+					unlink(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$fileOld);
+				}
+			}
+		}
+		// $is_error == null  => success
+		// $is_error == array => error
+		header('Content-Type: application/json');
+		echo json_encode(
+				array(
+					'is_error' => $is_error )
+				);
+		
+		exit(0);
+	}
+	
 	public function editProfile(){
 		$is_error = null;
 		$stringSetValue = "";
@@ -181,6 +361,7 @@ class indexController extends baseController{
 		}
 		// $is_error == null  => success
 		// $is_error == array => error
+		header('Content-Type: application/json');
 		echo json_encode( 
 				array( 
 					'is_error' => $is_error ) 
