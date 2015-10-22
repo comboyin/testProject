@@ -24,6 +24,7 @@ $user = $_SESSION['acl']['account'];
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/animations.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/fonts.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/customer.css">
+    <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>css/myjs.css">
     <link rel="stylesheet" href="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.css">
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
