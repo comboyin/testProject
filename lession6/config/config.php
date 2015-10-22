@@ -16,39 +16,126 @@ $config = array (
 		),
 		// layout config
 		'layout' => array (
-
+				// == = = = =  = = = = = fronend = = = = ============== = = =
+				// controller index
+				'fronend/index' => array(
+					'actions'=>array(
+						'test'=>'layout/backendLayout'
+					),
+					'default'=>'layout/defaultLayout'
+				),
+				// listproduct Controller
+				'fronend/listproduct' => array(
+					'actions'=>array(
+						'test'=>'layout/backendLayout'
+					),
+					'default'=>'layout/defaultLayout'
+				),
+				// controller login
+				'fronend/login' => array(
+						'actions'=>array(
+						),
+						'default' => 'layout/loginLayout'
+				),
+				// controller login
+				'fronend/cart' => array(
+					'actions'=>array(
+					),
+					'default' => 'layout/defaultLayout'
+				),
+				// = = = = = =   === error ========= = =============
+				// error404Controller
+				'error/error404' => array(
+						'actions'=>array(
+						),
+						'default' => 'layout/error404Layout'
+				),
+				// error404Controller
+				'error/deny' => array(
+						'actions'=>array(
+						),
+						'default' => 'layout/denyLayout'
+				)
+				,
+				// ======= ==== === = =  = =module backend= == =  = = == = = = = = =
+				// product Controller
+				'backend/product' => array(
+						'actions'=>array(
+						),
+						'default' => 'layout/backendLayout'
+				),
 
 				// controller index
-				'login/index' => array(
+				'backend/index' => array(
 					'actions'=>array(
-
 					),
-					'default' => 'layout/loginLayout'
+					'default' => 'layout/backendLayout'
 				),
-				'users' => array(
-					'actions' => array(
 
-					),
-					'default' => 'layout/defaultLayout.php'
+    		    // controller index
+    		    'backend/account' => array(
+    		        'actions'=>array(
+    		        ),
+    		        'default' => 'layout/backendLayout'
+    		    ),
+
+				// controller cart
+				'backend/cart' => array(
+						'actions'=>array(
+
+						),
+						'default' => 'layout/backendLayout'
 				)
-
 		),
 		// access controll list config
 		'acl'=> array(
-			// 0: guest , 1: Admin , 2: Operator , 3: User
-			// allow config
+			// admin=>1 || user=>0 || guest=>-1
+			//allow config
 			"allow"=>array(
-				"user" => array(
+				"backend" => array(
+					"product" => array(
+						"all" => array(1,0) // allow 1(admin) 0(user) action in controller product
+					),
+					"index" => array(
+						"all" => array(1,0) // allow 1(admin) 0(user) action in controller product
+					),
+					"account" => array(
+						"all" => array(1) // allow 1(admin) 0(user) action in controller product
+					),
+					'cart' => array(
+						"all" => array(1,0)
+					)
 				),
-				"login"=>array(
-					"all" => "all"
+				"fronend" => array(
+					"index" => array(
+						"all" => "all" // allow all action in controller.
+					),
+					"login" => array(
+						"all" => "all"
+					),
+					"listproduct" => array(
+						"all" => "all"
+					),
+					"cart" => array(
+						"all" => "all"
+					)
+				),
+				"error" => array(
+					"error404" => array(
+						"all" => "all"
+					),
+					"deny" => array(
+						"all" => "all"
+					)
 				)
-
 			),
-
 			// deny config
 			"deny" => array(
-
+				"fronend" => array(
+					"index" => array(
+						"test" => array(-1) // allow all action in controller.
+					)
+				),
 			)
 		),
         // pagination config
@@ -63,5 +150,9 @@ $config = array (
             'range' => 9, // total button display
             'min' => 0, // Tham so min
             'max' => 0
+        ),
+		'Product' => array(
+        	'maxProductImg' => 4,
+				'size'   => 500000
         )
 );

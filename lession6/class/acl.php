@@ -31,16 +31,14 @@ class acl {
 			$_SESSION['acl']['account'] = $accountTemp;
 		}
 
-		if( !isset( $_COOKIE['listorder'] ) ){
-			setcookie("listorder", array(), time()+3600, "/","", 0);
-		}
+		
 		/* @var $account account */
 		$account = $_SESSION['acl']['account'];
 
 
 		// check login form backend module
-		if($moduleName == 'backend'){
-			if($account->type < 0){
+		if( $moduleName == 'backend' ){
+			if( $account->type < 0 ){
 				// redirect to login controller
 				$this->redirect(
 					$this->_router->url(
@@ -53,11 +51,11 @@ class acl {
 			}
 		}
 
-		if($moduleName == 'error' && $controllerName == 'error404'){
+		if( $moduleName == 'error' && $controllerName == 'error404' ){
 			return;
 		}
 		// check pemission account
-		else if(!$this->checkPermission($moduleName, $controllerName, $actionName, $account->type)){
+		else if( !$this->checkPermission( $moduleName, $controllerName, $actionName, $account->type ) ){
 			// redictect to deny page
 			$this->redirect(
 					$this->_router->url(

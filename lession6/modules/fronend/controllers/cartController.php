@@ -73,7 +73,7 @@ class cartController extends baseController{
 			}
 
 			// email
-			if( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
+			if( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
 				utility::pushArrayToArray( $error['Email'] , array( 'Email không hợp lệ.' ) );
 			}
 
