@@ -26,6 +26,12 @@ class User {
 	 * @var array */
 	private $pictures;
 	
+	/**
+	 * 
+	 * @var array  */
+	private $friend_relation;
+	
+	
 
 	public function __construct(){
 		$this->group = new Group();
@@ -140,14 +146,15 @@ class User {
 		$this->avatar = $avatar;
 		return $this;
 	}
-	
 	public function getLinkAvatar(){
 		$string = __FOLDER . __FOLDER_UPLOADS . "/" . $this->avatar;
 		return $string;
 	}
-	
-	
-	
-
-
+	public function getFriendRelation() {
+		return $this->friend_relation;
+	}
+	public function setFriendRelation(array $friend_relation) {
+		$this->friend_relation = $friend_relation;
+		return $this;
+	}
 }

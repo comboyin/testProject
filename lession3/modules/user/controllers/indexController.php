@@ -2,6 +2,7 @@
 class indexController extends baseController{
 
 	public function index( $arg = array() ) {
+		
 		/* @var $userSession User */
 		$userSession = $_SESSION['acl']['account'];
 		/* @var $modelPicture PictureModel */
@@ -271,6 +272,14 @@ class indexController extends baseController{
 				if(file_exists(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$fileOld)){
 					unlink(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$fileOld);
 				}
+				// update session
+				$users = $userModel->listTableByWhere( 'User', array(" id = '$idAcc' "));
+				/* @var $user User */
+				$user = $users[0];
+				$group_id = $user->getGroupId();
+				$group = $userModel->listTableByWhere( 'Group' , array( " id = '$group_id' " ));
+				$user->setGroup( $group[0] );
+				$_SESSION['acl']['account'] = $users[0];
 			}
 		}
 		// $is_error == null  => success
@@ -280,8 +289,18 @@ class indexController extends baseController{
 				array(
 					'is_error' => $is_error )
 				);
-		
 		exit(0);
+	}
+	
+	public function friendList(){
+		/* @var $usersession User */
+		$usersession = $_SESSION['acl']['account'];
+		/* @var $friendRelationModel FriendrelationModel */
+		$friendRelationModel  = $this->model->get('Friendrelation');
+		$friendRelations      = $friendRelationModel->getListFriendRelation( $usersession->getId() );
+		
+		$this->getView()->content->friendRelations = $friendRelations;
+		
 	}
 	
 	public function editProfile(){
@@ -405,8 +424,21 @@ class indexController extends baseController{
 			$error = $modelUser->updateTableByWhere($tableName, $stringSetValue, $stringWhere);
 			if( $error != null ){
 				utility::pushArrayToArray($is_error['SQL'],  $error );
+			}else{
+				// update session
+				$users = $modelUser->listTableByWhere( 'User', array(" id = '$idAcc' "));
+				/* @var $user User */
+				$user = $users[0];
+				$group_id = $user->getGroupId();
+				$group = $modelUser->listTableByWhere( 'Group' , array( " id = '$group_id' " ));
+				$user->setGroup( $group[0] );
+				$_SESSION['acl']['account'] = $users[0];
+				
 			}
 		}
+		
+		
+		
 		// $is_error == null  => success
 		// $is_error == array => error
 		header('Content-Type: application/json');

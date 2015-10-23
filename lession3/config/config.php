@@ -16,7 +16,6 @@ $config = array (
 		),
 		// layout config
 		'layout' => array (
-
 				// = = = = = =   === error ========= = =============
 				// error404Controller
 				'error/error404' => array(
@@ -43,9 +42,14 @@ $config = array (
 						'actions' => array(
 
 						),
-						'default' => 'layout/defaultLayout'
+						'default' => 'layout/userLayout'
+				),
+				'user/action' => array(
+						'actions' => array(
+				
+						),
+						'default' => 'layout/userLayout'
 				)
-
 		),
 
 		// access controll list config
@@ -56,6 +60,9 @@ $config = array (
 						"user" => array(
 							"index" => array(
 								"all" => array(1,2,3)
+							),
+							"action" => array(
+								"all" => array(1,2,3)	
 							)
 						),
 						"login"=>array(
@@ -75,6 +82,7 @@ $config = array (
 
 				// deny config
 				"deny" => array(
+						
 				)
 		),
 		// pagination config
