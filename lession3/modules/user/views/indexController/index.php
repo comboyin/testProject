@@ -1,6 +1,7 @@
 <?php 
 /* @var $user User */
 $user = $user;
+$idacc = $user->getId();
 $pictures = $user->getPictures();
 ?>
 <section class="light_section">
@@ -9,7 +10,7 @@ $pictures = $user->getPictures();
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="product-image text-center">
+                        <div class="text-center">
                             <img id="product-image" src="<?php echo $user->getLinkAvatar();?>" >
                             <button class="btn change-avatar">Change avatar</button>
                         </div>
@@ -199,6 +200,14 @@ $pictures = $user->getPictures();
 					                    	<span class="listPicture">
 					                    		<?php  /* @var $picture Picture */ ?>
 					                    		<?php foreach ($pictures as $picture):?>
+					                    		<?php
+					                    		
+					                    		$is_like = $picture->is_like( $idacc );
+					                    		$class_icon_thumbs = ( $is_like == false ) ? 'fa-thumbs-o-up' : 'fa-thumbs-o-down';
+					                    		$data_original_title = ( $is_like == false ) ? 'Like' : 'Unlike';
+					                    		
+					                    		?>
+					                    		
 					                    		<div class="col-sm-3 shop-product">
 												    <div class="product-wrapper">
 						                                <div class="product-image">
@@ -210,14 +219,14 @@ $pictures = $user->getPictures();
 						                                    <div class="row">
 						                                        <div class="col-xs-12">
 						                                            <div class="product-tools">
-						                                                <a href="#" title="Delete" data-toggle="tooltip">
+						                                                <a id-picture="<?php echo $picture->getId()?>" href="#" title="Delete" data-toggle="tooltip">
 						                                                    <i class="fa fa-remove"> | </i>
 						                                                </a>
 						                                                <a href="#" title="View" data-toggle="tooltip">
 						                                                    <i class="fa fa-eye ">(<?php echo $picture->getView()?>) |</i>
 						                                                </a>
-						                                                <a href="#" title="Like" data-toggle="tooltip">
-						                                                    <i class="fa fa-thumbs-o-up">(<?php echo $picture->getLikeNumber()?>)</i>
+						                                                <a href="#" title="<?php echo $data_original_title?>" data-toggle="tooltip">
+						                                                    <i class="fa <?php echo $class_icon_thumbs ?>">(<?php echo $picture->getLikeNumber()?>)</i>
 						                                                </a>
 						                                            </div>
 						                                        </div>

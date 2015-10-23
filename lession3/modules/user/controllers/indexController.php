@@ -4,24 +4,24 @@ class indexController extends baseController{
 	public function index( $arg = array() ) {
 		/* @var $userSession User */
 		$userSession = $_SESSION['acl']['account'];
-		/* @var $modelUser UserModel */
-		$modelUser = $this->model->get( 'User' );
+		/* @var $modelPicture PictureModel */
+		$modelPicture = $this->model->get( 'Picture' );
 		
 		$idUserSession = $userSession->getId();
 		
-		$user = $modelUser->listTableByWhere( 'User' , array( "id = $idUserSession" ));
+		$user = $modelPicture->listTableByWhere( 'User' , array( "id = $idUserSession" ));
 		/* @var $user User  */
 		$user = $user[0];
 		
 		// get pictures
-		$pictures = $modelUser->listTableByWhere('Picture', array( " user_id = $idUserSession " ));
+		$pictures = $modelPicture->listPicture( " where user_id = '$idUserSession' " );
 		$user->setPictures( $pictures );
 		$user->setGroup( $userSession->getGroup() );
 
 		// total friend
 		
-		$user->setTotalFriendList( $modelUser->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession " )) );
-		$user->setTotalFavorite( $modelUser->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession " )) );
+		$user->setTotalFriendList( $modelPicture->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession " )) );
+		$user->setTotalFavorite( $modelPicture->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession " )) );
 		// total favorite
 		
 		$this->getView()->content->user = $user;
@@ -31,7 +31,6 @@ class indexController extends baseController{
 	 * get atrr value of user logined
 	 * Lấy giá trị thuộc tính của user đã đăng nhập  */
 	public function getValueParameterUserSession(){
-		
 		/* @var $userModel UserModel  */
 		$userModel = $this->model->get('User');
 		/* @var $accountSession User */
@@ -40,7 +39,6 @@ class indexController extends baseController{
 		/*@var $acc User  */
 		$acc = $userModel->listTableByWhere( 'User' , array( " id = $idAcc " ));
 		$acc = $acc[0];
-		
 		$kq = array( 
 			'fullname' => $acc->getFullname(),
 				'email'=> $acc->getEmail(),
@@ -51,12 +49,55 @@ class indexController extends baseController{
 		'introduction' => $acc->getIntroduction(),
 		'username'     => $acc->getUsername()
 		);
-		
 		echo json_encode( array(  'user' => $kq) );
 		exit(0);
 	}
 	
-	
+	public function deletePicture(){
+		$is_error = null;
+		$idPicture = ( isset( $_POST['idpicture'] ) ) ? $_POST['idpicture'] : '';
+		// validation
+		/* @var $PictureModel PictureModel */
+		/* @var $Picture Picture */
+		$PictureModel = $this->model->get('Picture');
+		$Picture = $PictureModel->listTableByWhere('Picture', array( " id = '$idPicture' " ));
+		$cout = count($Picture);
+		// exist
+		if( $cout == 0 ){
+			utility::pushArrayToArray( $is_error['picture'] , array( 'Picture not exist.' )) ;
+		}else{
+			$Picture = $Picture[0];
+			// picture of user session
+			/* @var $userSession User */
+			$userSession = $_SESSION['acl']['account'];
+			if(  $Picture->getUserId() != $userSession->getId() && $cout == 1){
+				utility::pushArrayToArray( $is_error['picture'] , array( 'Picture not yours.' )) ;
+			}
+		}
+		
+		if( $is_error == null ){
+			
+			$error = $PictureModel->deletePictures($idPicture);
+			
+			if( $error != null ){
+				// error
+				utility::pushArrayToArray( $is_error['SQL'] , $error );
+				
+			}else if( $is_error == null ){
+				
+				$fileOld = $Picture->getUrl();
+				utility::deleteFile(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$fileOld);
+			}
+		}
+		
+		header('Content-Type: application/json');
+		echo json_encode(
+				array(
+						'is_error' => $is_error
+					 )
+				);
+		exit();
+	}
 	
 	public function getHtmlListPicture(){
 		/* @var $accountSession User */
@@ -65,11 +106,15 @@ class indexController extends baseController{
 		
 		$html = "";
 		
-		/* @var $UserModel UserModel */
-		$UserModel = $this->model->get('User');
-		$pictures = $UserModel->listTableByWhere('Picture', array( "user_id = $idAcc" ));
+		/* @var $PictureModel PictureModel */
+		$PictureModel = $this->model->get('Picture');
+		$pictures = $PictureModel->listPicture( " where user_id = $idAcc " );
+		
 		/* @var $picture Picture */
 		foreach ( $pictures as $picture ){
+			$is_like = $picture->is_like( $idAcc );
+			$class_icon_thumbs = ( $is_like == false ) ? 'fa-thumbs-o-up' : 'fa-thumbs-o-down';
+			$data_original_title = ( $is_like == false ) ? 'Like' : 'Unlike';
 			$html .= '<div class="col-sm-3 shop-product">';
 			$html .= '<div class="product-wrapper">';
 			$html .= '<div class="product-image">';
@@ -81,14 +126,14 @@ class indexController extends baseController{
 			$html .= '<div class="row">';
 			$html .= '<div class="col-xs-12">';
 			$html .= '<div class="product-tools">';
-			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="Delete">';
+			$html .= '<a id-picture="'.$picture->getId().'" href="#" title="" data-toggle="tooltip" data-original-title="Delete">';
 			$html .= '<i class="fa fa-remove"> | </i>';
 			$html .= '</a>';
-			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="View">'; 
-			$html .= '<i class="fa fa-eye ">('.$picture->getView().') |</i>'; 
+			$html .= '<a  href="#" title="" data-toggle="tooltip" data-original-title="View">'; 
+			$html .= '<i class="fa fa-eye ">(' . $picture->getView() . ') |</i>'; 
 			$html .= '</a>';
-			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="Like">';
-			$html .= '<i class="fa fa-thumbs-o-up">('.$picture->getLikeNumber().')</i>';
+			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="'.$data_original_title.'">';
+			$html .= '<i class="fa '. $class_icon_thumbs .' ">(' . $picture->getLikeNumber() . ')</i>';
 			$html .= '</a>';
 			$html .= '</div>';
 			$html .= '</div>';
@@ -133,6 +178,11 @@ class indexController extends baseController{
 				}
 			}
 		}
+		
+		if( !isset( $listImageFileName )  ){
+			utility::pushArrayToArray( $is_error['List Pictures'], array( 'Not find image selected.' ));
+		}
+		
 		if( $is_error == null ){
 			
 			// validation success
@@ -146,7 +196,7 @@ class indexController extends baseController{
 				$picture->setView(0);
 				$picture->setLikeNumber(0);
 				$now = new DateTime();
-				$s = $now->format('Y-m-d');
+				$s = $now->format('Y-m-d h:i:s');
 				$picture->setRegistDatetime( $s );
 				$picture->setUser( $userSession );
 				$pictures[] = $picture;
@@ -167,9 +217,7 @@ class indexController extends baseController{
 			// delete file
 			if( isset( $listImageFileName ) ){
 				foreach ( $listImageFileName as $imageFileName ){
-					if(file_exists(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$imageFileName)){
-						unlink(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$imageFileName);
-					}
+					utility::deleteFile(__SITE_PATH.'/'.__FOLDER_UPLOADS.'/'.$imageFileName);
 				}
 			}	
 		}

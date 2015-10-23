@@ -9,6 +9,11 @@ class Picture {
 	private $user_id;
 	
 	/**
+	 * 
+	 * @var Like  */
+	private $like;
+	
+	/**
 	 * @var User 
 	 * */
 	private $user;
@@ -71,15 +76,26 @@ class Picture {
 	public function getUser() {
 		return $this->user;
 	}
-	public function setUser(User $user) {
+	public function setUser($user) {
 		$this->user = $user;
 		return $this;
 	}
+	public function getLike() {
+		return $this->like;
+	}
+	public function setLike($like) {
+		$this->like = $like;
+		return $this;
+	}
 	
-	
-	
-	
-	
-	
-	
+	public function is_like( $iduser ){
+		$is_like = false;
+		/* @var $like Like  */
+		foreach ( $this->like as $like ){
+			if( $like->getUser()->getId() == $iduser ){
+				$is_like = true;
+			}
+		}
+		return $is_like;
+	}
 }

@@ -10,6 +10,13 @@ class utility
 			array_push($stack, $item);
 		}
 	}
+	
+	static  public function deleteFile( $url ){
+		if ( file_exists($url) ){
+			unlink($url);
+		}
+	}
+	
     /**
      *
      * @param $str string

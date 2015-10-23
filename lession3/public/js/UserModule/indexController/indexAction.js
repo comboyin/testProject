@@ -472,7 +472,59 @@ var indexAction = function () {
 			        }
 			    });
 			}
-			// == == == == == == == == == == end Save user == == == == == == == == == == == == == == == == == == == == ==			
+			// == == == == == == == == == == end Save user == == == == == == == == == == == == == == == == == == == == ==
+			
+			
+			// == == == == == == == == == == begin Delete picture == == == == == == == == == == == == == == == == == == == == ==
+			$(document).on( 'click' , 'a[data-original-title=Delete]' , function(e){
+					e.preventDefault();
+					var idpicture = $(this).attr('id-picture');
+			        dalert.confirm("Are You Sure?","Alert Confirm !",function(result){
+			            if(result){
+			            	deletePicture( idpicture );
+			            }
+			            else{
+			            	
+			            }
+			        });
+				});
+			
+			function deletePicture( idpicture ){
+				fd = new FormData();
+				fd.append("idpicture", idpicture );
+
+				$.ajax({
+			        url: 'index.php?rt=user/index/deletePicture',
+			        type: 'POST',
+			        data: fd,
+			        cache: false,
+			        dataType: 'json',
+			        processData: false, // Don't process the files
+			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			        success: function(data, textStatus, jqXHR)
+			        {
+			        	var is_error = data.is_error;
+			        	if( is_error == null ){
+			        		// success
+			        		dalert.alert("Delete picture success.","Success",function callbackMe(){
+			        			resetListPicture();
+			                });	
+			        		
+			        	}else{
+			        		// error
+			        		generateHtmlAlertError( is_error );
+			        	}
+			        },
+			        error: function(jqXHR, textStatus, errorThrown)
+			        {
+			        	var error = ['ERRORS: ' + textStatus];
+			            // Handle errors here
+			        	dalert.alert(stringHtmlError(error),'Error');
+			        }
+			    });
+			}
+			
+			// == == == == == == == == == == end delete picture == == == == == == == == == == == == == == == == == == == == ==
 		}
 
 	};

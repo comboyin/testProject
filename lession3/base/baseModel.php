@@ -120,6 +120,35 @@ class baseModel
     	return $is_error;
     }
     
+    /**
+     * DELETE table
+     * return null => success
+     * return array => error
+     * example:
+     * 		$tableName = " user "
+     * 		
+     * 		$stringWhere = " where id = 1 "
+     * @param string $tableName
+     * @param string $setValue
+     * @param string $stringWhere
+     * @return NULL|array
+     * */
+    public function deleteTableByWhere( $tableName, $stringWhere ) {
+    	$is_error = null;
+    	try {
+    		$lowerCaseTableName = strtolower( $tableName );
+    		$lowerCaseTableName = " `$lowerCaseTableName` ";
+    		$sql = " DELETE FROM $lowerCaseTableName $stringWhere ";
+    		 
+    		$stmt = $this->getPdo()->prepare( $sql );
+    		$stmt->execute();
+    	} catch (Exception $e) {
+    		//echo $e->getMessage();
+    		$is_error[] = $e->getMessage();
+    	}
+    	return $is_error;
+    }
+    
     public function listTableByWhere( $StringTable, $stringWhere , $option = array() ){
     	$listObj = array();
     	try {
@@ -136,6 +165,7 @@ class baseModel
     		}
     		
     		$nameTable = strtolower($StringTable);
+    		$nameTable = " `$nameTable` ";
     		if( $option == null ){
     			$sql = " SELECT * FROM $nameTable $string ORDER BY id desc ";
     		} else{
@@ -158,6 +188,9 @@ class baseModel
     	}
     	return $listObj;
     }
+    
+    
+    
     /**
      * Total recore in table from where
      * @param string $StringTable
