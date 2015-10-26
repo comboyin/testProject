@@ -150,7 +150,9 @@ class baseModel
     }
     
     public function listTableByWhere( $StringTable, $stringWhere , $option = array() ){
+    	
     	$listObj = array();
+    	
     	try {
     		// create string sql
     		$string = "";
@@ -184,7 +186,9 @@ class baseModel
     		return $listObj;
     
     	} catch (Exception $e) {
+    		
     		echo $e->getMessage();
+    		
     	}
     	return $listObj;
     }

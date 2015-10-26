@@ -79,7 +79,6 @@ $config = array (
 							)
 						)
 				),
-
 				// deny config
 				"deny" => array(
 						

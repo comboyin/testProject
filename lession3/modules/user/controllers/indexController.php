@@ -21,8 +21,8 @@ class indexController extends baseController{
 
 		// total friend
 		
-		$user->setTotalFriendList( $modelPicture->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession " )) );
-		$user->setTotalFavorite( $modelPicture->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession " )) );
+		$user->setTotalFriendList( $modelPicture->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession or user_id_to = $idUserSession " )) );
+		$user->setTotalFavorite( $modelPicture->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession or user_id_to = $idUserSession" )) );
 		// total favorite
 		
 		$this->getView()->content->user = $user;
@@ -299,6 +299,15 @@ class indexController extends baseController{
 		$friendRelationModel  = $this->model->get('Friendrelation');
 		$friendRelations      = $friendRelationModel->getListFriendRelation( $usersession->getId() );
 		
+		
+		$idUserSession = $usersession->getId();
+		
+		$model = $this->model->get('Picture');
+		$totalFriend   =  $model->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession or user_id_to = $idUserSession " )) ;
+		$totalFavorite =  $model->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession or user_id_to = $idUserSession" ));
+		
+		$this->getView()->content->totalFriend     = $totalFriend;
+		$this->getView()->content->totalFavorite   = $totalFavorite;
 		$this->getView()->content->friendRelations = $friendRelations;
 		
 	}
@@ -436,9 +445,6 @@ class indexController extends baseController{
 				
 			}
 		}
-		
-		
-		
 		// $is_error == null  => success
 		// $is_error == array => error
 		header('Content-Type: application/json');
@@ -448,7 +454,77 @@ class indexController extends baseController{
 				);
 		
 		exit(0);
-		
 	}
+	
+	public function unfriend(){
+		$is_error = null;
+		$userSession = $this->getUserSession();
+		$userID = ( isset($_POST['UserId']) ) ? $_POST['UserId'] : '';
+		/* @var $UserModel UserModel */
+		/* @var $FriendModel FriendrelationModel */
+		$UserModel = $this->model->get('User');
+		$FriendModel = $this->model->get('Friendrelation');
+		$Users = $UserModel->listTableByWhere( 'User', array( " id = '$userID' " ));
+		if( count( $Users ) == 0 ){
+			utility::pushArrayToArray( $is_error['User'] , array( "User have id '$userID' not exist." ));
+		}else{
+			// database
+			//$FriendModel->findFriendRelation($userSession->getId(), $userID);
+			$error = $FriendModel->deleteFriendRelation( $userSession->getId() , $userID);
+			if( $error != null ){
+				utility::pushArrayToArray( $is_error['User'] , $error);
+			}
+		}
+		// $is_error == null  => success
+		// $is_error == array => error
+		header('Content-Type: application/json');
+		echo json_encode(
+				array(
+					'is_error' => $is_error )
+				);
+		
+		exit(0);
+	}
+	/**
+	 * @return User  */
+	private function getUserSession(){
+		$user = $_SESSION['acl']['account'];
+		return $user;
+	}
+	
+	public function getHTMLListFriendRelation(){
+		$html = "";
+		$user = $this->getUserSession();
+		/* @var $friendRelationModel FriendrelationModel */
+		$friendRelationModel = $this->model->get('friendrelation');
+		$friendRelations = $friendRelationModel->getListFriendRelation( $user->getId() );
+		$totalFriend     = count( $friendRelations );
+		/* @var $friendRelation Friend_relation */
+		foreach ( $friendRelations as $friendRelation ){
+			$html .= '<div class="col-xs-6">';
+			$html .= '<div class="list-friend">';
+			$html .= '<div class="media">';
+			$html .= '<p class="pull-left">';
+			$html .= '<a idfriend="'.$friendRelation->getUserTo()->getId().'" href="/lession3/user/action/profile/'.$friendRelation->getUserTo()->getUsername().'">'.$friendRelation->getUserTo()->getFullname().'</a>';
+			$html .= '</p>';
+			$html .= '<a class="pull-left" href="#"> <img class="media-object" src="'.$friendRelation->getUserTo()->getLinkAvatar().'" alt="">';
+			$html .= '</a>';
+			$html .= '<p class="pull-left">';
+			$html .= '<a class="Unfriend" href="#">Unfriend</a>';
+			$html .= '</p>';
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
+		}
+		header('Content-Type: application/json');
+		echo json_encode(
+				array(
+						'content' => $html,
+						'totalFriend'   => $totalFriend
+					 )
+				);
+		exit();
+	}
+	
 
 }

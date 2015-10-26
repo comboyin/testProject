@@ -7,8 +7,14 @@ $pictures = $user->getPictures();
 <div class="row">
                 	<div class="col-sm-12">
                 		<div class="form-group">
-	                    	<input type="submit" class="theme_button" name="apply_coupon" value="Friend list (<?php echo $user->getTotalFriendList()?>)">
-                    	<input type="submit" class="theme_button" name="update_cart" value="Favorite (<?php echo $user->getTotalFavorite()?>)">
+                			<a href="<?php echo __FOLDER . 'user/index/friendList'?>">
+                				<input type="button" class="theme_button" name="apply_coupon" value="Friend list (<?php echo $user->getTotalFriendList()?>)">
+                			</a>
+	                    	
+	                    	<a>
+	                    		<input type="button" class="theme_button" name="update_cart" value="Favorite (<?php echo $user->getTotalFavorite()?>)">	
+	                    	</a>
+                    		
 	               		</div>
                 	</div>
 </div>
