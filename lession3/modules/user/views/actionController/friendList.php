@@ -155,7 +155,38 @@
 							src="<?php echo $friendRelation->getUserTo()->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
-							<a class="Unfriend" href="#">Unfriend</a>
+							<a class="<?php 
+								switch ( $friendRelation->getUserTo()->getStatusForUserSession() ) {
+									/**
+									 * 0 : add friend
+									 * 1 : unfriend
+									 * 2 : unRequest
+									 * @var int  */
+									case 0:
+										echo 'add-friend';
+									break;
+									case 1:
+										echo 'un-friend';
+									break;
+									case 2:
+										echo 'un-request';
+									break;
+								}
+							?>" href="#">
+								<?php
+								switch ( $friendRelation->getUserTo()->getStatusForUserSession() ) {
+									case 0:
+										echo 'Add Friend';
+										break;
+									case 1:
+										echo 'unFriend';
+										break;
+									case 2:
+										echo 'unRequest';
+										break;
+									}
+								?>
+							</a>
 						</p>
 					</div>
 				</div>

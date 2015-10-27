@@ -103,7 +103,7 @@ class Friend_relation {
 	
 	/**
 	 *
-	 * @return the User
+	 * @return User
 	 */
 	public function getUserTo() {
 		return $this->user_to;
