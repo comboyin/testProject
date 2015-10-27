@@ -40,7 +40,7 @@ $config = array (
 				),
 				'user/index' => array(
 						'actions' => array(
-
+							'searchuser' => 'layout/fullLayout'
 						),
 						'default' => 'layout/userLayout'
 				),
@@ -48,7 +48,7 @@ $config = array (
 						'actions' => array(
 				
 						),
-						'default' => 'layout/userLayout'
+						'default' => 'layout/fullLayout'
 				)
 		),
 

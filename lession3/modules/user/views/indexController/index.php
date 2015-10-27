@@ -18,7 +18,7 @@ $pictures = $user->getPictures();
 	               		</div>
                 	</div>
 </div>
-<div class="row">
+<div class="row margintheme">
                     <div class="col-sm-12">
                         <div id="product-tabs">
                             <ul class="nav nav-tabs" role="tablist">

@@ -41,8 +41,4 @@ $friendRelations = $friendRelations;
 
 	</div>
 </div>
-
-<html>
 <script type="text/javascript" src="<?php echo __FOLDER . 'public/js/UserModule/indexController/friendListAction.js'?>"></script>
-
-</html>

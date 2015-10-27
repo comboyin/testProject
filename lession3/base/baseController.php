@@ -84,5 +84,12 @@ abstract class baseController
 
     	return $uri;
     }
+    
+    /**
+     * @return User  */
+    protected function getUserSession(){
+    	$user = $_SESSION['acl']['account'];
+    	return $user;
+    }
 }
 ?>

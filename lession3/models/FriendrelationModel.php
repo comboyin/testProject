@@ -18,7 +18,25 @@ class FriendrelationModel extends baseModel{
 				$user_id_to = $FriendRelation->getUserIdTo();
 				$users_to = $this->listTableByWhere( 'User' , array( " id = '$user_id_to' " ));
 				$FriendRelation->setUser( $users[0] );
-				$FriendRelation->setUserTo( $users_to[0] );	
+				$FriendRelation->setUserTo( $users_to[0] );
+				
+				foreach ( $users_to as $user_to ){
+					// add friend 
+					$user_to->setStatusForUserSession( 0 );
+					/* @var $user_to User */
+					// check friend_request exist
+					$friend_requests = $this->listTableByWhere( 'Friend_request' , array( " user_id = '$user_id' and user_id_to = '$user_id_to' " ));
+					if( count( $friend_requests ) > 0 ){
+						// un request
+						$user_to->setStatusForUserSession( 2 );
+					}else{
+						$friend_relations = $this->listTableByWhere( 'Friend_relation' , array( " user_id = '$user_id' or user_id_to = '$user_id_to' " ));
+						if( count( $friend_relations ) > 0 ){
+							// un request
+							$user_to->setStatusForUserSession( 1 );
+						}
+					}
+				}
 			}
 		} catch (Exception $e) {
 			echo $e->getMessage();

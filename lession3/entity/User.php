@@ -30,6 +30,17 @@ class User {
 	 * 
 	 * @var array  */
 	private $friend_relation;
+	/**
+	 * 
+	 * @var array  */
+	private $friend_request;
+	
+	/**
+	 * 0 : add friend
+	 * 1 : unfriend
+	 * 2 : unRequest
+	 * @var int  */
+	private $statusForUserSession;
 	
 	
 
@@ -157,4 +168,20 @@ class User {
 		$this->friend_relation = $friend_relation;
 		return $this;
 	}
+	public function getFriendRequest() {
+		return $this->friend_request;
+	}
+	public function setFriendRequest(array $friend_request) {
+		$this->friend_request = $friend_request;
+		return $this;
+	}
+	public function getStatusForUserSession() {
+		return $this->statusForUserSession;
+	}
+	public function setStatusForUserSession($statusForUserSession) {
+		$this->statusForUserSession = $statusForUserSession;
+		return $this;
+	}
+	
+	
 }

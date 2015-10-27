@@ -139,27 +139,75 @@
                 	</div>
 </div>
 <?php endif;?>
+<div class="row margintheme">
+                    <div class="col-sm-12">
+                        <div id="product-tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active">
+                                    <a href="#tab-introduction" role="tab" data-toggle="tab">Introduction</a>
+                                </li>
+                                <li >
+                                    <a href="#tab-Picture" role="tab" data-toggle="tab">Picture</a>
+                                </li>
+                                <li >
+                                    <a href="#tab-Location" role="tab" data-toggle="tab">Location</a>
+                                </li>
+                            </ul>
 
-<div class="widget widget_popular_entries">
-	<h3 class="widget-title">Friend list</h3>
-	<div class="row list-friend">
-	<?php /* @var $friendRelation Friend_relation */?>
-		<?php foreach ( $friendRelations as $friendRelation ):?>
-			<div class="col-xs-6">
-				<div class="list-friend">
-					<div class="media">
-						<p class="pull-left">
-							<a idfriend="<?php echo $friendRelation->getUserTo()->getId()?>" href="<?php echo __FOLDER . 'user/action/profile/' . $friendRelation->getUserTo()->getUsername()?>"><?php echo $friendRelation->getUserTo()->getFullname()?></a>
-						</p>
-						<a class="pull-left" href="#"> <img class="media-object"
-							src="<?php echo $friendRelation->getUserTo()->getLinkAvatar()?>" alt="">
-						</a>
-						<p class="pull-left">
-							<a class="Unfriend" href="#">Unfriend</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		<?php endforeach;?>
-	</div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-introduction">
+                                		sadasd
+                                </div>
+
+                                <div class="tab-pane fade" id="tab-Picture">
+					                  <div id="product_listing">
+					                  	<div class="row">
+					                    <span class="listPicture">
+				                    		<?php  /* @var $picture Picture */ ?>
+				                    		<?php foreach ($pictures as $picture):?>
+				                    		<?php
+				                    		
+				                    			$is_like = $picture->is_like( $idacc );
+				                    			$class_icon_thumbs = ( $is_like == false ) ? 'fa-thumbs-o-up' : 'fa-thumbs-o-down';
+				                    			$data_original_title = ( $is_like == false ) ? 'Like' : 'Unlike';
+				                    		
+				                    		?>
+				                    		
+				                    		<div class="col-sm-3 shop-product">
+											    <div class="product-wrapper">
+					                                <div class="product-image">
+					                                    <a href="">
+					                                        <img alt="" src="<?php echo $picture->getViewUrl() ?> " >
+					                                    </a>
+					                                </div>
+					                                <div class="product-details">
+					                                    <div class="row">
+					                                        <div class="col-xs-12">
+					                                            <div class="product-tools">
+					                                            	<?php if( $is_friend == true ):?>
+					                                            		<a href="#" title="<?php echo $data_original_title?>" data-toggle="tooltip">
+					                                                    	<i class="fa <?php echo $class_icon_thumbs ?>">(<?php echo $picture->getLikeNumber()?>)</i>
+					                                                	</a>
+					                                                	 <a href="#" title="View" data-toggle="tooltip">
+					                                                    	<i class="fa fa-eye ">(<?php echo $picture->getView()?>) |</i>
+					                                               		</a>
+					                                            	<?php endif;?>
+					                                               
+					                                            </div>
+					                                        </div>
+					                                    </div>
+					                                </div>
+					                            </div>
+				                        	</div>
+				                    		<?php endforeach;?>
+					                    	</span>
+					                        </div>   
+					                    </div>
+									</div>
+									<div class="tab-pane fade" id="tab-Location">
+                                		sadasd
+                                	</div>
+                                </div>
+                            </div>
+      </div>
 </div>

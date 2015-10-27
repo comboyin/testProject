@@ -97,6 +97,7 @@ class router
         /**
          * include the controller
          */
+        
         include $this->file;
 
         /**
@@ -154,10 +155,11 @@ class router
     	/* @var $controller baseController */
 		$configLayout = $this->registry->layout;
 		$controlerName = $this->module . '/' . $this->controller;
+		$lowerAction = strtolower($this->action);
 		if(isset($configLayout[ $controlerName ])){
 			// if exists action layout
-			if(isset( $configLayout[ $controlerName ]['actions'][$this->action] )){
-				$actionLayout = $configLayout[ $controlerName ]['actions'][$this->action];
+			if(isset( $configLayout[ $controlerName ]['actions'][$lowerAction] )){
+				$actionLayout = $configLayout[ $controlerName ]['actions'][$lowerAction];
 			}
 			if(isset($actionLayout)){
 				$controller->getView()->setTemplate($actionLayout);
@@ -167,7 +169,6 @@ class router
 		}else{
 				$controller->getView()->setTemplate('layout/defaultLayout');
 		}
-
     }
 
     /**

@@ -100,6 +100,44 @@ class indexController extends baseController{
 		exit();
 	}
 	
+	public function getHTMLListFriendRequest(){
+		
+	}
+	
+	public function getHTMLListFriendRelation(){
+		$html = "";
+		$user = $this->getUserSession();
+		/* @var $friendRelationModel FriendrelationModel */
+		$friendRelationModel = $this->model->get('friendrelation');
+		$friendRelations = $friendRelationModel->getListFriendRelation( $user->getId() );
+		$totalFriend     = count( $friendRelations );
+		/* @var $friendRelation Friend_relation */
+		foreach ( $friendRelations as $friendRelation ){
+			$html .= '<div class="col-xs-6">';
+			$html .= '<div class="list-friend">';
+			$html .= '<div class="media">';
+			$html .= '<p class="pull-left">';
+			$html .= '<a idfriend="'.$friendRelation->getUserTo()->getId().'" href="/lession3/user/action/profile/'.$friendRelation->getUserTo()->getUsername().'">'.$friendRelation->getUserTo()->getFullname().'</a>';
+			$html .= '</p>';
+			$html .= '<a class="pull-left" href="#"> <img class="media-object" src="'.$friendRelation->getUserTo()->getLinkAvatar().'" alt="">';
+			$html .= '</a>';
+			$html .= '<p class="pull-left">';
+			$html .= '<a class="Unfriend" href="#">Unfriend</a>';
+			$html .= '</p>';
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
+		}
+		header('Content-Type: application/json');
+		echo json_encode(
+				array(
+						'content' => $html,
+						'totalFriend'   => $totalFriend
+				)
+				);
+		exit();
+	}
+	
 	public function getHtmlListPicture(){
 		/* @var $accountSession User */
 		$accountSession = $_SESSION['acl']['account'];
@@ -485,46 +523,32 @@ class indexController extends baseController{
 		
 		exit(0);
 	}
-	/**
-	 * @return User  */
-	private function getUserSession(){
-		$user = $_SESSION['acl']['account'];
-		return $user;
-	}
-	
-	public function getHTMLListFriendRelation(){
-		$html = "";
-		$user = $this->getUserSession();
-		/* @var $friendRelationModel FriendrelationModel */
-		$friendRelationModel = $this->model->get('friendrelation');
-		$friendRelations = $friendRelationModel->getListFriendRelation( $user->getId() );
-		$totalFriend     = count( $friendRelations );
-		/* @var $friendRelation Friend_relation */
-		foreach ( $friendRelations as $friendRelation ){
-			$html .= '<div class="col-xs-6">';
-			$html .= '<div class="list-friend">';
-			$html .= '<div class="media">';
-			$html .= '<p class="pull-left">';
-			$html .= '<a idfriend="'.$friendRelation->getUserTo()->getId().'" href="/lession3/user/action/profile/'.$friendRelation->getUserTo()->getUsername().'">'.$friendRelation->getUserTo()->getFullname().'</a>';
-			$html .= '</p>';
-			$html .= '<a class="pull-left" href="#"> <img class="media-object" src="'.$friendRelation->getUserTo()->getLinkAvatar().'" alt="">';
-			$html .= '</a>';
-			$html .= '<p class="pull-left">';
-			$html .= '<a class="Unfriend" href="#">Unfriend</a>';
-			$html .= '</p>';
-			$html .= '</div>';
-			$html .= '</div>';
-			$html .= '</div>';
-		}
-		header('Content-Type: application/json');
-		echo json_encode(
-				array(
-						'content' => $html,
-						'totalFriend'   => $totalFriend
-					 )
-				);
-		exit();
-	}
-	
 
+	
+	
+	
+	public function searchUser(){
+		$keyWord = isset( $_GET['KeyWord'] ) ? $_GET['KeyWord'] : '';
+		$user = $this->getUserSession();
+		/* @var $userModel UserModel */
+		$userModel = $this->model->get('User');
+		$kq = $userModel->findUser( $user->getId() , $keyWord );
+		$this->getView()->content->error = $kq['error'];
+		$this->getView()->content->listUser = $kq['result'];
+	}
+	
+	public function sendRequest(){
+		
+		$idFriend = isset( $_POST['IdFriend'] ) ? $_POST['IdFriend'] : "";
+		$user = $this->getUserSession();
+		/* @var $model FriendrequestModel */
+		$model = $this->model->get('Friendrequest');
+		$friend_request = new Friend_request();
+		$friend_request->setUserId($user->getId());
+		$friend_request->setUserIdTo($idFriend);
+		$kq = $model->addFriendRequest( $friend_request );
+		header('Content-Type: application/json');
+		echo json_encode($kq);
+		exit(0);	
+	}
 }

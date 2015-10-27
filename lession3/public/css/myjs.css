@@ -10,3 +10,8 @@
 .list-friend .media p{
 	line-height: 5;
 }
+
+.margintheme{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
