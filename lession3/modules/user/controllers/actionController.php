@@ -96,5 +96,20 @@ class actionController extends baseController{
 		$this->getView()->content->user = $user;
 		$this->getView()->content->is_friend = $is_friend;
 	}
+	
+	public function friendRequest( $args ){
+		
+		$username = ( isset( $args[1] ) ) ? $args[1] : '' ;
+		/* @var $modelPicture PictureModel */
+		$modelPicture = $this->model->get( 'Picture' );
+		// check user name
+		/* @var $UserModel UserModel */
+		$UserModel = $this->model->get('User');
+		$users = $UserModel->listTableByWhere('User', array( "username = '$username'" ) );
+		if( count( $users ) == 0 ){
+			$this->redirect( 'error' );
+		}
+		
+	}
 
 }
