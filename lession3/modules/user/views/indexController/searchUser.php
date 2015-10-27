@@ -2,10 +2,10 @@
 $error = $error;
 $listUser = $listUser;
 ?>
-<?php if ( isset($error) && $error != null ):?>
+<?php if ( isset( $error ) && $error != null ):?>
 	<div class="row" >
-		<div class="alert alert-danger"
-			<strong="">Error!
+		<div class="alert alert-danger">
+			<strong>Error!</strong>
 				<div class="item">
 					<ul>
 						<?php foreach ( $error as $e ):?>
@@ -13,9 +13,7 @@ $listUser = $listUser;
 						<?php endforeach;?>
 					</ul>
 				</div>
-		
 		</div>
-	
 	</div>
 <?php endif;?>
 
@@ -34,9 +32,9 @@ $listUser = $listUser;
 				<div class="list-friend">
 					<div class="media">
 						<p class="pull-left">
-							<a idfriend="<?php echo $user->getId()?>" href="/lession3/user/action/profile/<?php echo $user->getUsername()?>"><?php echo $user->getFullname()?></a>
+							<a idfriend="<?php echo $user->getId()?>" href="<?php echo __FOLDER?>user/action/profile/<?php echo $user->getUsername()?>"><?php echo $user->getFullname()?></a>
 						</p>
-						<a class="pull-left" href="/lession3/user/action/profile/<?php echo $user->getUsername()?>"> <img class="media-object" src="<?php echo $user->getLinkAvatar()?>" alt="">
+						<a class="pull-left" href="<?php echo __FOLDER?>user/action/profile/<?php echo $user->getUsername()?>"> <img class="media-object" src="<?php echo $user->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
 							<a class="<?php echo ( $action == 0 ) ? 'Add-Friend':'Un-Request'?>" href="#"><?php echo ( $action == 0 ) ? 'Add Friend':'UnRequest'?></a>
