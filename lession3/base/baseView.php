@@ -1,5 +1,6 @@
 <?php
 abstract class baseView{
+	
 	protected $_template = 'layout/defaultLayout';
 	protected $_properties = array ();
 
@@ -22,8 +23,6 @@ abstract class baseView{
 	public function setTemplate($template) {
 
 		$template = __SITE_PATH . '/' .$template . '.php';
-
-
 		if (! file_exists ( $template )) {
 			throw new ViewException ( 'The specified view template does not exist.' );
 		}

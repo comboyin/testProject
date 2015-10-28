@@ -31,7 +31,7 @@ class view extends baseView
     public function render()
     {
         $innerView = '';
-        if (!empty($this->_views)) {
+        if ( !empty( $this->_views ) ) {
             foreach ($this->_views as $view) {
                 $innerView .= $view->render();
             }
