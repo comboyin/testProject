@@ -3,16 +3,15 @@ $config = array (
 		// database config
 		'database' => array (
 
-				/* 'db_servername' => "172.16.100.3",
+				'db_servername' => "172.16.100.3",
 				'db_username' => 'btwn2',
 				'db_password' => 'btwn2',
-				'db_dbname' => 'minh_nhut_lession_3' */
-
-
-				 'db_servername' => "localhost",
+				'db_dbname' => 'minh_nhut_lession_3'
+				
+				 /* 'db_servername' => "localhost",
 				 	'db_username' => 'root',
 					'db_password' => '',
-					'db_dbname' => 'minh_nhut_lession_3'
+					'db_dbname' => 'minh_nhut_lession_3' */
 		),
 		// layout config
 		'layout' => array (
@@ -20,21 +19,18 @@ $config = array (
 				// error404Controller
 				'error/error404' => array(
 						'actions'=>array(
-
 						),
 						'default' => 'layout/error404Layout'
 				),
 				// denyController
 				'error/deny' => array(
 						'actions'=>array(
-
 						),
 						'default' => 'layout/denyLayout'
 				),
 				// controller login
 				'login/index' => array(
 						'actions'=>array(
-
 						),
 						'default' => 'layout/loginLayout'
 				),
@@ -81,7 +77,6 @@ $config = array (
 				),
 				// deny config
 				"deny" => array(
-						
 				)
 		),
 		// pagination config

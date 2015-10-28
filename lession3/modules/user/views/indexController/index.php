@@ -64,9 +64,9 @@ $pictures = $user->getPictures();
 				                    		
 				                    		<div class="col-sm-3 shop-product">
 											    <div class="product-wrapper">
-					                                <div class="product-image">
-					                                    <a href="">
-					                                        <img alt="" src="<?php echo $picture->getViewUrl() ?> " >
+					                                <div idPicture="<?php echo $picture->getId()?>" class="product-image">
+					                                    <a rel="prettyPhoto" href="<?php echo $picture->getViewUrl() ?>">
+					                                        <img  alt="" src="<?php echo $picture->getViewUrl() ?>" >
 					                                    </a>
 					                                </div>
 					                                <div class="product-details">
@@ -77,10 +77,10 @@ $pictures = $user->getPictures();
 					                                                    <i class="fa fa-remove"> | </i>
 					                                                </a>
 					                                                <a href="#" title="View" data-toggle="tooltip">
-					                                                    <i class="fa fa-eye ">(<?php echo $picture->getView()?>) |</i>
+					                                                    <i class="fa fa-eye ">(<span class="number-view"><?php echo $picture->getView()?></span>) |</i>
 					                                                </a>
-					                                                <a href="#" title="<?php echo $data_original_title?>" data-toggle="tooltip">
-					                                                    <i class="fa <?php echo $class_icon_thumbs ?>">(<?php echo $picture->getLikeNumber()?>)</i>
+					                                                <a class="like-picture" href="#" title="<?php echo $data_original_title?>" data-toggle="tooltip">
+					                                                    	<i class="fa <?php echo $class_icon_thumbs ?>">(<span class="number-like"><?php echo $picture->getLikeNumber()?></span>)</i>
 					                                                </a>
 					                                            </div>
 					                                        </div>

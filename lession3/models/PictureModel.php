@@ -112,4 +112,110 @@ class PictureModel extends baseModel{
 		
 		return $listObj;
 	}
+	
+	public function increaseView( $idPicture, $idUserSession ){
+		$is_error = null;
+		try {
+			// check exist.
+			$pictures = $this->listPicture(" where id = '$idPicture' ");
+			if( count( $pictures ) == 0 ){
+				$is_error[] = "Picture not exist.";
+			}else{
+				// picture yours
+				$pictures_ = $this->listPicture(" where id = '$idPicture' and user_id = '$idUserSession' ");
+				
+				if( count( $pictures_ ) == 0 ){
+					
+					// is friend ?
+					/* @var $pictures Picture */
+					$pictures = $pictures[0];
+					$user_id_picture = $pictures->getUserId();
+					
+					$friendRelationModel = new FriendrelationModel();
+					$friendRelationModel->setPdo($this->getPdo());
+					$is_friend = $friendRelationModel->checkFriendRelation( $idUserSession , $user_id_picture);
+					
+					if( $is_friend == true ){
+						
+						$sql  = " UPDATE picture SET view = view + 1 WHERE id = '$idPicture' ";
+						$stmt = $this->getPdo()->prepare( $sql );
+						$stmt->execute();
+						
+					}
+				}
+			}
+		} catch (Exception $e) {
+			$is_error[] = $e->getMessage();
+		}
+		
+		return $is_error;
+	}
+	
+	public function Like( $idPicture , $idUserSession ){
+		
+		$kq = array(
+				'is_error' => null,
+				'result'   => array()
+		);
+		
+		try {
+			// check exist.
+			$pictures = $this->listPicture(" where id = '$idPicture' ");
+			if( count( $pictures ) == 0 ){
+				$kq['is_error'][] = "Picture not exist.";
+			}else{
+				
+				// is friend ?
+				/* @var $pictures Picture */
+				$pictures = $pictures[0];
+				$user_id_picture = $pictures->getUserId();
+				
+				$friendRelationModel = new FriendrelationModel();
+				$friendRelationModel->setPdo($this->getPdo());
+				$is_friend = $friendRelationModel->checkFriendRelation( $idUserSession , $user_id_picture);
+				
+				if( $user_id_picture == $idUserSession ){
+					$is_friend = true;
+				}
+				
+				if( $is_friend == false ){
+					
+					$kq['is_error'][] = "You may not like this picture.";
+					
+				}
+				
+				if( $kq['is_error'] == null ){
+					// check me liked picture ?
+					$is_like = true;
+					$Likes = $this->listTableByWhere( 'Like' , array( " user_id = '$idUserSession' and pictures_id = '$idPicture' " ) );
+					
+					if( count( $Likes ) == 0 ){
+						$is_like = false;
+					}
+					
+					if( $is_like == false ){
+						// like
+						$sql = " INSERT INTO `like`( user_id , pictures_id ) VALUES( '$idUserSession' , '$idPicture' )  ";
+						$stmt = $this->getPdo()->prepare( $sql );
+						$stmt->execute();
+						$kq['result']['is_like'] = true; 
+					}else{
+						// unlike
+						$sql = " DELETE FROM `like` WHERE `like`.user_id = '$idUserSession' and `like`.pictures_id = '$idPicture' ";
+						$stmt = $this->getPdo()->prepare( $sql );
+						$stmt->execute();
+						$kq['result']['is_like'] = false;
+					}
+					
+				}
+				
+				$kq['result']['number_like'] = count( $Likes = $this->listTableByWhere('like', array( " pictures_id = '$idPicture' " )) );
+			}
+		} catch (Exception $e) {
+			
+			$kq['is_error'][] = $e->getMessage();
+			
+		}
+		return $kq;
+	}
 }

@@ -3,6 +3,7 @@
 var indexAction = function () {
 	return {
 		init : function () {
+			
 			dialogAddPicture = $("#dialog-add-list-picture").dialog({
 				autoOpen: false,
 				modal: true,
@@ -142,7 +143,8 @@ var indexAction = function () {
 			        		
 			        	}else{
 			        		// error
-			        		generateHtmlAlertError( is_error );
+			        		dalert.alert(generateHtmlAlertError( is_error ) , "error" );
+			        		
 			        	}
 			        },
 			        error: function(jqXHR, textStatus, errorThrown)
@@ -155,6 +157,11 @@ var indexAction = function () {
 			}
 			
 			// == == == == == == == == == == end delete picture == == == == == == == == == == == == == == == == == == == == ==
+			
+			// == == == == == == == == == == begin view picture == == == == == == == == == == == == == == == == == == == == ==
+			
+			
+			// == == == == == == == == == == end view picture == == == == == == == == == == == == == == == == == == == == ==
 		}
 
 	};

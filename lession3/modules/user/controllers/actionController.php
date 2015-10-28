@@ -111,5 +111,69 @@ class actionController extends baseController{
 		}
 		
 	}
+	
+	public function viewPicture( $args ){
+		$IdPicture = ( isset( $args[1] ) ) ? $args[1] : '' ;
+		$is_error = null;
+		
+		$userSe = $this->getUserSession();
+		
+		/* @var $PictureModel PictureModel */
+		$PictureModel = $this->model->get('Picture');
+		$is_error = $PictureModel->increaseView( $IdPicture , $userSe->getId() );
+		
+		header('Content-Type: application/json');
+		
+		echo json_encode(  array( 'is_error' => $is_error ));
+		exit(0);
+		
+	}
+	
+	public function getPicture( $args ){
+		
+		$IdPicture = ( isset( $args[1] ) ) ? $args[1] : '' ;
+		
+		$is_error = null;
+		
+		/* @var $PictureModel PictureModel */
+		$PictureModel = $this->model->get('Picture');
+		
+		$listObj = $PictureModel->listPicture(" where id = '$IdPicture' ");
+		
+		if( count( $listObj ) == 0 ){
+			$is_error[] = array( 'Picture not exist.' );
+		}else{
+			/* @var $listObj Picture */
+			$listObj = $listObj[0];
+		}
+		$is_error = array(
+			'is_error' => $is_error,
+			'view'  => $listObj->getView()
+		);
+		
+		header('Content-Type: application/json');
+		
+		echo json_encode(  $is_error );
+		
+		exit(0);
+	}
+	
+	public function like(){
+		
+		$IdPicture = ( isset( $_POST['IdPicture']) ) ? $_POST['IdPicture']: '' ;
+		/* @var $PictureModel PictureModel */
+		$PictureModel = $this->model->get('Picture');
+		$user = $this->getUserSession();
+		$kq = $PictureModel->Like( $IdPicture , $user->getId() );
+		
+		header('Content-Type: application/json');
+		echo json_encode( 
+					$kq
+				);
+		exit(0);
+		
+	}
+	
+	
 
 }

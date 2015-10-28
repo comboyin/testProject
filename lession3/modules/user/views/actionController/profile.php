@@ -175,8 +175,8 @@
 				                    		
 				                    		<div class="col-sm-3 shop-product">
 											    <div class="product-wrapper">
-					                                <div class="product-image">
-					                                    <a href="">
+					                                <div idPicture="<?php echo $picture->getId()?>" class="product-image">
+					                                    <a rel="prettyPhoto" href="<?php echo $picture->getViewUrl() ?> ">
 					                                        <img alt="" src="<?php echo $picture->getViewUrl() ?> " >
 					                                    </a>
 					                                </div>
@@ -185,14 +185,13 @@
 					                                        <div class="col-xs-12">
 					                                            <div class="product-tools">
 					                                            	<?php if( $is_friend == true ):?>
-					                                            		<a href="#" title="<?php echo $data_original_title?>" data-toggle="tooltip">
-					                                                    	<i class="fa <?php echo $class_icon_thumbs ?>">(<?php echo $picture->getLikeNumber()?>)</i>
-					                                                	</a>
 					                                                	 <a href="#" title="View" data-toggle="tooltip">
-					                                                    	<i class="fa fa-eye ">(<?php echo $picture->getView()?>) |</i>
+					                                                    	<i class="fa fa-eye ">(<span class="number-view"><?php echo $picture->getView()?></span>) |</i>
 					                                               		</a>
+					                                               		<a class="like-picture" href="#" title="<?php echo $data_original_title?>" data-toggle="tooltip">
+					                                                    	<i class="fa <?php echo $class_icon_thumbs ?>">(<span class="number-like"><?php echo $picture->getLikeNumber()?></span>)</i>
+					                                                	</a>
 					                                            	<?php endif;?>
-					                                               
 					                                            </div>
 					                                        </div>
 					                                    </div>
@@ -211,3 +210,6 @@
                             </div>
       </div>
 </div>
+
+<script type="text/javascript" src="<?php echo __FOLDER . 'public/js/UserModule/indexController/profileAction.js'?>"></script>
+

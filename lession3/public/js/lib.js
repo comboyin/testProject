@@ -47,3 +47,126 @@ function generateHtmlAlertError( error ){
 	htmlError += '</div>';
 	return htmlError;
 }
+
+
+jQuery(document).ready(function () {
+	
+	$('a.like-picture').click( function(e){
+		e.preventDefault();
+		
+		var IdPicture = $ ($( 'div' , $(this).parents( 'div.product-wrapper' )[0] )[0] ).attr('idpicture');
+		
+		var tag_product_details = $(this).parents( 'div.product-details' )[0];
+		console.log( IdPicture );
+		likePicture( IdPicture , tag_product_details );
+	});
+	
+	
+	function likePicture( IdPicture , tag_product_details ){
+		fd = new FormData();
+		fd.append( "IdPicture" ,IdPicture );
+		
+		$.ajax({
+	        url: 'index.php?rt=user/action/like',
+	        type: 'POST',
+	        data : fd,
+	        cache: false,
+	        dataType: 'json',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+	        	
+	        	if ( data.is_error != null ){
+	        		
+	        		dalert.alert( stringHtmlError(data.is_error) ,'Error');
+	        		
+	        	}else{
+	        		
+	        		var is_like     = data.result.is_like;
+	        		var number_like = data.result.number_like;
+	        		
+	        		if( is_like == true ){
+	        			$( $('div.product-tools a.like-picture i' , tag_product_details )[0] ).attr( 'class' , "fa fa-thumbs-o-down" );	
+	        		}else if( is_like == false ){
+	        			$( $('div.product-tools a.like-picture i' , tag_product_details )[0] ).attr( 'class' , "fa fa-thumbs-o-up" );
+	        		}
+	        		
+	        		$( $('span.number-like' , tag_product_details )[0] ).html( number_like );	
+	        	}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	        	var error = ['ERRORS: ' + textStatus];
+	            // Handle errors here
+	        	dalert.alert( stringHtmlError(error) ,'Error');
+	        }
+	    });
+		
+	}
+	
+	
+	$(document).on( 'click' , "a[rel^='prettyPhoto']" , function(e){
+		e.preventDefault();
+		var href = $(this).attr( 'href' ); 
+		$.prettyPhoto.open( href );
+		$("div.pp_social").css("display",'none');
+		// view
+		var tag_product_wrapper = $(this).parents('div.product-wrapper')[0];
+		var IdPicture = $( "div.product-image" , tag_product_wrapper ).attr( 'idpicture' );
+		
+		$.ajax({
+	        url: 'index.php?rt=user/action/viewPicture/'+IdPicture,
+	        type: 'GET',
+	        cache: false,
+	        dataType: 'json',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+	        	if ( data.is_error != null ){
+	        		dalert.alert( stringHtmlError(error) ,'Error');
+	        	}else{
+	        		updateNumberView( IdPicture , tag_product_wrapper );	        		
+	        	}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	        	var error = ['ERRORS: ' + textStatus];
+	            // Handle errors here
+	        	dalert.alert( stringHtmlError(error) ,'Error');
+	        }
+	    });
+		
+	});
+	
+	function updateNumberView( IdPicture , tag_product_wrapper ){
+		$.ajax({
+	        url: 'index.php?rt=user/action/getPicture/'+IdPicture,
+	        type: 'GET',
+	        cache: false,
+	        dataType: 'json',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+	        	if ( data.is_error != null ){
+	        		dalert.alert( stringHtmlError( data.is_error ) ,'Error');
+	        	}else{
+	        		numberView = data.view;
+	        		$("span.number-view" , tag_product_wrapper ).html( numberView );
+	        	}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	        	var error = ['ERRORS: ' + textStatus];
+	            // Handle errors here
+	        	dalert.alert( stringHtmlError(error) ,'Error');
+	        }
+	    });
+	}
+	
+	
+	
+});
+
