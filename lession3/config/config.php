@@ -36,7 +36,8 @@ $config = array (
 				),
 				'user/index' => array(
 						'actions' => array(
-							'searchuser' => 'layout/fullLayout'
+							'searchuser'          => 'layout/fullLayout',
+							'friendrequest'       => 'layout/fullLayout'
 						),
 						'default' => 'layout/userLayout'
 				),

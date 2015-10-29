@@ -78,21 +78,29 @@ jQuery(document).ready(function () {
 	        {
 	        	
 	        	if ( data.is_error != null ){
-	        		
+	        		// error
 	        		dalert.alert( stringHtmlError(data.is_error) ,'Error');
 	        		
 	        	}else{
-	        		
+	        		// success
 	        		var is_like     = data.result.is_like;
 	        		var number_like = data.result.number_like;
 	        		
 	        		if( is_like == true ){
-	        			$( $('div.product-tools a.like-picture i' , tag_product_details )[0] ).attr( 'class' , "fa fa-thumbs-o-down" );	
+	        			
+	        			$( $('div.product-tools a.like-picture i' , tag_product_details )[0] ).attr( 'class' , "fa fa-thumbs-o-down" );
+	        			$( $('div.product-tools a.like-picture' , tag_product_details )[0] ).attr( 'data-original-title' , "Unlike" );
+	        			
 	        		}else if( is_like == false ){
+	        			
 	        			$( $('div.product-tools a.like-picture i' , tag_product_details )[0] ).attr( 'class' , "fa fa-thumbs-o-up" );
+	        			$( $('div.product-tools a.like-picture' , tag_product_details )[0] ).attr( 'data-original-title' , "Like" );
 	        		}
 	        		
 	        		$( $('span.number-like' , tag_product_details )[0] ).html( number_like );	
+	        		
+	        		$('[data-toggle="tooltip"]').tooltip();
+	        		$( $('div.product-tools a.like-picture' , tag_product_details )[0] ).tooltip('show');
 	        	}
 	        },
 	        error: function(jqXHR, textStatus, errorThrown)
@@ -166,7 +174,45 @@ jQuery(document).ready(function () {
 	    });
 	}
 	
+	$(document).on('click','a[data-original-title="View"]',function(e){
+		e.preventDefault();
+	});
 	
+	
+	function updateNumberRequest(){
+		$.ajax({
+	        url: 'index.php?rt=user/index/getValueParameterUserSession',
+	        type: 'GET',
+	        cache: false,
+	        dataType: 'json',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+	        	
+	        	if( data.user.numberRequest == 0 ){
+	        		$("span.number-request").html("");
+	        	}else{
+	        		$("span.number-request").html( "(" + data.user.numberRequest + ")");
+	        	}
+	        	
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	        	var error = ['ERRORS: ' + textStatus];
+	            // Handle errors here
+	        	dalert.alert( stringHtmlError(error) ,'Error');
+	        }
+	    });
+	}
+	
+	updateNumberRequest();
+	
+	var updateNumberRequest = setInterval( updateNumberRequest , 2000);
+	
+	function updateNumberFollow(){
+		
+	}
 	
 });
 

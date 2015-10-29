@@ -3,6 +3,9 @@
 	$user = $user;
 	$idacc = $user->getId();
 	$pictures = $user->getPictures();
+	
+	/* @var $userSession User */
+	$userSession = $_SESSION['acl']['account'];
 ?>
 <section class="light_section">
     <div class="container">
@@ -167,10 +170,10 @@
 				                    		<?php foreach ($pictures as $picture):?>
 				                    		<?php
 				                    		
-				                    			$is_like = $picture->is_like( $idacc );
+				                    			$is_like = $picture->is_like( $userSession->getId() );
 				                    			$class_icon_thumbs = ( $is_like == false ) ? 'fa-thumbs-o-up' : 'fa-thumbs-o-down';
 				                    			$data_original_title = ( $is_like == false ) ? 'Like' : 'Unlike';
-				                    		
+				                    			
 				                    		?>
 				                    		
 				                    		<div class="col-sm-3 shop-product">
@@ -184,6 +187,7 @@
 					                                    <div class="row">
 					                                        <div class="col-xs-12">
 					                                            <div class="product-tools">
+					                                            	
 					                                            	<?php if( $is_friend == true ):?>
 					                                                	 <a href="#" title="View" data-toggle="tooltip">
 					                                                    	<i class="fa fa-eye ">(<span class="number-view"><?php echo $picture->getView()?></span>) |</i>

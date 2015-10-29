@@ -141,11 +141,11 @@ $user = $_SESSION['acl']['account'];
                                 <a href="index.html"><i class="rt-icon-home"></i> Home</a>
                             </li>
                             <li >
-                                <a href="index.html"><i class="rt-icon-comment"></i> Friend request (2)</a>
+                                <a href="index.html"><i class="rt-icon-comment"></i> Friend request <span class="number-request"></span></a>
                             </li>
 
                             <li >
-                                <a href="index.html"><i class="rt-icon-list"></i> Follow list (20)</a>
+                                <a href="index.html"><i class="rt-icon-list"></i> Follow list <span class=number-follow"></span></a>
                             </li>
 
                             <li>

@@ -133,15 +133,22 @@ $user = $_SESSION['acl']['account'];
                     <span id="toggle_mobile_menu"></span>
                     <nav id="mainmenu_wrapper">
                         <ul id="mainmenu" class="nav nav-justified sf-menu">
-                            <li class="active">
-                                <a href="index.html"><i class="rt-icon-home"></i> Home</a>
+                        <?php /* @var $router router */ ?>
+                        <?php 
+                        	$module = $router->module;
+                        	$controller = $router->controller;
+                        	$action = $router->action;
+                        	
+                        ?>
+                            <li class="<?php ( $module == 'user' && $controller == 'index' && $action == 'index' ) ? 'active' : ''?>" >
+                                <a href="<?php echo __FOLDER . 'user/'?>"><i class="rt-icon-home" ></i> Home</a>
                             </li>
-                            <li >
-                                <a href="index.html"><i class="rt-icon-comment"></i> Friend request (2)</a>
+                            <li class="<?php ( $module == 'user' && $controller == 'index' && $action == 'friendRequest' ) ? 'active' : ''?>">
+                                <a href="<?php echo __FOLDER . 'user/index/friendRequest'?>"><i class="rt-icon-comment"></i> Friend request <span class="number-request"></span></a>
                             </li>
 
                             <li >
-                                <a href="index.html"><i class="rt-icon-list"></i> Follow list (20)</a>
+                                <a href="index.html"><i class="rt-icon-list"></i> Follow list <span class=number-follow"></span></a>
                             </li>
 
                             <li>

@@ -40,15 +40,20 @@ class indexController extends baseController{
 		/*@var $acc User  */
 		$acc = $userModel->listTableByWhere( 'User' , array( " id = $idAcc " ));
 		$acc = $acc[0];
+		
+		
+		// get number friend request
+		$numberFriendRequest = count( $userModel->listTableByWhere( 'Friend_request' , array( "user_id_to = '$idAcc'" )) );
 		$kq = array( 
 			'fullname' => $acc->getFullname(),
-				'email'=> $acc->getEmail(),
+			'email'    => $acc->getEmail(),
 			'address'  => $acc->getAddress(),
 			'sex'      => $acc->getSex(),
-			'stringsex'	=> $acc->getStringSex(),
+		    'stringsex'=> $acc->getStringSex(),
 			'birthday' => $acc->getBirthday(),
 		'introduction' => $acc->getIntroduction(),
-		'username'     => $acc->getUsername()
+		'username'     => $acc->getUsername(),
+		'numberRequest'=> $numberFriendRequest		
 		);
 		echo json_encode( array(  'user' => $kq) );
 		exit(0);
@@ -546,9 +551,17 @@ class indexController extends baseController{
 		$friend_request = new Friend_request();
 		$friend_request->setUserId($user->getId());
 		$friend_request->setUserIdTo($idFriend);
+		$now = new DateTime();
+		$now = $now->format("Y-m-d h:i:s");
+		$friend_request->setRegistDatetime( $now );
 		$kq = $model->addFriendRequest( $friend_request );
 		header('Content-Type: application/json');
 		echo json_encode($kq);
 		exit(0);	
+	}
+	
+	
+	public function friendRequest(  ){
+	
 	}
 }
