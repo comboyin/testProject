@@ -9,10 +9,12 @@ class FriendrelationModel extends baseModel{
 			foreach ( $ListFriendRelation as $FriendRelation ){
 				// get friend 
 				if( $FriendRelation->getUserIdTo() == $user_id ){
+					
 					$tempidto   = $FriendRelation->getUserIdTo();
 					$tempid     = $FriendRelation->getUserId();
 					$FriendRelation->setUserIdTo($tempid);
 					$FriendRelation->getUserId($tempidto);
+					
 				}
 				$users = $this->listTableByWhere( 'User' , array( " id = '$user_id' " ));
 				$user_id_to = $FriendRelation->getUserIdTo();

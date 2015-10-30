@@ -134,12 +134,12 @@ $user = $_SESSION['acl']['account'];
                     <nav id="mainmenu_wrapper">
                         <ul id="mainmenu" class="nav nav-justified sf-menu">
                         <?php /* @var $router router */ ?>
-                        <?php 
-                        	$module = $router->module;
-                        	$controller = $router->controller;
-                        	$action = $router->action;
-                        	
-                        ?>
+	                        <?php 
+	                        	$module = $router->module;
+	                        	$controller = $router->controller;
+	                        	$action = $router->action;
+	                        	
+	                        ?>
                             <li class="<?php ( $module == 'user' && $controller == 'index' && $action == 'index' ) ? 'active' : ''?>" >
                                 <a href="<?php echo __FOLDER . 'user/'?>"><i class="rt-icon-home" ></i> Home</a>
                             </li>

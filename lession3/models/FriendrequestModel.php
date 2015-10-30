@@ -56,4 +56,28 @@ class FriendrequestModel extends baseModel{
 		}
 		return $kq;
 	}
+	
+	public function getListFriendRequest( $user_id ){
+		
+		$ListFriendRequest = array();
+		try {
+			
+			$ListFriendRequest = $this->listTableByWhere('Friend_request', array( "user_id_to = '$user_id'" ));
+			
+			foreach ( $ListFriendRequest as $friendRequest ){
+				/* @var $friendRequest Friend_request */
+				$users = $this->listTableByWhere( 'User' , array( " id = '$user_id' " ));
+				
+				$id_user    = $friendRequest->getUserId();
+				$id_user_to = $friendRequest->getUserIdTo();
+				
+				$users = $this->listTableByWhere( 'User' , array( " id = '$id_user' " ));
+				$users_to = $this->listTableByWhere( 'User' , array( " id = '$id_user_to' " ));
+			}
+			
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		return $ListFriendRequest;
+	}
 }
