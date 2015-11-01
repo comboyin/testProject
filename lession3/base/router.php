@@ -88,9 +88,9 @@ class router
          * if the file is not there diaf **
          */
         if (is_readable($this->file) == false) {
-            $this->module = 'error';
-            $this->file = $this->path . '/error/controllers/error404.php';
-            $this->controller = 'error404';
+            $this->module 		= 'error';
+            $this->file 		= $this->path . '/error/controllers/error404.php';
+            $this->controller 	= 'error404';
         }
 
 
@@ -134,6 +134,7 @@ class router
 
 		$controller->getView()->router = $this;
 		$controller->getView()->acl = $acl;
+		
 		if( isset( $_SESSION['acl']['account'] ) ){
 			$controller->getView()->user = $_SESSION['acl']['account'];
 		}
@@ -164,11 +165,12 @@ class router
 			if(isset($actionLayout)){
 				$controller->getView()->setTemplate($actionLayout);
 			}else{
-				$controller->getView()->setTemplate($configLayout[ $controlerName ]['default']);
+				$controller->getView()->setTemplate($configLayout[ $controlerName ][ 'default' ]);
 			}
 		}else{
 				$controller->getView()->setTemplate('layout/defaultLayout');
 		}
+		
     }
 
     /**

@@ -69,10 +69,10 @@ abstract class baseView{
 	/**
 	 * add a new view (implemented by view subclasses)
 	 * @param AbstractView $view  */
-	abstract public function addView(AbstractView $view);
+	abstract public function addView( $view );
 
 	// remove a view (implemented by view subclasses)
-	abstract public function removeView(AbstractView $view);
+	abstract public function removeView( $view );
 
 	// render the view template
 	public function render() {
