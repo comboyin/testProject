@@ -4,6 +4,11 @@ class Friend_request {
 	private $user_id;
 	private $user_id_to;
 	private $regist_datetime;
+	
+	private $user;
+	private $userTo;
+	
+	
 	public function getId() {
 		return $this->id;
 	}
@@ -32,4 +37,23 @@ class Friend_request {
 		$this->regist_datetime = $regist_datetime;
 		return $this;
 	}
+	/**
+	 * @return User  */
+	public function getUser() {
+		return $this->user;
+	}
+	public function setUser($user) {
+		$this->user = $user;
+		return $this;
+	}
+	/**
+	 * @return User  */
+	public function getUserTo() {
+		return $this->userTo;
+	}
+	public function setUserTo($userTo) {
+		$this->userTo = $userTo;
+		return $this;
+	}
+	
 }

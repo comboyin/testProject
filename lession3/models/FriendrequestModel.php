@@ -46,9 +46,9 @@ class FriendrequestModel extends baseModel{
 				$user_id         = $friendRequest->getUserId();
 				$user_id_to      = $friendRequest->getUserIdTo();
 				$regist_datetime = $friendRequest->getRegistDatetime();
-				$sql = " insert into `friend_request`( user_id, user_id_to, regist_datetime )
+				$sql 			 = " insert into `friend_request`( user_id, user_id_to, regist_datetime )
 				values( '$user_id' , '$user_id_to' , '$regist_datetime' ) ";
-				$stmt = $this->getPdo()->prepare( $sql );
+				$stmt 			 = $this->getPdo()->prepare( $sql );
 				$stmt->execute();
 			}
 		} catch (Exception $e) {
@@ -66,18 +66,62 @@ class FriendrequestModel extends baseModel{
 			
 			foreach ( $ListFriendRequest as $friendRequest ){
 				/* @var $friendRequest Friend_request */
-				$users = $this->listTableByWhere( 'User' , array( " id = '$user_id' " ));
+				$users 		= $this->listTableByWhere( 'User' , array( " id = '$user_id' " ));
 				
 				$id_user    = $friendRequest->getUserId();
 				$id_user_to = $friendRequest->getUserIdTo();
+				/* @var $users User */
+				/* @var $users_to User */
+				$users 		= $this->listTableByWhere( 'User' , array( " id = '$id_user' " ));
+				$users_to 	= $this->listTableByWhere( 'User' , array( " id = '$id_user_to' " ));
+				$friendRequest->setUser( $users[0] );
+				$friendRequest->setUserTo( $users_to[0] );
 				
-				$users = $this->listTableByWhere( 'User' , array( " id = '$id_user' " ));
-				$users_to = $this->listTableByWhere( 'User' , array( " id = '$id_user_to' " ));
 			}
 			
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 		return $ListFriendRequest;
+	}
+	
+	public function acceptFriendRequest( $idFriendRequest, $idUserSession, $action ){
+		$is_error = null;
+		try {
+			// check exist
+			/* @var $friendRequests $friendRequest */
+			$friendRequests = $this->listTableByWhere('Friend_request', array( "id = '$idFriendRequest'" ));
+			if( count( $friendRequests ) == 0 ){
+				$is_error[] = "Friend request not exist.";
+			}else{
+				// check id friend request of user session
+				$friendRequest = $friendRequests[0];
+				if( $idUserSession != $friendRequest->getUserIdTo() ){
+					$is_error[] = "Sorry ! you can't use friend request other people.";
+				}
+			}
+			if( $is_error == null ){
+				$this->getPdo()->beginTransaction();
+				// action == 1 = accept
+				// action == 0 = delete
+				if( $action == 1 ){
+					// delete
+					$this->deleteTableByWhere('Friend_request', " where id = '$idFriendRequest' ");
+					$sql = 
+					$modelFriendRelation = new FriendrelationModel();
+					$modelFriendRelation->setPdo( $this->getPdo() );
+					$modelFriendRelation->
+				}else if( $action == 0 ){
+					
+				}
+				
+				$this->getPdo()->commit();
+			}
+			
+		} catch (Exception $e) {
+			$is_error[] = $e->getMessage();
+			$this->getPdo()->rollBack();
+		}
+		return $is_error;
 	}
 }

@@ -7,7 +7,7 @@ class view extends baseView
     public function addView(AbstractView $view)
     {
         if (!in_array($view, $this->_views, TRUE)) {
-            $this->_views[] = $view;
+            //$this->_views[] = $view;
         }
         return $this;
     }

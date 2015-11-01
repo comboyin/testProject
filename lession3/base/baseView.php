@@ -5,7 +5,6 @@ abstract class baseView{
 	protected $_properties = array ();
 
 	public function __construct($template = '', array $data = array()) {
-
 		if ($template !== '') {
 			$this->setTemplate ($template);
 		}
@@ -69,10 +68,10 @@ abstract class baseView{
 	/**
 	 * add a new view (implemented by view subclasses)
 	 * @param AbstractView $view  */
-	abstract public function addView( $view );
+	abstract public function addView(AbstractView $view );
 
 	// remove a view (implemented by view subclasses)
-	abstract public function removeView( $view );
+	abstract public function removeView(AbstractView $view );
 
 	// render the view template
 	public function render() {

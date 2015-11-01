@@ -534,7 +534,7 @@ class indexController extends baseController{
 	
 	public function searchUser(){
 		$keyWord = isset( $_GET['KeyWord'] ) ? $_GET['KeyWord'] : '';
-		$user = $this->getUserSession();
+		$user 	 = $this->getUserSession();
 		/* @var $userModel UserModel */
 		$userModel = $this->model->get('User');
 		$kq = $userModel->findUser( $user->getId() , $keyWord );
@@ -562,6 +562,30 @@ class indexController extends baseController{
 	
 	
 	public function friendRequest(  ){
-	
+		/* @var $model FriendrequestModel */
+		$model 				= $this->model->get('Friendrequest');
+		
+		if( isset( $_POST['idFriendRequest'] ) && isset( $_POST['action'] ) && $_POST['action'] = 'accept'){
+			$idFriendRequest = $_POST['idFriendRequest'] ;
+			
+			
+			
+			header('Content-Type: application/json');
+			echo json_encode( $kq );
+			exit(0);
+		}else if( isset( $_POST['idFriendRequest'] ) && isset( $_POST['action'] ) && $_POST['action'] = 'delete' ){
+			$idFriendRequest = $_POST['idFriendRequest'] ;
+			
+			
+			header('Content-Type: application/json');
+			echo json_encode( $kq );
+			exit(0);
+		}else{
+			$userSession = $this->getUserSession();
+			
+			$listFriendRequest  = $model->getListFriendRequest( $userSession->getId() );
+			
+			$this->getView()->content->listFriendRequest = $listFriendRequest;
+		}	
 	}
 }

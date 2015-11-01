@@ -105,7 +105,7 @@ class router
          */
         $class = $this->controller . 'Controller';
 
-        $controller = new $class($this->registry);
+        $controller = new $class( $this->registry );
 
         /**
          * check if the action is callable **

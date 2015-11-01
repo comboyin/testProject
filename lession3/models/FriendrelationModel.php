@@ -1,6 +1,13 @@
 <?php
 class FriendrelationModel extends baseModel{
 	
+
+	public function addFriendRelation( $friendRelation ){
+			
+	}
+	
+	
+	
 	public function getListFriendRelation( $user_id ){
 		$ListFriendRelation = array();
 		try {
