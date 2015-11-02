@@ -85,7 +85,7 @@ class FriendrequestModel extends baseModel{
 		return $ListFriendRequest;
 	}
 	
-	public function acceptFriendRequest( $idFriendRequest, $idUserSession, $action ){
+	public function acceptAndDeleteFriendRequest( $idFriendRequest, $idUserSession, $action ){
 		$is_error = null;
 		try {
 			// check exist
@@ -101,17 +101,27 @@ class FriendrequestModel extends baseModel{
 				}
 			}
 			if( $is_error == null ){
+				//var_dump( $action );
 				$this->getPdo()->beginTransaction();
 				// action == 1 = accept
 				// action == 0 = delete
-				if( $action == 1 ){
+				if( $action == true ){
 					// delete
 					$this->deleteTableByWhere('Friend_request', " where id = '$idFriendRequest' ");
-					$sql = 
 					$modelFriendRelation = new FriendrelationModel();
 					$modelFriendRelation->setPdo( $this->getPdo() );
-					$modelFriendRelation->
-				}else if( $action == 0 ){
+					// add to friend relation
+					$friendRelation 	 = new Friend_relation();
+					$friendRelation->setUserId(   $friendRequest->getUserId()  );
+					$friendRelation->setUserIdTo( $friendRequest->getUserIdTo() );
+					$friendRelation->setRegistDatetime( utility::getDatetimeNow() );
+					$error = $modelFriendRelation->addFriendRelation( $friendRelation );
+					if( $error != null ){
+						utility::pushArrayToArray( $is_error , $error );
+					}
+				}else if( $action == false ){
+					
+					$this->deleteTableByWhere('Friend_request', " where id = '$idFriendRequest' ");
 					
 				}
 				

@@ -5,21 +5,24 @@ var friendRequestAction = function() {
 				e.preventDefault();
 				tag_tr 			= $(this).parents('tr')[0];
 				idFriendRequest = $(tag_tr).attr('id_friend_request');
-				acceptRequest( idFriendRequest, tag_tr );
+				acceptRequest( idFriendRequest, tag_tr , 1 );
 			} );
 			
 			$(document).on( 'click' , "button.delete-request" , function(e){
 				e.preventDefault();
-				
+				tag_tr 			= $(this).parents('tr')[0];
+				idFriendRequest = $(tag_tr).attr('id_friend_request');
+				acceptRequest( idFriendRequest, tag_tr , 0 );
 			} );
 			
 			
-			function acceptRequest( idFriendRequest, tag_tr ){
+			function acceptRequest( idFriendRequest, tag_tr , action){
 				
 				var fd = new FormData();
 				
 				fd.append("idFriendRequest",idFriendRequest);
-				fd.append("action",'accept');
+				
+				fd.append("action" , action);
 				
 				$.ajax({
 			        url: 'index.php?rt=user/index/friendRequest',
@@ -34,7 +37,7 @@ var friendRequestAction = function() {
 			        	var is_error = data.is_error;
 			        	if( is_error !=null ){
 			        		// error
-			        		
+			        		dalert.alert(stringHtmlError(is_error),'Error');
 			        	}else{
 			        		// success
 			        		$(tag_tr).remove();

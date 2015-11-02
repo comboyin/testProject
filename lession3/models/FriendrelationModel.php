@@ -2,13 +2,33 @@
 class FriendrelationModel extends baseModel{
 	
 
+	/**
+	 * 
+	 * @param Friend_relation $friendRelation  */
 	public function addFriendRelation( $friendRelation ){
+		
+		$is_error = null;
+		
+		try {
+			$user_id 			= $friendRelation->getUserId(); 
+			$user_id_to 		= $friendRelation->getUserIdTo();
+			$regist_datetime	= $friendRelation->getRegistDatetime();
+			$sql = " INSERT INTO friend_relation( user_id, user_id_to, regist_datetime ) 
+						values( '$user_id' , '$user_id_to' , '$regist_datetime' )	";
 			
+			$stmt 				= $this->getPdo()->prepare( $sql );
+			$stmt->execute();
+			
+			
+		} catch (Exception $e) {
+			$is_error[] = $e->getMessage();
+		}
+		return $is_error;
 	}
 	
 	
 	
-	public function getListFriendRelation( $user_id ){
+	public function getListFriendRelation( $user_id , $idUserSession ){
 		$ListFriendRelation = array();
 		try {
 			$ListFriendRelation = $this->listTableByWhere( 'Friend_relation' , array( " user_id = '$user_id' or user_id_to = '$user_id' " ));
@@ -30,16 +50,30 @@ class FriendrelationModel extends baseModel{
 				$FriendRelation->setUserTo( $users_to[0] );
 				
 				foreach ( $users_to as $user_to ){
+					
+					$id_temp = $user_to->getId();
+				
 					// add friend 
 					$user_to->setStatusForUserSession( 0 );
 					/* @var $user_to User */
 					// check friend_request exist
-					$friend_requests = $this->listTableByWhere( 'Friend_request' , array( " user_id = '$user_id' and user_id_to = '$user_id_to' " ));
+					$friend_requests = $this->listTableByWhere( 'Friend_request' , array( " user_id = '$idUserSession' and user_id_to = '$id_temp' " ));
 					if( count( $friend_requests ) > 0 ){
 						// un request
 						$user_to->setStatusForUserSession( 2 );
 					}else{
-						$friend_relations = $this->listTableByWhere( 'Friend_relation' , array( " user_id = '$user_id' or user_id_to = '$user_id_to' " ));
+						/* $friendRelationModel = new FriendrelationModel();
+						$friendRelationModel->setPdo($this->getPdo());
+						$is_friend = $friendRelationModel->checkFriendRelation( $user_id, $user_id_to );
+						if(  $is_friend  == true ){
+							// un request
+							$user_to->setStatusForUserSession( 1 );
+						} */
+						
+						$friend_relations = $this->listTableByWhere( 'Friend_relation' , array( "  ( user_id = '$idUserSession' and user_id_to = '$id_temp' )
+																										or
+																									( user_id = '$id_temp' and user_id_to = '$idUserSession' )
+																												"));
 						if( count( $friend_relations ) > 0 ){
 							// un request
 							$user_to->setStatusForUserSession( 1 );
@@ -60,7 +94,7 @@ class FriendrelationModel extends baseModel{
 	public function checkFriendRelation( $user_id , $user_id_to ){
 		
 		try {
-			$listFriendRelation = $this->getListFriendRelation( $user_id );
+			$listFriendRelation = $this->getListFriendRelation( $user_id, $user_id );
 			
 			/* @var $value Friend_relation */
 			foreach ($listFriendRelation as $value) {

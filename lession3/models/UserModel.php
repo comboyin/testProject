@@ -95,12 +95,88 @@ class UserModel extends baseModel{
     				$res = $this->listTableByWhere('Friend_request', array( " user_id = '$idUser' and user_id_to = '$user_id_to' " ));
     				$result->setFriendRequest( $res );
     			}
-    		
+    			
     			$kq['result'] = $results;
     		}
     	} catch (Exception $e) {
     		$kq['error'][] = $e->getMessage();
     	}
     	return $kq;
+    }
+    
+    public function listUserFavorite( $idUser , $idUserSession ){
+    	$is_error = null;
+    	$lists	  = array();
+    	try {
+    		$sql = " SELECT `user1`.* FROM `user` 
+    				
+    				INNER JOIN `favorite` 
+					on `user`.id = `favorite`.user_id 
+					
+					INNER JOIN `user` as `user1`
+					on `user1`.id = `favorite`.user_id_to
+					
+					WHERE `favorite`.user_id = '7' ";
+    		
+    		$stmt = $this->getPdo()->prepare($sql);
+    		$stmt->execute();
+    		$stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'User');
+    		$stmt->execute();
+    		$lists = $stmt->fetchAll();
+    		foreach ( $lists as $user ){
+    			/**
+    			 * 0 : add friend => not is friend
+    			 * 1 : unfriend => is friend
+    			 * 2 : unRequest => is request
+    			 **/
+    			/* @var $user User */
+    			$idUserTo = $user->getId();
+    			// get status friend
+    			// add friend
+    			$user->setStatusForUserSession( 0 );
+    			/* @var $user_to User */
+    			// check friend_request exist
+    			$friend_requests = $this->listTableByWhere( 'Friend_request' , array( " user_id = '$idUserSession' and user_id_to = '$idUserTo' " ));
+    			
+    			if( count( $friend_requests ) > 0 ){
+    				// un request
+    				$user->setStatusForUserSession( 2 );
+    				
+    			}else{
+    				$friendRelationModel = new FriendrelationModel();
+    				$friendRelationModel->setPdo($this->getPdo());
+    				$is_friend = $friendRelationModel->checkFriendRelation( $idUserSession, $idUserTo );
+    				
+    				if(  $is_friend  == true ){
+    					// is friend
+    					$user->setStatusForUserSession( 1 );
+    				}
+    				
+    			}
+    			// get status favorite
+    			/**
+    			 * 0 : add favorite => not is favorite
+    			 * 1 : unfavorite => is favorite
+    			 * 
+    			 **/
+    			$user->setStatusFavorite( 0 );
+    			$favorites = $this->listTableByWhere( 'Favorite' , array( " user_id = '$idUserSession' and user_id_to = '$idUserTo' " ));
+    			if( count( $favorites ) != 0 ){
+    				// un request
+    				$user->setStatusFavorite( 1 );
+    			}
+    		}
+    		
+    	} catch (Exception $e) {
+    		$is_error[] = $e->getMessage();
+    	}
+    	
+    	$kq = array(
+    			'is_error' => $is_error,
+    			'list' => $lists
+    	);
+    	
+    	return $kq;
+    	
     }
 }

@@ -1,13 +1,14 @@
-var profileAction = function() {
+var friendRequestAction = function() {
 	return {
 		init : function() {
 			
 			
 			
 		}
+
 	};
 }();
 
 jQuery(document).ready(function() {
-	profileAction.init();
+	friendRequestAction.init();
 });

@@ -16,6 +16,7 @@
                         <div class="text-center">
                             <img id="product-image" src="<?php echo $user->getLinkAvatar();?>" >
                         </div>
+                        <button idUser="<?php echo $user->getId()?>" class="btn <?php echo ( $is_favorite == true ) ? 'unfavorite btn-danger' : 'add_favorite btn-info' ?>"><?php echo ( $is_favorite == true ) ? 'Unfavorite' : 'Add Favorite' ?></button>
                     </div>
                     <div class="col-sm-8 single-product-description">
                         <div class="product-prices">
@@ -131,11 +132,11 @@
                 	<div class="col-sm-12">
                 		<div class="form-group">
                 			<a href="<?php echo __FOLDER . 'user/action/friendList/' . $user->getUsername()?>">
-                				<input type="button" class="theme_button" name="apply_coupon" value="Friend list (<?php echo $user->getTotalFriendList()?>)">
+                				<button type="button" class="theme_button" name="apply_coupon">Friend list (<span><?php echo $user->getTotalFriendList()?></span>)</button>
                 			</a>
 	                    	
-	                    	<a>
-	                    		<input type="button" class="theme_button" name="update_cart" value="Favorite (<?php echo $user->getTotalFavorite()?>)">	
+	                    	<a href="<?php echo __FOLDER . 'user/action/favoriteList/' . $user->getUsername()?>">
+	                    		<button type="button" class="theme_button" name="apply_coupon">Favorite (<span><?php echo $user->getTotalFavorite()?></span>)</button>
 	                    	</a>
                     		
 	               		</div>

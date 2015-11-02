@@ -104,7 +104,7 @@ $user = $_SESSION['acl']['account'];
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <a href="./" class="navbar-brand"> N<span>BOOK</span></a>
+                    <a href="<?php echo __FOLDER . 'user/'?>" class="navbar-brand"> N<span>BOOK</span></a>
                 </div>
 
                 <div class="col-sm-5 text-right">
@@ -137,15 +137,23 @@ $user = $_SESSION['acl']['account'];
                     <span id="toggle_mobile_menu"></span>
                     <nav id="mainmenu_wrapper">
                         <ul id="mainmenu" class="nav nav-justified sf-menu">
-                            <li class="active">
-                                <a href="index.html"><i class="rt-icon-home"></i> Home</a>
+                        	<?php /* @var $router router */ ?>
+	                        <?php 
+	                        	$module 	= $router->module;
+	                        	$controller = $router->controller;
+	                        	$action 	= $router->action;
+	                        	
+	                        	
+	                        ?>
+                            <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'index' ) ? 'active' : ''?>" >
+                                <a href="<?php echo __FOLDER . 'user/'?>"><i class="rt-icon-home" ></i> Home</a>
                             </li>
-                            <li >
-                                <a href="index.html"><i class="rt-icon-comment"></i> Friend request <span class="number-request"></span></a>
+                            <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'friendrequest' ) ? 'active' : ''?>">
+                                <a href="<?php echo __FOLDER . 'user/index/friendRequest'?>"><i class="rt-icon-comment"></i> Friend request <span class="number-request"></span></a>
                             </li>
 
-                            <li >
-                                <a href="index.html"><i class="rt-icon-list"></i> Follow list <span class=number-follow"></span></a>
+                            <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'followList' ) ? 'active' : ''?>">
+                                <a href="<?php echo __FOLDER . 'user/index/followList'?>"><i class="rt-icon-list"></i> Follow list <span class=number-follow"></span></a>
                             </li>
 
                             <li>

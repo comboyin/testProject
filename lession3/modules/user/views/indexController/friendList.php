@@ -1,5 +1,6 @@
 <?php 
 $friendRelations = $friendRelations;
+
 ?>
 
 <div class="row">
@@ -32,7 +33,10 @@ $friendRelations = $friendRelations;
 							src="<?php echo $friendRelation->getUserTo()->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
-							<a class="Unfriend" href="#">Unfriend</a>
+						
+							
+								<a class="Unfriend" href="#">Unfriend</a>
+							
 						</p>
 					</div>
 				</div>

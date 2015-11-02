@@ -337,10 +337,10 @@ class indexController extends baseController{
 	
 	public function friendList(){
 		/* @var $usersession User */
-		$usersession = $_SESSION['acl']['account'];
+		$usersession = $this->getUserSession();
 		/* @var $friendRelationModel FriendrelationModel */
 		$friendRelationModel  = $this->model->get('Friendrelation');
-		$friendRelations      = $friendRelationModel->getListFriendRelation( $usersession->getId() );
+		$friendRelations      = $friendRelationModel->getListFriendRelation( $usersession->getId(),$usersession->getId() );
 		
 		
 		$idUserSession = $usersession->getId();
@@ -549,8 +549,9 @@ class indexController extends baseController{
 		/* @var $model FriendrequestModel */
 		$model = $this->model->get('Friendrequest');
 		$friend_request = new Friend_request();
-		$friend_request->setUserId($user->getId());
-		$friend_request->setUserIdTo($idFriend);
+		$friend_request->setUserId( $user->getId() );
+		$friend_request->setUserIdTo( $idFriend );
+		$friend_request->setRegistDatetime( utility::getDatetimeNow() );
 		$now = new DateTime();
 		$now = $now->format("Y-m-d h:i:s");
 		$friend_request->setRegistDatetime( $now );
@@ -564,24 +565,21 @@ class indexController extends baseController{
 	public function friendRequest(  ){
 		/* @var $model FriendrequestModel */
 		$model 				= $this->model->get('Friendrequest');
-		
-		if( isset( $_POST['idFriendRequest'] ) && isset( $_POST['action'] ) && $_POST['action'] = 'accept'){
+		$userSession 		= $this->getUserSession();
+		$is_error 			= null;
+		// action = 1 => accept
+		// action = 0 => delete
+		if( isset( $_POST ) && isset( $_POST['idFriendRequest'] ) && isset( $_POST['action'] ) && ( $_POST['action'] == 1 || $_POST['action'] == 0 ) ) {
+			
 			$idFriendRequest = $_POST['idFriendRequest'] ;
+			$action			 = $_POST['action'];
 			
-			
-			
-			header('Content-Type: application/json');
-			echo json_encode( $kq );
+			$model->acceptAndDeleteFriendRequest( $idFriendRequest, $userSession->getId() , $action);
+			$is_error		 = header('Content-Type: application/json');
+			echo json_encode( array( 'is_error' => $is_error ) );
 			exit(0);
-		}else if( isset( $_POST['idFriendRequest'] ) && isset( $_POST['action'] ) && $_POST['action'] = 'delete' ){
-			$idFriendRequest = $_POST['idFriendRequest'] ;
 			
-			
-			header('Content-Type: application/json');
-			echo json_encode( $kq );
-			exit(0);
 		}else{
-			$userSession = $this->getUserSession();
 			
 			$listFriendRequest  = $model->getListFriendRequest( $userSession->getId() );
 			

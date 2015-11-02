@@ -42,6 +42,12 @@ class User {
 	 * @var int  */
 	private $statusForUserSession;
 	
+	/**
+	 * 0 : add favorite
+	 * 1 : un favorite
+	 * @var int  */
+	private $statusFavorite;
+	
 	
 
 	public function __construct(){
@@ -182,6 +188,14 @@ class User {
 		$this->statusForUserSession = $statusForUserSession;
 		return $this;
 	}
+	public function getStatusFavorite() {
+		return $this->statusFavorite;
+	}
+	public function setStatusFavorite($statusFavorite) {
+		$this->statusFavorite = $statusFavorite;
+		return $this;
+	}
+	
 	
 	
 }

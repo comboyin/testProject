@@ -1,11 +1,7 @@
 <?php 
-	/* @var $user User */
-	$user = $user;
-	$idacc = $user->getId();
-	$pictures = $user->getPictures();
-	$userSession = $_SESSION['acl']['account'];
-	/* @var $user User */
 	
+	$listUserFavorites  =  $listUserFavorites;
+	$userSession = $_SESSION['acl']['account'];
 ?>
 <section class="light_section">
     <div class="container">
@@ -135,7 +131,7 @@
                 				<input type="button" class="theme_button" name="apply_coupon" value="Friend list (<?php echo $user->getTotalFriendList()?>)">
                 			</a>
 	                    	
-	                    	<a href="<?php echo __FOLDER . 'user/action/favoriteList/' . $user->getUsername()?>">
+	                    	<a>
 	                    		<input type="button" class="theme_button" name="update_cart" value="Favorite (<?php echo $user->getTotalFavorite()?>)">	
 	                    	</a>
                     		
@@ -145,23 +141,24 @@
 <?php endif;?>
 
 <div class="widget widget_popular_entries">
-	<h3 class="widget-title">Friend list</h3>
+	<h3 class="widget-title">Favorite list</h3>
 	<div class="row list-friend">
-	<?php /* @var $friendRelation Friend_relation */?>
-		<?php foreach ( $friendRelations as $friendRelation ):?>
+	<?php /* @var $userFavorite User */?>
+		<?php foreach ( $listUserFavorites as $userFavorite ):?>
 			<div class="col-xs-6">
 				<div class="list-friend">
 					<div class="media">
 						<p class="pull-left">
-							<a idfriend="<?php echo $friendRelation->getUserTo()->getId()?>" href="<?php echo __FOLDER . 'user/action/profile/' . $friendRelation->getUserTo()->getUsername()?>"><?php echo $friendRelation->getUserTo()->getFullname()?></a>
+							<a idfriend="<?php echo $userFavorite->getId()?>" href="<?php echo __FOLDER . 'user/action/profile/' . $userFavorite->getUsername()?>"><?php echo $userFavorite->getFullname()?></a>
 						</p>
 						<a class="pull-left" href="#"> <img class="media-object"
-							src="<?php echo $friendRelation->getUserTo()->getLinkAvatar()?>" alt="">
+							src="<?php echo $userFavorite->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
-							<?php if ( $friendRelation->getUserTo()->getId() != $userSession->getId() ):?>
+							
+							<?php if ( $userFavorite->getId() != $userSession->getId() ):?>
 							<a class="<?php 
-								switch ( $friendRelation->getUserTo()->getStatusForUserSession() ) {
+								switch ( $userFavorite->getStatusForUserSession() ) {
 									/**
 									 * 0 : add friend
 									 * 1 : unfriend
@@ -179,9 +176,9 @@
 								}
 							?>" href="#">
 								<?php
-								switch ( $friendRelation->getUserTo()->getStatusForUserSession() ) {
+								switch ( $userFavorite->getStatusForUserSession() ) {
 									case 0:
-										echo 'add Friend';
+										echo 'Add Friend';
 										break;
 									case 1:
 										echo 'unFriend';
@@ -194,9 +191,41 @@
 							</a>
 							<?php endif;?>
 						</p>
+						
+						<p class="pull-left">
+							<?php if ( $userFavorite->getId() != $userSession->getId() ):?>
+							<a class="<?php 
+								switch ( $userFavorite->getStatusFavorite() ) {
+									/**
+									 * 0 : add favorite => is not favorite
+									 * 1 : unfavorite   => is favorite
+									 * @var int  */
+									case 0:
+										echo 'add-favorite';
+									break;
+									case 1:
+										echo 'un-favorite';
+									break;
+								}
+							?>" href="#">
+								<?php
+								switch ( $userFavorite->getStatusFavorite() ) {
+									case 0:
+										echo 'Add favorite';
+										break;
+									case 1:
+										echo 'unFavorite';
+										break;
+									}
+								?>
+							</a>
+							<?php endif;?>
+						</p>
 					</div>
 				</div>
 			</div>
 		<?php endforeach;?>
 	</div>
 </div>
+
+<script type="text/javascript" src="<?php echo __FOLDER . 'public\js\UserModule\actionController\favoriteList.js'?>"></script>

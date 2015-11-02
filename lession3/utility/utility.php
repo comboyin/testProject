@@ -17,6 +17,11 @@ class utility
 		}
 	}
 	
+	static public function getDatetimeNow(){
+		$dateNow = new DateTime();
+		return $dateNow->format("Y-m-d h:i:s");
+	}
+	
     /**
      *
      * @param $str string

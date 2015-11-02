@@ -37,7 +37,7 @@ $listUser = $listUser;
 						<a class="pull-left" href="<?php echo __FOLDER?>user/action/profile/<?php echo $user->getUsername()?>"> <img class="media-object" src="<?php echo $user->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
-							<a class="<?php echo ( $action == 0 ) ? 'Add-Friend':'Un-Request'?>" href="#"><?php echo ( $action == 0 ) ? 'Add Friend':'UnRequest'?></a>
+							<a class="<?php echo ( $action == 0 ) ? 'add-friend':'un-request'?>" href="#"><?php echo ( $action == 0 ) ? 'Add Friend':'UnRequest'?></a>
 						</p>
 					</div>
 				</div>
