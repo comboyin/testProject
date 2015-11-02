@@ -270,6 +270,5 @@ class actionController extends baseController{
 		$this->getView()->content->is_favorite = $is_favorite;
 		
 	}
-	
 
 }

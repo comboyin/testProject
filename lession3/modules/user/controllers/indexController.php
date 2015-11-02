@@ -341,18 +341,14 @@ class indexController extends baseController{
 		/* @var $friendRelationModel FriendrelationModel */
 		$friendRelationModel  = $this->model->get('Friendrelation');
 		$friendRelations      = $friendRelationModel->getListFriendRelation( $usersession->getId(),$usersession->getId() );
-		
-		
 		$idUserSession = $usersession->getId();
-		
 		$model = $this->model->get('Picture');
 		$totalFriend   =  $model->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession or user_id_to = $idUserSession " )) ;
 		$totalFavorite =  $model->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession or user_id_to = $idUserSession" ));
 		
 		$this->getView()->content->totalFriend     = $totalFriend;
 		$this->getView()->content->totalFavorite   = $totalFavorite;
-		$this->getView()->content->friendRelations = $friendRelations;
-		
+		$this->getView()->content->friendRelations = $friendRelations;		
 	}
 	
 	public function editProfile(){
@@ -585,5 +581,25 @@ class indexController extends baseController{
 			
 			$this->getView()->content->listFriendRequest = $listFriendRequest;
 		}	
+	}
+	
+	public function favoriteList(){
+		/* @var $usersession User */
+		$usersession  		   = $this->getUserSession();
+		$idUserSession		   = $usersession->getId();
+		/* @var $UserModel UserModel */
+		$UserModel  		  = $this->model->get('User');
+		$userFavorites	      = $UserModel->listUserFavorite( $idUserSession , $idUserSession);
+		$userFavorites		  = $userFavorites['list'];
+
+		$idUserSession = $usersession->getId();
+		
+		$model 				  =  $this->model->get('Picture');
+		$totalFriend   		  =  $model->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession or user_id_to = $idUserSession " )) ;
+		$totalFavorite 		  =  $model->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession " ));
+		
+		$this->getView()->content->totalFriend      = $totalFriend   ;
+		$this->getView()->content->totalFavorite   	= $totalFavorite ;
+		$this->getView()->content->userFavorites	= $userFavorites  ;
 	}
 }

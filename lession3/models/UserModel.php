@@ -116,7 +116,7 @@ class UserModel extends baseModel{
 					INNER JOIN `user` as `user1`
 					on `user1`.id = `favorite`.user_id_to
 					
-					WHERE `favorite`.user_id = '7' ";
+					WHERE `favorite`.user_id = '$idUser' ";
     		
     		$stmt = $this->getPdo()->prepare($sql);
     		$stmt->execute();

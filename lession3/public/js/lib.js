@@ -333,6 +333,7 @@ jQuery(document).ready(function () {
 	}
 	
 	//= = =  = = = = =  = = = = = begin send request  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = =
+	
 	$(document).on('click',"a.add-friend",function(e){
 		e.preventDefault();
 		media = $(this).parents('div.media')[0];
@@ -363,11 +364,9 @@ jQuery(document).ready(function () {
 	        		
 	        	}else{
 	        		
-	        		dalert.alert("Send request success!","success",function callbackMe(){
-	        			$( $('a',media)[2] ).attr( 'class', 'un-request' );
-		        		$( $('a',media)[2] ).html( 'UnRequest' );
-	                });
-	        		
+        			$( $('a',media)[2] ).attr( 'class', 'un-request' );
+	        		$( $('a',media)[2] ).html( 'unRequest' );
+	                
 	        	}
 	        },
 	        error: function(jqXHR, textStatus, errorThrown)
@@ -381,15 +380,16 @@ jQuery(document).ready(function () {
 	//= = =  = = = = =  = = = = = end send request  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = =
 	
 	// = = =  = = = = =  = = = = = begin unfriend  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = =
-	
-	$("a.Unfriend").click( function(e){
+	$(document).on('click',"a.un-friend",function(e){
 		e.preventDefault();
 		var media    = $(this).parents("div.media")[0];
 		var tag_a    = $( 'a' , media )[0];
-		var idfriend = $(tag_a).attr('idfriend');
+		var idfriend = $( tag_a ).attr('idfriend');
+		var tag_a 	 = this;
 		dalert.confirm( "Are You Sure?","Confirm !" , function( result ){
             if( result ){
-            	unfriend( idfriend );
+            	
+            	unfriend( idfriend , tag_a );
             }
             else{
             	
@@ -397,7 +397,7 @@ jQuery(document).ready(function () {
         });
 	});
 	
-	function unfriend( idfriend ){
+	function unfriend( idfriend , tag_a ){
 		
 		var fd = new FormData();
 		
@@ -413,9 +413,15 @@ jQuery(document).ready(function () {
 	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
 	        success: function(data, textStatus, jqXHR)
 	        {
-	        	dalert.alert("Unfriend success.","Success",function callbackMe(){
-	        		loadListFriendList();
-	            });
+	        	var error = data.is_error;
+	        	if( error != null ){
+	        		dalert.alert(stringHtmlError(error),'Error');
+	        	}else{
+	        		
+	        		$(tag_a).attr( 'class' ,'add-friend');
+	        		$(tag_a).html( "Add friend" );
+	        		
+	        	}
 	        },
 	        error: function(jqXHR, textStatus, errorThrown)
 	        {

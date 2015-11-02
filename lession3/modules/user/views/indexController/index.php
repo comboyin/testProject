@@ -11,7 +11,7 @@ $pictures = $user->getPictures();
                 				<input type="button" class="theme_button" name="apply_coupon" value="Friend list (<?php echo $user->getTotalFriendList()?>)">
                 			</a>
 	                    	
-	                    	<a>
+	                    	<a href="<?php echo __FOLDER . 'user/index/favoriteList'?>">
 	                    		<input type="button" class="theme_button" name="update_cart" value="Favorite (<?php echo $user->getTotalFavorite()?>)">	
 	                    	</a>
                     		
