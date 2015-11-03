@@ -17,6 +17,7 @@
                             <img id="product-image" src="<?php echo $user->getLinkAvatar();?>" >
                         </div>
                         <button idUser="<?php echo $user->getId()?>" class="btn <?php echo ( $is_favorite == true ) ? 'unfavorite btn-danger' : 'add-favorite btn-info' ?>"><?php echo ( $is_favorite == true ) ? 'Unfavorite' : 'Add Favorite' ?></button>
+                        <button idUser="<?php echo $user->getId()?>" class="btn <?php echo ( $is_follow == true ) ? 'un-follow btn-danger' : 'add-follow btn-info' ?>"><?php echo ( $is_follow == true ) ? 'Unfollow' : 'Add Follow' ?></button>
                     </div>
                     <div class="col-sm-8 single-product-description">
                         <div class="product-prices">

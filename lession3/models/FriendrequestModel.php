@@ -105,7 +105,9 @@ class FriendrequestModel extends baseModel{
 				$this->getPdo()->beginTransaction();
 				// action == 1 = accept
 				// action == 0 = delete
-				if( $action == true ){
+				
+				if( $action == 1 ){
+					
 					// delete
 					$this->deleteTableByWhere('Friend_request', " where id = '$idFriendRequest' ");
 					$modelFriendRelation = new FriendrelationModel();
@@ -115,11 +117,12 @@ class FriendrequestModel extends baseModel{
 					$friendRelation->setUserId(   $friendRequest->getUserId()  );
 					$friendRelation->setUserIdTo( $friendRequest->getUserIdTo() );
 					$friendRelation->setRegistDatetime( utility::getDatetimeNow() );
+					
 					$error = $modelFriendRelation->addFriendRelation( $friendRelation );
 					if( $error != null ){
 						utility::pushArrayToArray( $is_error , $error );
 					}
-				}else if( $action == false ){
+				}else if( $action == 0 ){
 					
 					$this->deleteTableByWhere('Friend_request', " where id = '$idFriendRequest' ");
 					

@@ -15,7 +15,6 @@ class FriendrelationModel extends baseModel{
 			$regist_datetime	= $friendRelation->getRegistDatetime();
 			$sql = " INSERT INTO friend_relation( user_id, user_id_to, regist_datetime ) 
 						values( '$user_id' , '$user_id_to' , '$regist_datetime' )	";
-			
 			$stmt 				= $this->getPdo()->prepare( $sql );
 			$stmt->execute();
 			

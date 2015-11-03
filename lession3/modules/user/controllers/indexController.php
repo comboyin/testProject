@@ -20,9 +20,8 @@ class indexController extends baseController{
 		$user->setGroup( $userSession->getGroup() );
 
 		// total friend
-		
 		$user->setTotalFriendList( $modelPicture->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession or user_id_to = $idUserSession " )) );
-		$user->setTotalFavorite( $modelPicture->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession or user_id_to = $idUserSession" )) );
+		$user->setTotalFavorite( $modelPicture->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession" )) );
 		// total favorite
 		
 		$this->getView()->content->user = $user;
@@ -44,16 +43,24 @@ class indexController extends baseController{
 		
 		// get number friend request
 		$numberFriendRequest = count( $userModel->listTableByWhere( 'Friend_request' , array( "user_id_to = '$idAcc'" )) );
+		
+		
+		// get number new follow
+		$sql 				 = " SELECT count(*) as `count` FROM follow_log INNER JOIN follow ON follow_log.follow_id = follow.id 
+				 WHERE follow.user_id = '$idAcc' AND follow_log.status = '0' ";
+		$result 			 = $userModel->executeQuery( $sql );
+		$numberFollow		 = $result[0]['count'];
 		$kq = array( 
-			'fullname' => $acc->getFullname(),
-			'email'    => $acc->getEmail(),
-			'address'  => $acc->getAddress(),
-			'sex'      => $acc->getSex(),
-		    'stringsex'=> $acc->getStringSex(),
-			'birthday' => $acc->getBirthday(),
-		'introduction' => $acc->getIntroduction(),
-		'username'     => $acc->getUsername(),
-		'numberRequest'=> $numberFriendRequest		
+			'fullname' 		=> $acc->getFullname(),
+			'email'    		=> $acc->getEmail(),
+			'address'  		=> $acc->getAddress(),
+			'sex'      		=> $acc->getSex(),
+		    'stringsex'		=> $acc->getStringSex(),
+			'birthday' 		=> $acc->getBirthday(),
+		'introduction' 		=> $acc->getIntroduction(),
+		'username'     		=> $acc->getUsername(),
+		'numberRequest'		=> $numberFriendRequest,
+		'numberFollow' 		=> $numberFollow		
 		);
 		echo json_encode( array(  'user' => $kq) );
 		exit(0);

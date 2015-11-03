@@ -153,7 +153,7 @@ $user = $_SESSION['acl']['account'];
                             </li>
 
                             <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'followList' ) ? 'active' : ''?>">
-                                <a href="<?php echo __FOLDER . 'user/index/followList'?>"><i class="rt-icon-list"></i> Follow list <span class=number-follow"></span></a>
+                                <a href="<?php echo __FOLDER . 'user/index/followList'?>"><i class="rt-icon-list"></i> Follow list <span class="number-follow"></span></a>
                             </li>
 
                             <li>
@@ -174,7 +174,7 @@ $user = $_SESSION['acl']['account'];
 				$idacc = $user->getId();
 				$pictures = $user->getPictures();
 			?>
-			<section class="light_section margintheme">
+			<section class="light_section">
 			    <div class="container">
 			        <div class="row">
 			            <div class="col-sm-12">

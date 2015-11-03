@@ -1,7 +1,52 @@
 <?php
 class FollowModel extends baseModel{
-	
-	function listFollow( $idUserSession ){
+	/**
+	 * 
+	 * @param Follow $follow  */
+	public function addFollow( $follow ){
+		$is_error = null;
+		try {
+			$idUser   = $follow->getUserId();
+			$idUserTo = $follow->getUserIdTo();
+			$regist_datetime = $follow->getRegistDatetime();
+			
+			
+			// check user_id
+			$cout = count( $this->listTableByWhere('User', array( " id = '$idUser' " ))  );
+			if( $cout == 0  ){
+				$is_error[] = "User id '$idUser' not exist";
+			}
+			
+			// check user_id_to
+			$cout = count( $this->listTableByWhere('User', array( " id = '$idUserTo' " ))  );
+			if( $cout == 0  ){
+				$is_error[] = "User id '$idUserTo' not exist";
+			}
+			
+			// check favorite exist
+			if( $is_error == null ){
+				$cout = count( $this->listTableByWhere('Follow', array( " user_id = '$idUser' and user_id_to = '$idUserTo' " ))  );
+				if( $cout != 0  ){
+					$is_error[] = "Favorite exist";
+				}
+			}
+			
+			
+			if( $is_error == null ){
+				$sql = " INSERT INTO follow( user_id, user_id_to, regist_datetime )
+				values( '$idUser' , '$idUserTo' , '$regist_datetime' )		";
+					
+				$stmt = $this->getPdo()->prepare($sql);
+				$stmt->execute();
+			}
+			
+			
+		} catch (Exception $e) {
+			$is_error[] = $e->getMessage();
+		}
+		return $is_error;
+	}
+	public function listFollow( $idUserSession ){
 		$is_error = null;
 		$list	  = array();
 		try {
@@ -58,4 +103,57 @@ class FollowModel extends baseModel{
 		return $kq;
 	}
 	
+	/**
+	 * 
+	 * @param Follow $follow  */
+	public function unFollow( $follow ){
+		$this->getPdo()->beginTransaction();
+		$is_error = null;
+		try {
+			$idUser   = $follow->getUserId();
+			$idUserTo = $follow->getUserIdTo();
+			
+			// check user_id
+			$cout = count( $this->listTableByWhere('User', array( " id = '$idUser' " ))  );
+			if( $cout == 0  ){
+				$is_error[] = "User id '$idUser' not exist";
+			}
+				
+			// check user_id_to
+			$cout = count( $this->listTableByWhere('User', array( " id = '$idUserTo' " ))  );
+			if( $cout == 0  ){
+				$is_error[] = "User id '$idUserTo' not exist";
+			}
+				
+			// check favorite exist
+			if( $is_error == null ){
+				$follows = $this->listTableByWhere('Follow', array( " user_id = '$idUser' and user_id_to = '$idUserTo' " ));
+				
+				$cout = count( $follows  );
+				if( $cout == 0  ){
+					$is_error[] = "Follow NOT exist";
+				}
+			}
+			
+			
+			if( $is_error == null ){
+				
+				//
+				$follow = $follows[0];
+				$idFollow = $follow->getId();
+				
+				$this->deleteTableByWhere('Follow_log', " WHERE follow_id = '$idFollow'");
+				
+				$this->deleteTableByWhere('Follow', " where id = '$idFollow' ");
+				
+			}
+				
+			$this->getPdo()->commit();
+		} catch (Exception $e) {
+			$is_error[] = $e->getMessage();
+			$this->getPdo()->rollBack();
+		}
+		
+		return $is_error;
+	}
 }

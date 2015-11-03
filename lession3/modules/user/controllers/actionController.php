@@ -107,9 +107,19 @@ class actionController extends baseController{
 		if( count( $favorites ) != 0 ){
 			$is_favorite = true;
 		}
+		
+		//is follow
+		$sql 		= " select count(*) as 'count' from follow where user_id = '$idUserSession' and user_id_to = '$idUser' ";
+		$result 	= $UserModel->executeQuery( $sql );
+		$is_follow = false;
+		if( $result[0]['count'] != 0 ){
+			$is_follow = true;
+		}
+		
 		$this->getView()->content->user = $user;
 		$this->getView()->content->is_friend 	= $is_friend;
 		$this->getView()->content->is_favorite  = $is_favorite;
+		$this->getView()->content->is_follow    = $is_follow;
 	}
 	
 	
@@ -209,10 +219,14 @@ class actionController extends baseController{
 		$is_error = $model->unFavorite( $favorite );
 		header('Content-Type: application/json');
 		echo json_encode(
-				array( 'is_error' => $is_error )
+					array( 'is_error' => $is_error )
 				);
 		exit(0);
 	}
+	
+	
+	
+	
 	
 	public function favoriteList($args){
 		
@@ -270,5 +284,45 @@ class actionController extends baseController{
 		$this->getView()->content->is_favorite = $is_favorite;
 		
 	}
-
+	
+	public function addFollow(){
+		
+		$iduser = ( isset( $_POST['iduser']) ) ? $_POST['iduser']: '' ;
+		
+		/* @var $modelFollow FollowModel */
+		$modelFollow = $this->model->get('Follow');
+		
+		$follow = new Follow();
+		$userSession = $this->getUserSession();
+		$follow->setUserId($userSession->getId());
+		$follow->setUserIdTo($iduser);
+		$follow->setRegistDatetime(utility::getDatetimeNow());
+		$is_error = $modelFollow->addFollow( $follow );
+		header('Content-Type: application/json');
+		echo json_encode(
+					array( 'is_error' => $is_error )
+				);
+		exit(0);
+	}
+	
+	public function unFollow(){
+	
+		$iduser = ( isset( $_POST['iduser']) ) ? $_POST['iduser']: '' ;
+	
+		/* @var $modelFollow FollowModel */
+		$modelFollow = $this->model->get('Follow');
+	
+		$follow = new Follow();
+		$userSession = $this->getUserSession();
+		$follow->setUserId($userSession->getId());
+		$follow->setUserIdTo($iduser);
+		$follow->setRegistDatetime(utility::getDatetimeNow());
+		$is_error = $modelFollow->unFollow( $follow );
+		header('Content-Type: application/json');
+		echo json_encode(
+					array( 'is_error' => $is_error )
+				);
+		exit(0);
+	}
+	
 }

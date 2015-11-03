@@ -238,5 +238,10 @@ class baseModel
     	return $tong;
     }
 
+    public function executeQuery( $sql ){
+    	$stmt = $this->getPdo()->prepare( $sql );
+    	$stmt->execute();
+    	return $stmt->fetchAll();
+    }
 
 }

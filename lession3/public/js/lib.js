@@ -194,6 +194,14 @@ jQuery(document).ready(function () {
 	        		$("span.number-request").html("");
 	        	}else{
 	        		$("span.number-request").html( "(" + data.user.numberRequest + ")");
+	        
+	        	}
+	        	
+	        	if( data.user.numberFollow == 0 ){
+	        		$("span.number-follow").html("");
+	        	}else{
+	        		
+	        		$("span.number-follow").html( "(" + data.user.numberFollow + ")");
 	        	}
 	        	
 	        },
@@ -208,11 +216,100 @@ jQuery(document).ready(function () {
 	
 	updateNumberRequest();
 	
-	var updateNumberRequest = setInterval( updateNumberRequest , 2000);
+	var updateNumberRequest = setInterval( updateNumberRequest , 3000);
 	
-	function updateNumberFollow(){
+	
+	// ==================================begin add follow============================================================================
+	
+	$(document).on( 'click', 'button.add-follow', function(e){
+		e.preventDefault();
+		var idUser =  $(this).attr('iduser');
+		var parent =  $(this).parents('div')[0];
+		var acctionSuccess = function ( parent ){
+			$( "button.add-follow" , parent ).html( "Unfollow" );
+			$( "button.add-follow" , parent ).attr( 'class' , 'btn btn-danger un-follow' );
+		};
+		addFollow( idUser , acctionSuccess, $(this).parents('div.media')[0] );
+	} );
+	
+	function addFollow( idUser , acctionSuccess , parent ){
+		fd = new FormData();
 		
+		fd.append( "iduser" , idUser );
+		
+		$.ajax({
+	        url: 'index.php?rt=user/action/addFollow',
+	        type: 'POST',
+	        data: fd,
+	        cache: false,
+	        dataType: 'json',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+	        	var error = data.is_error;
+	        	if( error != null ){
+	        		dalert.alert(stringHtmlError(error),'Error');
+	        	}else{
+	        		acctionSuccess( parent );
+	        	}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	        	var error = ['ERRORS: ' + textStatus];
+	            // Handle errors here
+	        	dalert.alert(stringHtmlError(error),'Error');
+	        }
+	    });
 	}
+	
+	// ==================================end add follow============================================================================
+	
+	// ==================================begin un follow============================================================================
+	
+	$(document).on( 'click', 'button.un-follow', function(e){
+		e.preventDefault();
+		var idUser =  $(this).attr('iduser');
+		var parent =  $(this).parents('div')[0];
+		var acctionSuccess = function ( parent ){
+			$( "button.un-follow" , parent ).html( "Add follow" );
+			$( "button.un-follow" , parent ).attr( 'class' , 'btn btn-info add-follow' );
+		};
+		unFollow( idUser , acctionSuccess, $(this).parents('div.media')[0] );
+	} );
+	
+	function unFollow( idUser , acctionSuccess , parent ){
+		fd = new FormData();
+		
+		fd.append( "iduser" , idUser );
+		
+		$.ajax({
+	        url: 'index.php?rt=user/action/unFollow',
+	        type: 'POST',
+	        data: fd,
+	        cache: false,
+	        dataType: 'json',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+	        	var error = data.is_error;
+	        	if( error != null ){
+	        		dalert.alert(stringHtmlError(error),'Error');
+	        	}else{
+	        		acctionSuccess( parent );
+	        	}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	        	var error = ['ERRORS: ' + textStatus];
+	            // Handle errors here
+	        	dalert.alert(stringHtmlError(error),'Error');
+	        }
+	    });
+	}
+	
+	// ==================================end un follow============================================================================
 	
 	// ==================================begin add favorite============================================================================
 	

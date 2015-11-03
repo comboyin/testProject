@@ -149,7 +149,7 @@ $user = $_SESSION['acl']['account'];
                             </li>
 
                             <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'followlist' ) ? 'active' : ''?>">
-                                <a href="<?php echo __FOLDER . 'user/index/followList'?>"><i class="rt-icon-list"></i> Follow list <span class=number-follow"></span></a>
+                                <a href="<?php echo __FOLDER . 'user/index/followList'?>"><i class="rt-icon-list"></i> Follow list <span class="number-follow"></span></a>
                             </li>
 
                             <li>
