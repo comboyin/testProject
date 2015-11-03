@@ -7,9 +7,9 @@ $friendRelations = $friendRelations;
 	<div class="col-sm-12">
 		<div class="form-group">
 		<a href="<?php echo __FOLDER . 'user/index/friendList' ?>">
-			<button class="theme_button">Favorite (<span class="total-friend"> <?php echo $totalFriend?> </span>)</button>
+			<button class="theme_button">Friends (<span class="total-friend"> <?php echo $totalFriend?> </span>)</button>
 		</a>
-		<a href="<?php echo __FOLDER . 'user/index/favorite'?>">
+		<a href="<?php echo __FOLDER . 'user/index/favoriteList'?>">
 			<button class="theme_button">Favorite (<span class="total-favorite"> <?php echo $totalFavorite?> </span>)</button>
 		</a> 
 			
@@ -33,10 +33,7 @@ $friendRelations = $friendRelations;
 							src="<?php echo $friendRelation->getUserTo()->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
-						
-							
-								<a class="Unfriend" href="#">Unfriend</a>
-							
+								<a class="un-friend" href="#">Unfriend</a>	
 						</p>
 					</div>
 				</div>

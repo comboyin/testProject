@@ -19,7 +19,7 @@ var friendListAction = function() {
 				        	var total   = data.totalFriend;
 				        	$("div.list-friend").html(content);
 				        	$("span.total-friend").html(total);
-				        	console.log(data);
+				        	
 				        },
 				        error: function(jqXHR, textStatus, errorThrown)
 				        {
