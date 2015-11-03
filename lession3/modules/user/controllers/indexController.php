@@ -419,9 +419,15 @@ class indexController extends baseController{
 			}
 			
 			// value 
-			if( $sex != 0 && $sex != 1 ){
+			if( is_numeric( $sex ) ){
+				if( $sex != 0 && $sex != 1 ){
+				
+					utility::pushArrayToArray( $is_error['Sex'] , array( "Value is NOT considered valid." ));
+				}
+			}else{
 				utility::pushArrayToArray( $is_error['Sex'] , array( "Value is NOT considered valid." ));
 			}
+			
 		}
 		
 		// birthday 
