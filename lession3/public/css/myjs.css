@@ -19,3 +19,18 @@
 div.preloader{
 	visibility: hidden!important;
 }
+
+.table-follow-list{
+	width: inherit;
+	margin: 0 auto;
+}
+
+.table-follow-list img.img-new{
+	width : 50px;
+	margin-left: 10px;
+}
+
+.table-follow-list>thead>tr>th, .table-follow-list>tbody>tr>th, .table-follow-list>tfoot>tr>th, .table-follow-list>thead>tr>td, .table-follow-list>tbody>tr>td, .table-follow-list>tfoot>tr>td{
+	
+    border-top: 1px solid #F9F9F9;
+}

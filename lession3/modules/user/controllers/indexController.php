@@ -344,7 +344,7 @@ class indexController extends baseController{
 		$idUserSession = $usersession->getId();
 		$model = $this->model->get('Picture');
 		$totalFriend   =  $model->countListTableByWhere( 'friend_relation' , array( " user_id = $idUserSession or user_id_to = $idUserSession " )) ;
-		$totalFavorite =  $model->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession or user_id_to = $idUserSession" ));
+		$totalFavorite =  $model->countListTableByWhere( 'favorite' , array( " user_id = $idUserSession " ));
 		
 		$this->getView()->content->totalFriend     = $totalFriend;
 		$this->getView()->content->totalFavorite   = $totalFavorite;
@@ -601,5 +601,15 @@ class indexController extends baseController{
 		$this->getView()->content->totalFriend      = $totalFriend   ;
 		$this->getView()->content->totalFavorite   	= $totalFavorite ;
 		$this->getView()->content->userFavorites	= $userFavorites  ;
+	}
+	
+	public function followList(){
+		$userSession = $this->getUserSession();
+		
+		/* @var $FollowModel FollowModel */
+		$FollowModel = $this->model->get("Follow");
+		$kq = $FollowModel->listFollow( $userSession->getId() );
+		$listFollow = $kq['list'];
+		$this->getView()->content->listFollow = $listFollow;
 	}
 }
