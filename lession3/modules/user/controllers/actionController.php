@@ -6,6 +6,14 @@ class actionController extends baseController{
 		
 	}
 	
+	public function abc()
+	{
+		/* @var $userModel UserModel */
+		$userModel = $this->model->get('User');
+		var_dump($userModel->executeQuery("call test"));
+		exit(0);
+	}
+	
 	public function friendList( $args ){	
 		
 		$username = ( isset( $args[1] ) ) ? $args[1] : '' ;

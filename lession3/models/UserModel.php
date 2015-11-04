@@ -79,7 +79,7 @@ class UserModel extends baseModel{
 										)
 								)
 				AND
-				`user`.id not in ( select `friend_request`.user_id from `friend_request` where `friend_request`.user_id_to = '1' )
+				`user`.id not in ( select `friend_request`.user_id from `friend_request` where `friend_request`.user_id_to = '$idUser' )
 				AND
 				`user`.id not in ($idUser)
 				AND ( `user`.username like '%$keyWord%' or `user`.fullname like '%$keyWord%' or `user`.email like '%$keyWord%' )
