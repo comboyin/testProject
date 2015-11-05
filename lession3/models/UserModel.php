@@ -38,6 +38,29 @@ class UserModel extends baseModel{
     	}
 
     }
+    
+    public function friendSuggestionFeature($idUser){
+    	$is_error = null;
+    	$list     = array();
+    	try {
+    		
+    		$sql = " call Friend_suggestion_feature($idUser); ";
+    		$stmt = $this->getPdo()->prepare ( $sql );
+    		$stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'User');
+    		$stmt->execute();
+    		$list = $stmt->fetchAll();
+    	} catch (Exception $e) {
+    		$is_error[] = $e->getMessage();
+    	}	
+    	
+    	$kq = array(
+    			"is_error" => null,
+    			"list"	   => $list
+    	);
+    	return $kq;
+    }
+    
+    
     /**
      * return
      * $kq['error'] = null => success

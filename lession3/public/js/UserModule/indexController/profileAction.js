@@ -2,8 +2,6 @@ var profileAction = function() {
 	return {
 		init : function() {
 			
-			
-			
 		}
 	};
 }();

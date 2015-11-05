@@ -7,11 +7,11 @@
  $site_path = realpath(dirname(__FILE__));
  define ('__SITE_PATH', $site_path);
  
-/*  define ( '__DOMAIN' , 'http://172.16.74.2' );
- define ('__FOLDER', '/lession3/'); */
+ define ( '__DOMAIN' , 'http://172.16.74.2' );
+ define ('__FOLDER', '/lession3/');
  
- define ( '__DOMAIN' , 'http://localhost' );
- define ('__FOLDER', '/lampart/testProject/lession3/');
+/*  define ( '__DOMAIN' , 'http://localhost' );
+ define ('__FOLDER', '/lampart/testProject/lession3/'); */
  
  
  define ('__FOLDER_UPLOADS', 'uploads');

@@ -11,6 +11,13 @@
 	line-height: 5;
 }
 
+.list-friend .media p:first-child { 
+    width: 140px;
+}
+.list-friend .media p:first-child a {
+    float: right;
+}
+
 .margintheme{
 	margin-top: 50px;
 	margin-bottom: 50px;

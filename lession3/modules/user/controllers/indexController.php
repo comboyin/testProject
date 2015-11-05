@@ -40,14 +40,12 @@ class indexController extends baseController{
 		$acc = $userModel->listTableByWhere( 'User' , array( " id = $idAcc " ));
 		$acc = $acc[0];
 		
-		
 		// get number friend request
 		$numberFriendRequest = count( $userModel->listTableByWhere( 'Friend_request' , array( "user_id_to = '$idAcc'" )) );
 		
-		
 		// get number new follow
 		$sql 				 = " SELECT count(*) as `count` FROM follow_log INNER JOIN follow ON follow_log.follow_id = follow.id 
-				 WHERE follow.user_id = '$idAcc' AND follow_log.status = '0' ";
+				 						WHERE follow.user_id = '$idAcc' AND follow_log.status = '0' ";
 		$result 			 = $userModel->executeQuery( $sql );
 		$numberFollow		 = $result[0]['count'];
 		$kq = array( 
@@ -624,5 +622,15 @@ class indexController extends baseController{
 		$kq = $FollowModel->listFollow( $userSession->getId() );
 		$listFollow = $kq['list'];
 		$this->getView()->content->listFollow = $listFollow;
+	}
+	
+	public function suggestionList(){
+		$userSession = $this->getUserSession();
+		
+		/* @var $UserModel UserModel */
+		$UserModel = $this->model->get("User");
+		$kq = $UserModel->friendSuggestionFeature($userSession->getId());
+		$listSuggestion = $kq['list'];
+		$this->getView()->content->listSuggestion = $listSuggestion;
 	}
 }

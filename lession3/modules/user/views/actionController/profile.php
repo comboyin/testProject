@@ -3,7 +3,7 @@
 	$user = $user;
 	$idacc = $user->getId();
 	$pictures = $user->getPictures();
-	
+	$address = $user->getAddress();
 	/* @var $userSession User */
 	$userSession = $_SESSION['acl']['account'];
 ?>
@@ -189,7 +189,6 @@
 					                                    <div class="row">
 					                                        <div class="col-xs-12">
 					                                            <div class="product-tools">
-					                                            	
 					                                            	<?php if( $is_friend == true ):?>
 					                                                	 <a href="#" title="View" data-toggle="tooltip">
 					                                                    	<i class="fa fa-eye ">(<span class="number-view"><?php echo $picture->getView()?></span>) |</i>
@@ -210,7 +209,7 @@
 					                    </div>
 									</div>
 									<div class="tab-pane fade" id="tab-Location">
-                                		sadasd
+                                		<section class="grey_section" id="map"></section>
                                 	</div>
                                 </div>
                             </div>
@@ -218,4 +217,9 @@
 </div>
 
 <script type="text/javascript" src="<?php echo __FOLDER . 'public/js/UserModule/indexController/profileAction.js'?>"></script>
+
+<script type="text/javascript" >
+	var address = "<?php echo $address?>";
+	initialize();
+</script>
 

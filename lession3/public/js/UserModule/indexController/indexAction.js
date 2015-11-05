@@ -4,12 +4,79 @@ var indexAction = function () {
 	return {
 		init : function () {
 			
+			
+			loadGoogleMap();
+			
+			$("a.edit-introduction").click(function(e){
+				e.preventDefault();
+				
+				$.ajax({
+			        url: 'index.php?rt=user/index/getValueParameterUserSession',
+			        type: 'GET',
+			        cache: false,
+			        dataType: 'json',
+			        processData: false, // Don't process the files
+			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			        success: function(data, textStatus, jqXHR)
+			        {
+			        	var introduction = data.user.introduction;
+			        	$("textarea[name=introduction]").val(introduction);
+			        	dialogEdit.dialog('open');
+			        },
+			        error: function(jqXHR, textStatus, errorThrown)
+			        {
+			        	var error = ['ERRORS: ' + textStatus];
+			            // Handle errors here
+			        	dalert.alert( stringHtmlError(error) ,'Error');
+			        }
+			    });
+				
+				
+				
+			});
+			function changeIntroduction(  ){
+				
+			}
+			
+			function loadGoogleMap(){
+				
+				$.ajax({
+			        url: 'index.php?rt=user/index/getValueParameterUserSession',
+			        type: 'GET',
+			        cache: false,
+			        dataType: 'json',
+			        processData: false, // Don't process the files
+			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			        success: function(data, textStatus, jqXHR)
+			        {
+			        	address = data.user.address
+			        	initialize();
+			        	
+			        },
+			        error: function(jqXHR, textStatus, errorThrown)
+			        {
+			        	var error = ['ERRORS: ' + textStatus];
+			            // Handle errors here
+			        	dalert.alert( stringHtmlError(error) ,'Error');
+			        }
+			    });
+			};
+			
 			dialogAddPicture = $("#dialog-add-list-picture").dialog({
 				autoOpen: false,
 				modal: true,
 			    maxHeight: 600,
 			    maxWidth: 600
 			});
+			
+			dialogEdit = $("#dialog-edit-introduction").dialog({
+				autoOpen: false,
+				modal: true,
+				width: 450,
+			    maxHeight: 600,
+			    maxWidth: 600
+			});
+			
 			// == == == == == == == == == == begin add picture == == == == == == == == == == == == == == == == == == == == ==
 			$("div.add-picture").click(function(e){
 				e.preventDefault();

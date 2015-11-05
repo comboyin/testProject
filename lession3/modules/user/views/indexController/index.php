@@ -4,6 +4,7 @@ $user = $user;
 $idacc = $user->getId();
 $pictures = $user->getPictures();
 ?>
+
 <div class="row">
                 	<div class="col-sm-12">
                 		<div class="form-group">
@@ -35,7 +36,10 @@ $pictures = $user->getPictures();
 
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab-introduction">
-                                		sadasd
+                                	<div><a href="#" class="edit-introduction">Edit</a></div>
+                                	<div>
+                                		<?php echo $user->getIntroduction()?>      
+                                	</div>
                                 </div>
 
                                 <div class="tab-pane fade" id="tab-Picture">
@@ -95,12 +99,14 @@ $pictures = $user->getPictures();
 					                    </div>
 									</div>
 									
+									
 									<div class="tab-pane fade" id="tab-Location">
-                                		sadasd
+                                		<section class="grey_section" id="map"></section>
                                 	</div>
                                 	
                                 </div>
                             </div>
+                            
       </div>
 </div>
 
@@ -131,5 +137,31 @@ $pictures = $user->getPictures();
 			</div>
 		</div>
 <!--=============================BEGIN DIALOG ADD LIST PICTURE================================================-->
+
+<!--=============================BEGIN DIALOG EDIT INTRODUCTION================================================-->
+		<div id="dialog-edit-introduction" title="EDIT INTRODUCTION">
+			<div class="error_picture">
+			
+			</div>
+			<div>
+			   <table style="margin: 0 auto;">
+			   		<!-- <caption>PICTURE (JPEG, GIF, and PNG files up to 700kb)</caption> -->
+			      <tbody>
+			        <tr class="list-image">
+			            <td>
+							<textarea name="introduction" rows="5" cols="40"></textarea>
+					 	</td>
+					 </tr>
+					 <tr>
+			            <td style="text-align: center;">
+			            	<input class="btn btn-success" name="submit_edit_introduction" value="Edit">
+			            	<span style="display:none" class="progress-loading-edit-intro"><img src="<?php echo __FOLDER . 'public/img/AjaxLoader.gif'?>"></span>
+			            </td>
+			         </tr>
+			      </tbody>
+			   </table>
+			</div>
+		</div>
+<!--=============================END DIALOG EDIT INTRODUCTION================================================-->
   
 <script type="text/javascript" src="<?php echo __FOLDER . 'public/js/UserModule/indexController/indexAction.js'?>"></script>

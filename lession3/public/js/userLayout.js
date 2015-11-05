@@ -9,8 +9,6 @@ var userLayout = function () {
 			      maxHeight: 600,
 			      maxWidth: 600
 			});
-			
-			
 			// == == == == == == == == == == begin Change avatar== == == == == == == == == == == == == == == == == == == == ==
 			
 			$('button.change-avatar').click(function(){
@@ -22,8 +20,6 @@ var userLayout = function () {
 			});
 			
 			function changeAvatar(){
-
-
 				$(".progress-loading").css("display",'inline-block');
 				$('input[name="submit_change_avatar"]').css("display",'none');
 
@@ -277,12 +273,8 @@ var userLayout = function () {
 			    		 * */
 			        	var error = data.is_error;
 			        	if( error == null ){
-			        		
-			        		
 			        		// success
 			        		dalert.alert( "Edit Success" , 'Success' );
-			        		
-			        		
 			        		$.ajax({
 						        url: 'index.php?rt=user/index/getValueParameterUserSession',
 						        type: 'GET',
@@ -301,7 +293,11 @@ var userLayout = function () {
 						        		}
 						        	} );
 						        	$( ".product-vars span" , row ).html(_value);
-						        	console.log( row );
+						        	if( name == "address" ){
+						        		// reset google map
+						        		address = _value;
+						        		initialize();
+						        	}
 						        },
 						        error: function(jqXHR, textStatus, errorThrown)
 						        {
@@ -310,14 +306,9 @@ var userLayout = function () {
 						        	dalert.alert( stringHtmlError(error) , 'Error' );
 						        }
 						    });
-			        		
-			        		
-			        		
 			        	}else{
 			        		dalert.alert( generateHtmlAlertError( error ) , 'Error' );
 			        	}
-			        	
-
 			        },
 			        error: function(jqXHR, textStatus, errorThrown)
 			        {

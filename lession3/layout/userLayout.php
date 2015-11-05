@@ -36,7 +36,7 @@ $user = $_SESSION['acl']['account'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/modernizr-2.6.2.min.js"></script>
-
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <!--[if lt IE 9]>
         <script src="js/vendor/html5shiv.min.js"></script>
         <script src="js/vendor/respond.min.js"></script>
@@ -44,6 +44,7 @@ $user = $_SESSION['acl']['account'];
 
 </head>
 <body>
+
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -155,7 +156,11 @@ $user = $_SESSION['acl']['account'];
                             <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'followList' ) ? 'active' : ''?>">
                                 <a href="<?php echo __FOLDER . 'user/index/followList'?>"><i class="rt-icon-list"></i> Follow list <span class="number-follow"></span></a>
                             </li>
-
+                            
+							<li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'suggestionList' ) ? 'active' : ''?>">
+                                <a href="<?php echo __FOLDER . 'user/index/suggestionList'?>"><i class="rt-icon-list"></i> Suggestion Friend</a>
+                            </li>
+                            
                             <li>
                                 <a href="<?php echo $router->url( array( 'module'=>'login','controller'=>'index','action' => 'logout' ) )?>"><i class="rt-icon-share"></i> Logout</a>
                             </li>

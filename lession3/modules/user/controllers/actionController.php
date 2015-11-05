@@ -10,7 +10,7 @@ class actionController extends baseController{
 	{
 		/* @var $userModel UserModel */
 		$userModel = $this->model->get('User');
-		var_dump($userModel->executeQuery("call test"));
+		var_dump($userModel->friendSuggestionFeature(2));
 		exit(0);
 	}
 	
@@ -332,5 +332,6 @@ class actionController extends baseController{
 				);
 		exit(0);
 	}
+	
 	
 }
