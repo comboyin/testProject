@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS `follow` (
   KEY `FK_follow_user_to` (`user_id_to`),
   CONSTRAINT `FK_follow_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_follow_user_to` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.follow: ~4 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.follow: ~5 rows (approximately)
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
 INSERT INTO `follow` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
 	(1, 1, 4, '2015-11-03 09:32:00'),
@@ -71,9 +71,9 @@ CREATE TABLE IF NOT EXISTS `follow_log` (
   KEY `fk_follow_id` (`follow_id`),
   CONSTRAINT `fk_follow_id` FOREIGN KEY (`follow_id`) REFERENCES `follow` (`id`),
   CONSTRAINT `fk_user_id_to_user` FOREIGN KEY (`userid_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 
--- Dumping data for table minh_nhut_lession_3.follow_log: ~67 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.follow_log: ~98 rows (approximately)
 /*!40000 ALTER TABLE `follow_log` DISABLE KEYS */;
 INSERT INTO `follow_log` (`id`, `follow_id`, `action`, `userid_to`, `status`, `regist_datetime`) VALUES
 	(1, 2, ' Send request to ', 5, 1, '2015-11-03 11:12:48'),
@@ -155,7 +155,25 @@ INSERT INTO `follow_log` (`id`, `follow_id`, `action`, `userid_to`, `status`, `r
 	(79, 4, ' Friend of ', 4, 0, '2015-11-06 05:05:25'),
 	(80, 1, ' Friend of ', 1, 1, '2015-11-06 05:05:25'),
 	(81, 5, ' Like picture "son tung (2)562de6b648399.jpg" of ', 3, 1, '2015-11-06 05:07:20'),
-	(82, 5, ' Like picture "son tung (3)562de6b649efa.jpg" of ', 3, 1, '2015-11-06 05:07:23');
+	(82, 5, ' Like picture "son tung (3)562de6b649efa.jpg" of ', 3, 1, '2015-11-06 05:07:23'),
+	(83, 2, ' Like picture "20150610150935_v60K13tmTj5629b5388b34d.jpg" of ', 1, 1, '2015-11-06 07:19:04'),
+	(84, 3, ' Like picture "20150610150935_v60K13tmTj5629b5388b34d.jpg" of ', 1, 0, '2015-11-06 07:19:04'),
+	(85, 4, ' Like picture "20150610150935_v60K13tmTj5629b5388b34d.jpg" of ', 1, 0, '2015-11-06 07:19:04'),
+	(86, 5, ' NOT friend of ', 3, 0, '2015-11-06 07:20:10'),
+	(87, 5, ' Send request to ', 1, 0, '2015-11-06 07:20:19'),
+	(88, 5, ' Friend of ', 1, 0, '2015-11-06 07:20:25'),
+	(89, 2, ' Friend of ', 5, 1, '2015-11-06 07:20:25'),
+	(90, 3, ' Friend of ', 5, 0, '2015-11-06 07:20:25'),
+	(91, 4, ' Friend of ', 5, 0, '2015-11-06 07:20:25'),
+	(92, 5, ' NOT friend of ', 8, 0, '2015-11-06 07:22:02'),
+	(93, 5, ' NOT friend of ', 2, 0, '2015-11-06 07:22:04'),
+	(94, 5, ' Send request to ', 8, 0, '2015-11-06 07:22:17'),
+	(95, 5, ' Friend of ', 8, 0, '2015-11-06 07:22:46'),
+	(96, 5, ' NOT friend of ', 8, 0, '2015-11-06 10:06:03'),
+	(97, 5, ' Friend of ', 8, 0, '2015-11-06 10:08:18'),
+	(98, 5, ' NOT friend of ', 8, 0, '2015-11-06 10:08:50'),
+	(99, 5, ' Friend of ', 8, 0, '2015-11-06 10:11:47'),
+	(100, 5, ' NOT friend of ', 8, 0, '2015-11-06 10:11:59');
 /*!40000 ALTER TABLE `follow_log` ENABLE KEYS */;
 
 
@@ -170,18 +188,16 @@ CREATE TABLE IF NOT EXISTS `friend_relation` (
   KEY `FK_friend_relation_user_to` (`user_id_to`),
   CONSTRAINT `FK_friend_relation_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_friend_relation_user_to` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.friend_relation: ~7 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.friend_relation: ~5 rows (approximately)
 /*!40000 ALTER TABLE `friend_relation` DISABLE KEYS */;
 INSERT INTO `friend_relation` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
 	(28, 1, 2, '2015-11-04 09:54:03'),
-	(31, 2, 5, '2015-11-04 10:52:01'),
 	(33, 1, 3, '2015-11-04 11:33:37'),
 	(34, 2, 3, '2015-11-04 11:33:36'),
-	(35, 3, 5, '2015-11-04 11:34:53'),
-	(36, 5, 8, '2015-11-05 00:00:00'),
-	(39, 1, 4, '2015-11-06 09:34:24');
+	(39, 1, 4, '2015-11-06 09:34:24'),
+	(40, 5, 1, '2015-11-06 11:49:17');
 /*!40000 ALTER TABLE `friend_relation` ENABLE KEYS */;
 
 
@@ -196,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `friend_request` (
   KEY `FK_friend_request_user_to` (`user_id_to`),
   CONSTRAINT `FK_friend_request_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_friend_request_user_to` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table minh_nhut_lession_3.friend_request: ~0 rows (approximately)
 /*!40000 ALTER TABLE `friend_request` DISABLE KEYS */;
@@ -671,9 +687,9 @@ CREATE TABLE IF NOT EXISTS `like` (
   KEY `FK_like_pictures` (`pictures_id`),
   CONSTRAINT `FK_like_pictures` FOREIGN KEY (`pictures_id`) REFERENCES `picture` (`id`),
   CONSTRAINT `FK_like_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.like: ~15 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.like: ~20 rows (approximately)
 /*!40000 ALTER TABLE `like` DISABLE KEYS */;
 INSERT INTO `like` (`id`, `user_id`, `pictures_id`, `time_like`) VALUES
 	(63, 6, 121, '0000-00-00 00:00:00'),
@@ -694,7 +710,8 @@ INSERT INTO `like` (`id`, `user_id`, `pictures_id`, `time_like`) VALUES
 	(82, 5, 125, '0000-00-00 00:00:00'),
 	(83, 5, 128, '0000-00-00 00:00:00'),
 	(84, 5, 126, '0000-00-00 00:00:00'),
-	(85, 5, 127, '0000-00-00 00:00:00');
+	(85, 5, 127, '0000-00-00 00:00:00'),
+	(86, 1, 89, '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `like` ENABLE KEYS */;
 
 
@@ -796,12 +813,12 @@ CREATE TABLE IF NOT EXISTS `picture` (
   PRIMARY KEY  (`id`),
   KEY `FK_pictures_user` (`user_id`),
   CONSTRAINT `FK_pictures_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.picture: ~44 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.picture: ~56 rows (approximately)
 /*!40000 ALTER TABLE `picture` DISABLE KEYS */;
 INSERT INTO `picture` (`id`, `url`, `view`, `like_number`, `regist_datetime`, `user_id`) VALUES
-	(89, '20150610150935_v60K13tmTj5629b5388b34d.jpg', 0, 0, '2015-10-23 11:19:04', 1),
+	(89, '20150610150935_v60K13tmTj5629b5388b34d.jpg', 0, 1, '2015-10-23 11:19:04', 1),
 	(92, '20150609154933_ZaSEynrddh5629b984b51d0.jpg', 1, 2, '2015-10-23 11:37:24', 1),
 	(96, '20150926131009_wPpZsOz1Hd5629ba408ca07.jpg', 1, 1, '2015-10-23 11:40:32', 1),
 	(99, '20150926122918_nv3r3lhqWn5629dc187624f.jpg', 0, 0, '2015-10-23 02:04:56', 1),
@@ -844,7 +861,19 @@ INSERT INTO `picture` (`id`, `url`, `view`, `like_number`, `regist_datetime`, `u
 	(138, 'hinh-khoi-my-15562f444e7ed28.jpg', 0, 1, '2015-10-27 04:30:54', 5),
 	(140, 'hinh-khoi-my-17562f444e81836.jpg', 0, 0, '2015-10-27 04:30:54', 5),
 	(141, 'khoi-my-33562f444e82fa5.jpg', 0, 0, '2015-10-27 04:30:54', 5),
-	(142, 'khoi-my-34562f444e8471d.jpg', 0, 0, '2015-10-27 04:30:54', 5);
+	(142, 'khoi-my-34562f444e8471d.jpg', 0, 0, '2015-10-27 04:30:54', 5),
+	(144, 'meo (2)563c70c7ee870.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(146, 'meo (4)563c70c7f2190.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(147, 'meo (5)563c70c801198.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(148, 'meo (6)563c70c80290f.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(149, 'meo (7)563c70c803f2c.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(150, 'meo (8)563c70c805a1d.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(151, 'meo (9)563c70c806dfd.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(152, 'meo (10)563c70c808569.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(154, 'meo (31)563c71e04ec46.jpg', 0, 0, '2015-11-06 04:24:48', 12),
+	(156, 'meo (21)563c7b758ac12.jpg', 0, 0, '2015-11-06 05:05:41', 12),
+	(157, 'meo (22)563c7b758c38b.jpg', 0, 0, '2015-11-06 05:05:41', 12),
+	(158, 'meo (23)563c7b758def1.jpg', 0, 0, '2015-11-06 05:05:41', 12);
 /*!40000 ALTER TABLE `picture` ENABLE KEYS */;
 
 
@@ -923,9 +952,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   KEY `FK_user_group` (`group_id`),
   CONSTRAINT `FK_user_group` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.user: ~8 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.user: ~12 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `password`, `fullname`, `sex`, `birthday`, `address`, `introduction`, `avatar`, `email`, `group_id`) VALUES
 	(1, 'comboyin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 0, '1992-11-03', '61 nguyễn trãi, phường 1, tp cao lãnh, tỉnh đồng tháp', 'asd asjnsdf dsajkfb dskafbsdjabf jksdabf kjsdbfk jbsdfkj bdsakjf bsdjkfabsjdka bfasdkj bfksjadfb askjdfb k', 'administrator562df010ec4cd.png', 'admin@gmail.com', 1),
@@ -935,7 +964,11 @@ INSERT INTO `user` (`id`, `username`, `password`, `fullname`, `sex`, `birthday`,
 	(5, 'khoimy', 'e10adc3949ba59abbe56e057f20f883e', 'Khởi my', 0, '1991-03-03', 'Ở đâu', 'ádasdasdasdasda', 'Untitled562efd221261e.png', 'đâsdasđ@gmail.com', 2),
 	(6, 'miule', 'e10adc3949ba59abbe56e057f20f883e', 'Miu lê', 0, '1981-10-26', 'An giang', 'ádasdaskbdaksjbdakjs', '2015-10-26_152632562de3a15ebe5.jpg', 'miule@gmail.com', 2),
 	(7, 'hoailinh', 'e10adc3949ba59abbe56e057f20f883e', 'hoài linh', 1, '2015-10-27', 'miền tây', 'sfasfsdf sdafsd', 'hoailinh5632caa6ccb71.jpg', 'hoailinh@gmail.com', 2),
-	(8, 'lamhung', 'e10adc3949ba59abbe56e057f20f883e', 'lâm hùng', 1, '2015-10-27', 'bình định', 'ádasdasdasdasdasd', '2015-10-27_113648562efdc6107c8.jpg', 'lamhung@gmail.com', 2);
+	(9, 'lamhung', 'e10adc3949ba59abbe56e057f20f883e', 'lâm hùng', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'ádasdasdasdasdasd', '2015-10-27_113648562efdc6107c8.jpg', 'lamhung@gmail.com', 2),
+	(10, 'nguyenthehung', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Thế Hùng', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'ádasdasdasdasdasd', '2015-10-27_113648562efdc6107c8.jpg', 'nguyenthehung@gmail.com', 2),
+	(11, 'lyhai', 'e10adc3949ba59abbe56e057f20f883e', 'lý hải', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'ádasdasdasdasdasd', '2015-10-27_113648562efdc6107c8.jpg', 'lyhai@gmail.com', 2),
+	(12, 'meo', 'e10adc3949ba59abbe56e057f20f883e', 'meomeo', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'Meo meo meo meo meo mèo mèo mèo mèo ', 'meo (33)563c707de726c.jpg', 'meomeo@gmail.com', 2),
+	(13, 'dantruong', 'e10adc3949ba59abbe56e057f20f883e', 'Đan trường', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'ádasdasdasdasdasd', '2015-10-27_113648562efdc6107c8.jpg', 'dantruong@gmail.com', 2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
