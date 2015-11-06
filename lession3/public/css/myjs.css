@@ -41,3 +41,9 @@ div.preloader{
 	
     border-top: 1px solid #F9F9F9;
 }
+.ui-dialog table{
+	margin: 0 auto;
+}
+.ui-dialog .ui-dialog-content{
+	margin: 0 auto;
+}

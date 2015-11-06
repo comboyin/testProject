@@ -18,10 +18,11 @@ class acl {
 	private function init(){
 		// start session
 		$session = session_id();
-		if(empty($session)){
+		
+		if( empty( $session ) ){
 			session_start();
 		}
-
+		
 		$moduleName = $this->_router->module;
 		$controllerName = $this->_router->controller;
 		$actionName = $this->_router->action;
@@ -50,12 +51,13 @@ class acl {
 				);
 			}
 		}
-
+		$this->checkPermission( $moduleName, $controllerName, $actionName, $account->getGroup()->getLevel() );
 		if($moduleName == 'error' && $controllerName == 'error404'){
 			return;
 		}
+		
 		// check pemission account
-		else if( !$this->checkPermission($moduleName, $controllerName, $actionName, $account->getGroup()->getLevel() )){
+		else if( !$this->checkPermission( $moduleName, $controllerName, $actionName, $account->getGroup()->getLevel() )){
 			// redictect to deny page
 			$this->redirect(
 					$this->_router->url(

@@ -4,10 +4,12 @@ var userLayout = function () {
 		init : function () {
 			
 			dialogChangeAvatar = $("#dialog-change-avatar").dialog({
-				 autoOpen: false,
+				  autoOpen: false,
 			      modal: true,
 			      maxHeight: 600,
-			      maxWidth: 600
+			      maxWidth:  600,
+			      width :    450,
+				  height:    400
 			});
 			// == == == == == == == == == == begin Change avatar== == == == == == == == == == == == == == == == == == == == ==
 			
@@ -20,14 +22,12 @@ var userLayout = function () {
 			});
 			
 			function changeAvatar(){
+				
 				$(".progress-loading").css("display",'inline-block');
 				$('input[name="submit_change_avatar"]').css("display",'none');
-
 				fd = new FormData();
-				
 				// image
 				fd.append("avatar", $('input[name="avatar"]')[0].files[0] );
-
 				$.ajax({
 			        url: 'index.php?rt=user/index/changeAvatar',
 			        type: 'POST',
@@ -65,9 +65,6 @@ var userLayout = function () {
 			
 			// == == == == == == == == == == end change avatar == == == == == == == == == == == == == == == == == == == == ==
 			
-			
-			
-			
 			// == == == == == == == == == == begin Edit user session == == == == == == == == == == == == == == == == == == == == ==
 			datepickerBirthday = $('input[name=birthday]').datepicker({
 			    format: 'yyyy-mm-dd'
@@ -91,8 +88,6 @@ var userLayout = function () {
 					$( 'input:radio[name=sex]' )[1].checked = true;
 				}
 				//set value
-				
-
 				// show button save and cancel
 				$( 'span.saveCancelInfo' , productPrices).css( 'display','inline' );
 				
@@ -100,7 +95,6 @@ var userLayout = function () {
 			
 			$(document).on( 'click' ,'a.Cancel_sex',function(e){
 				e.preventDefault();
-				
 				productPrices = $(this).parents('.row')[0];
 				cancelSex(productPrices);
 				
@@ -130,7 +124,7 @@ var userLayout = function () {
 					$('input[name=birthday]').datepicker( 'update', valueText );
 					
 				}else{
-					console.log( valueText );
+					
 					$( 'span.product-vars input' , productPrices).val( valueText );
 				}
 				// show button save and cancel

@@ -340,28 +340,26 @@ $user = $_SESSION['acl']['account'];
 						<div class="error_change_avatar">
 						
 						</div>
-						  <div class="border-style">
-							   <table class="form_table">
-							   		<caption>Avatar (JPEG, GIF, and PNG files up to 700kb)</caption>
-							      <tbody>
-							        <tr>
-										<td>Avatar: </td>
-							            <td>
-											<input maxlength="1" type="file" accept="gif|jpg|png" name="avatar" class="form-control multi with-preview"/>
-											<br/>
-											<img class="avatar" style="max-height: 100px;display: none" src="">
-									 	</td>
-									 </tr>
-			
-							         <tr>
-							            <td colspan="2" style="text-align: center;">
-							            	<input class="btn btn-success" name="submit_change_avatar" value="Change">
-							            	<span style="display:none" class="progress-loading"><img src="<?php echo __FOLDER . 'public/img/AjaxLoader.gif'?>"></span>
-							            </td>
-							         </tr>
-							      </tbody>
-							   </table>
-						</div>
+						<table>
+						   		<caption>Avatar (JPEG, GIF, and PNG files up to 700kb)</caption>
+						      <tbody>
+						        <tr>
+									<td>Avatar: </td>
+						            <td>
+										<input maxlength="1" type="file" accept="gif|jpg|png" name="avatar" class="form-control multi with-preview"/>
+										<br/>
+										<img class="avatar" style="max-height: 100px;display: none" src="">
+								 	</td>
+								 </tr>
+		
+						         <tr>
+						            <td colspan="2" style="text-align: center;">
+						            	<input class="btn btn-success" name="submit_change_avatar" value="Change">
+						            	<span style="display:none" class="progress-loading"><img src="<?php echo __FOLDER . 'public/img/AjaxLoader.gif'?>"></span>
+						            </td>
+						         </tr>
+						      </tbody>
+						</table>
 					</div>
 			<!--=============================END DIALOG CHANGE AVATAR================================================-->
 

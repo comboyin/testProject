@@ -371,9 +371,26 @@ class indexController extends baseController{
 		$birthday = isset( $_POST['birthday'] ) ? $_POST['birthday'] : null;
 		// address
 		$address  = isset( $_POST['address'] ) ? $_POST['address'] : null;
+		// address
+		$intro  = isset( $_POST['introduction'] ) ? $_POST['introduction'] : null;
 		
 		// validation
 		$valid = new validation();
+		
+		// introduction
+		if( $intro != null ){
+			$stringSetValue .= " introduction = '$intro' , " ;
+			// empty
+			if( ( $emptyInto = $valid->checkEmpty( $intro ) ) != null )
+			{
+				utility::pushArrayToArray( $is_error['Introduction'] , $emptyInto);
+			}
+			// between
+			if( ( $betweenIntro = $valid->between( $intro , array( 'min' => 4 , 'max' => 255 ) )) != null )
+			{
+				utility::pushArrayToArray( $is_error['Introduction'] , $betweenIntro);
+			}
+		}
 		// fullname
 		if( $fullname != null ){
 			

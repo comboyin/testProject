@@ -37,7 +37,7 @@ $pictures = $user->getPictures();
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab-introduction">
                                 	<div><a href="#" class="edit-introduction">Edit</a></div>
-                                	<div>
+                                	<div class="introduction-content" >
                                 		<?php echo $user->getIntroduction()?>      
                                 	</div>
                                 </div>
@@ -116,25 +116,23 @@ $pictures = $user->getPictures();
 			<div class="error_picture">
 			
 			</div>
-			  <div>
-				   <table style="margin: 0 auto;">
-				   		<caption>PICTURE (JPEG, GIF, and PNG files up to 700kb)</caption>
-				      <tbody>
-				        <tr class="list-image">
-							<td>Pictures</td>
-				            <td>
-								<input type="file" maxlength="10" accept="gif|jpg|png" name="pictures[]" class="form-control multi with-preview" multiple />
-						 	</td>
-						 </tr>
-						 <tr>
-				            <td colspan="2" style="text-align: center;">
-				            	<input class="btn btn-success" name="submit_add_picture" value="Add">
-				            	<span style="display:none" class="progress-loading-picture"><img src="<?php echo __FOLDER . 'public/img/AjaxLoader.gif'?>"></span>
-				            </td>
-				         </tr>
-				      </tbody>
-				   </table>
-			</div>
+		  <table>
+			   	<caption>PICTURE (JPEG, GIF, and PNG files up to 700kb)</caption>
+			      <tbody>
+			        <tr class="list-image">
+						<td>Pictures :</td>
+			            <td>
+							<input type="file" maxlength="10" accept="gif|jpg|png" name="pictures[]" class="form-control multi with-preview" multiple />
+					 	</td>
+					 </tr>
+					 <tr>
+			            <td colspan="2" style="text-align: center;">
+			            	<input class="btn btn-success" name="submit_add_picture" value="Add">
+			            	<span style="display:none" class="progress-loading-picture"><img src="<?php echo __FOLDER . 'public/img/AjaxLoader.gif'?>"></span>
+			            </td>
+			         </tr>
+			      </tbody>
+			</table>
 		</div>
 <!--=============================BEGIN DIALOG ADD LIST PICTURE================================================-->
 
@@ -143,13 +141,12 @@ $pictures = $user->getPictures();
 			<div class="error_picture">
 			
 			</div>
-			<div>
-			   <table style="margin: 0 auto;">
+			<table>
 			   		<!-- <caption>PICTURE (JPEG, GIF, and PNG files up to 700kb)</caption> -->
 			      <tbody>
 			        <tr class="list-image">
 			            <td>
-							<textarea name="introduction" rows="5" cols="40"></textarea>
+							<textarea name="introduction" rows="15" cols="40"></textarea>
 					 	</td>
 					 </tr>
 					 <tr>
@@ -160,7 +157,6 @@ $pictures = $user->getPictures();
 			         </tr>
 			      </tbody>
 			   </table>
-			</div>
 		</div>
 <!--=============================END DIALOG EDIT INTRODUCTION================================================-->
   

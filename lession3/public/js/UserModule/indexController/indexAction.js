@@ -4,7 +4,6 @@ var indexAction = function () {
 	return {
 		init : function () {
 			
-			
 			loadGoogleMap();
 			
 			$("a.edit-introduction").click(function(e){
@@ -30,12 +29,70 @@ var indexAction = function () {
 			        	dalert.alert( stringHtmlError(error) ,'Error');
 			        }
 			    });
-				
-				
+			});
+			
+			$("input[name=submit_edit_introduction]").click(function (e){
+				e.preventDefault();
+				var value = $("textarea[name=introduction]").val();
+				// success
+        		dalert.alert( "Are you sure ?" , 'confirm' , function call(){
+        			changeIntroduction( value );
+        		});
 				
 			});
-			function changeIntroduction(  ){
-				
+			
+			function changeIntroduction(value){
+				fd = new FormData();
+				fd.append( 'introduction' , value );
+				$.ajax({
+			        url: 'index.php?rt=user/index/editProfile',
+			        type: 'POST',
+			        data: fd,
+			        cache: false,
+			        dataType: 'json',
+			        processData: false, // Don't process the files
+			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+			        success: function(data, textStatus, jqXHR)
+			        {
+			        	/*
+			    		 * TH01: null => success
+			    		 * TH02: array => error
+			    		 * */
+			        	var error = data.is_error;
+			        	if( error == null ){
+			        		
+			        		$.ajax({
+						        url: 'index.php?rt=user/index/getValueParameterUserSession',
+						        type: 'GET',
+						        cache: false,
+						        dataType: 'json',
+						        processData: false, // Don't process the files
+						        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+						        success: function(data, textStatus, jqXHR)
+						        {
+						        	dalert.alert( "Edit introduction success" , 'success' , function callbackMe(){
+						        		$("div.introduction-content").html(data.user.introduction);
+						        		dialogEdit.dialog('close');
+					                });
+						        },
+						        error: function(jqXHR, textStatus, errorThrown)
+						        {
+						        	var error = ['ERRORS: ' + textStatus];
+						            // Handle errors here
+						        	dalert.alert( stringHtmlError(error) , 'Error' );
+						        }
+						    });
+			        	}else{
+			        		dalert.alert( generateHtmlAlertError( error ) , 'Error' );
+			        	}
+			        },
+			        error: function(jqXHR, textStatus, errorThrown)
+			        {
+			        	var error = ['ERRORS: ' + textStatus];
+			            // Handle errors here
+			        	dalert.alert( stringHtmlError(error) , 'Error' );
+			        }
+			    });
 			}
 			
 			function loadGoogleMap(){
@@ -67,6 +124,7 @@ var indexAction = function () {
 				modal: true,
 			    maxHeight: 600,
 			    maxWidth: 600
+			    
 			});
 			
 			dialogEdit = $("#dialog-edit-introduction").dialog({
