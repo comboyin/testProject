@@ -35,13 +35,18 @@ var friendRequestAction = function() {
 			        success: function(data, textStatus, jqXHR)
 			        {
 			        	var is_error = data.is_error;
-			        	if( is_error !=null ){
+			        	
+			        	if( is_error != null ){
 			        		// error
-			        		dalert.alert(stringHtmlError(is_error),'Error');
+			        		dalert.alert( stringHtmlError(is_error) ,'Error' , function call(){
+			        			$(tag_tr).remove();
+			        		});
 			        	}else{
 			        		// success
 			        		$(tag_tr).remove();
 			        	}
+		        		
+			        	
 			        },
 			        error: function(jqXHR, textStatus, errorThrown)
 			        {

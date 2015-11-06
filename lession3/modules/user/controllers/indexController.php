@@ -166,8 +166,8 @@ class indexController extends baseController{
 			$data_original_title = ( $is_like == false ) ? 'Like' : 'Unlike';
 			$html .= '<div class="col-sm-3 shop-product">';
 			$html .= '<div class="product-wrapper">';
-			$html .= '<div class="product-image">';
-			$html .= '<a href="">';
+			$html .= '<div class="product-image" idpicture="'.$picture->getId().'">';
+			$html .= '<a href="'. $picture->getLinkUrl() .'" rel="prettyPhoto">';
 			$html .= '<img alt="" src="'. $picture->getLinkUrl() .'">';
 			$html .= '</a>';
 			$html .= '</div>';
@@ -598,8 +598,11 @@ class indexController extends baseController{
 			$idFriendRequest = $_POST['idFriendRequest'] ;
 			$action			 = $_POST['action'];
 			
-			$model->acceptAndDeleteFriendRequest( $idFriendRequest, $userSession->getId() , $action);
-			$is_error		 = header('Content-Type: application/json');
+			$error = $model->acceptAndDeleteFriendRequest( $idFriendRequest , $userSession->getId() , $action);
+			if( $error != null ){
+				$is_error[] = $error;
+			}
+			header('Content-Type: application/json');
 			echo json_encode( array( 'is_error' => $is_error ) );
 			exit(0);
 			

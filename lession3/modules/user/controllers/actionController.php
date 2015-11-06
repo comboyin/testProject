@@ -333,5 +333,18 @@ class actionController extends baseController{
 		exit(0);
 	}
 	
+	public function unRequest(){
+		
+		$iduser = ( isset( $_POST['iduser']) ) ? $_POST['iduser']: '' ;
+		/* @var $FriendrequestModel FriendrequestModel */
+		$FriendrequestModel = $this->model->get('Friendrequest');
+		$userSession = $this->getUserSession();
+		$is_error = $FriendrequestModel->deleteFriendRequest( $iduser , $userSession->getId() );
+		header('Content-Type: application/json');
+		echo json_encode(
+					array( 'is_error' => $is_error )
+				);
+		exit(0);
+	}
 	
 }

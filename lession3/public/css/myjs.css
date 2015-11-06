@@ -1,8 +1,18 @@
 .shop-product{
 	min-height: 450px;
+	position: relative;
 }
+.shop-product .product-wrapper{
+	bottom: 0px !important;
+	position: absolute;
+}
+
+.shop-product .product-wrapper img{
+	width: 100%;
+}
+
 .product-image{
-	height: 370px;
+	/* height: 370px; */
 }
 .list-friend{
 	padding-left: 60px;

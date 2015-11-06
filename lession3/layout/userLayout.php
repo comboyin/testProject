@@ -28,15 +28,16 @@ $user = $_SESSION['acl']['account'];
     
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
-    <script src="<?php echo __FOLDER . 'public/'?>js/lib.js"></script>
+    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jQuery.MultiFile.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/alertJquery/dalert.jquery.min.js"></script>
-    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/modernizr-2.6.2.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="<?php echo __FOLDER . 'public/'?>js/lib.js"></script>
     <!--[if lt IE 9]>
         <script src="js/vendor/html5shiv.min.js"></script>
         <script src="js/vendor/respond.min.js"></script>

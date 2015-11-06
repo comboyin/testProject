@@ -118,8 +118,15 @@ class router
         }
 
         // check login and permission and open session
-
-        $acl = new acl($this->registry->acl, $this);
+        // start session
+        $session = session_id();
+        
+        if( empty( $session ) ){
+        	session_start();
+        }
+        
+        $acl = new acl( $this->registry->acl, $this);
+        $acl->init();
 
         /**
          * run the action

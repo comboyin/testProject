@@ -84,13 +84,41 @@ class FriendrequestModel extends baseModel{
 		}
 		return $ListFriendRequest;
 	}
+	public function deleteFriendRequest( $idFriend, $idUserSession ){
 	
-	public function acceptAndDeleteFriendRequest( $idFriendRequest, $idUserSession, $action ){
 		$is_error = null;
 		try {
 			// check exist
 			/* @var $friendRequests $friendRequest */
-			$friendRequests = $this->listTableByWhere('Friend_request', array( "id = '$idFriendRequest'" ));
+			$friendRequests = $this->listTableByWhere('Friend_request', array( " user_id = '$idUserSession' and user_id_to = '$idFriend' " ));
+			if( count( $friendRequests ) == 0 ){
+				$is_error[] = "Friend request not exist.";
+			}
+			
+			if( $is_error == null ){
+				//var_dump( $action );
+				$this->getPdo()->beginTransaction();
+				
+				$this->deleteTableByWhere('Friend_request', " where user_id = '$idUserSession' and user_id_to = '$idFriend' ");
+	
+				$this->getPdo()->commit();
+			}
+				
+		} catch (Exception $e) {
+			$is_error[] = $e->getMessage();
+			$this->getPdo()->rollBack();
+		}
+		return $is_error;
+	}	
+	public function acceptAndDeleteFriendRequest( $idFriendRequest, $idUserSession, $action ){
+		
+		$is_error = null;
+		
+		try {
+			// check exist
+			/* @var $friendRequests $friendRequest */
+			$friendRequests = $this->listTableByWhere('Friend_request', array( " id = '$idFriendRequest' " ));
+			
 			if( count( $friendRequests ) == 0 ){
 				$is_error[] = "Friend request not exist.";
 			}else{
@@ -135,6 +163,7 @@ class FriendrequestModel extends baseModel{
 			$is_error[] = $e->getMessage();
 			$this->getPdo()->rollBack();
 		}
+		
 		return $is_error;
 	}
 }

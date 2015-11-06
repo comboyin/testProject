@@ -38,7 +38,7 @@ abstract class baseController
 		if(isset($_SESSION['acl']['account'])){
 			/* @var $account User */
 			$account = $_SESSION['acl']['account'];
-
+			
 			if( $account->getGroup()->getLevel() > 0 ){
 				$result = true;
 			}

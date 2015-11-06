@@ -12,30 +12,20 @@ class acl {
 	public function __construct( $config, $router ){
 		$this->_config = $config;
 		$this->_router = $router;
-		$this->init();
+		
 	}
 
-	private function init(){
-		// start session
-		$session = session_id();
-		
-		if( empty( $session ) ){
-			session_start();
-		}
+	public function init(){
 		
 		$moduleName = $this->_router->module;
 		$controllerName = $this->_router->controller;
 		$actionName = $this->_router->action;
-
-		if(!isset($_SESSION['acl']['account'])){
+		if(!isset( $_SESSION['acl']['account'] ) ){
 			$accountTemp = new User();
 			$_SESSION['acl']['account'] = $accountTemp;
 		}
-
 		/* @var $account User */
 		$account = $_SESSION['acl']['account'];
-
-
 		// check login form backend module
 		if( $moduleName == 'user' ){
 			if( $account->getGroup()->getLevel() <= 0){
@@ -51,13 +41,13 @@ class acl {
 				);
 			}
 		}
-		$this->checkPermission( $moduleName, $controllerName, $actionName, $account->getGroup()->getLevel() );
+		
+		
 		if($moduleName == 'error' && $controllerName == 'error404'){
 			return;
 		}
-		
 		// check pemission account
-		else if( !$this->checkPermission( $moduleName, $controllerName, $actionName, $account->getGroup()->getLevel() )){
+		else if( !$this->checkPermission( $moduleName, $controllerName, $actionName, $account->getGroup()->getLevel()) ){
 			// redictect to deny page
 			$this->redirect(
 					$this->_router->url(

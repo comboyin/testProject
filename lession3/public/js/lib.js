@@ -20,7 +20,7 @@ function initialize() {
   geocoder = new google.maps.Geocoder();
   var latlng = new google.maps.LatLng(-34.397, 150.644);
   var myOptions = {
-    zoom: 18,
+    zoom: 15,
     center: latlng,
     mapTypeControl: true,
     mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
@@ -49,10 +49,10 @@ function initialize() {
           });
 
         } else {
-          alert("No results found");
+        	// alert("No results found");
         }
       } else {
-        alert("Geocode was not successful for the following reason: " + status);
+    	  // dalert.alert("Not find position in google map.",'Error');
       }
     });
   }
@@ -282,6 +282,51 @@ jQuery(document).ready(function () {
 	
 	var updateNumberRequest = setInterval( updateNumberRequest , 3000);
 	
+	// ==================================begin un request============================================================================
+	$(document).on( 'click', 'a.un-request', function(e){
+		e.preventDefault();
+		
+		var parent =  $(this).parents('div.media')[0];
+		
+		var idUser =  $("p a",parent).attr('idfriend');
+		var acctionSuccess = function ( parent ){
+			$( "a.un-request" , parent ).html( "Add Friend" );
+			$( "a.un-request" , parent ).attr( 'class' , 'add-friend' );
+		};
+		unRequest( idUser , acctionSuccess, $(this).parents('div.media')[0] );
+	} );
+	
+	function unRequest( idUser , acctionSuccess , parent ){
+		fd = new FormData();
+		
+		fd.append( "iduser" , idUser );
+		
+		$.ajax({
+	        url: 'index.php?rt=user/action/unRequest',
+	        type: 'POST',
+	        data: fd,
+	        cache: false,
+	        dataType: 'json',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+	        	var error = data.is_error;
+	        	if( error != null ){
+	        		dalert.alert(stringHtmlError(error),'Error');
+	        	}else{
+	        		acctionSuccess( parent );
+	        	}
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	        	var error = ['ERRORS: ' + textStatus];
+	            // Handle errors here
+	        	dalert.alert(stringHtmlError(error),'Error');
+	        }
+	    });
+	} 
+	// ==================================end un request============================================================================
 	
 	// ==================================begin add follow============================================================================
 	

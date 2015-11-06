@@ -154,6 +154,11 @@ var indexAction = function () {
 			        	var content = data.content;
 			        	
 			        	$("span.listPicture").html( content );
+			        	
+			        	$("a[data-gal^='prettyPhoto']").prettyPhoto({
+			    	   		hook: 'data-gal',
+			    			theme: 'facebook' /* light_rounded / dark_rounded / light_square / dark_square / facebook / pp_default*/
+			    	  	});
 			        },
 			        
 			        
@@ -232,9 +237,10 @@ var indexAction = function () {
 			
 			
 			// == == == == == == == == == == begin Delete picture == == == == == == == == == == == == == == == == == == == == ==
-			$(document).on( 'click' , 'a[data-original-title=Delete]' , function(e){
+			$(document).on( 'click' , 'a i[class="fa fa-remove"]' , function(e){
 					e.preventDefault();
-					var idpicture = $(this).attr('id-picture');
+					var parent = $(this).parents('a')[0];
+					var idpicture = $(parent).attr('id-picture');
 			        dalert.confirm("Are You Sure?","Alert Confirm !",function(result){
 			            if(result){
 			            	deletePicture( idpicture );
