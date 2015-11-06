@@ -206,7 +206,6 @@ class OrderModel extends baseModel{
 				$order->setIdorder( $orderTemp->getIdorder() );
 				// send mail
 				$errorEmail = $this->sendMail( $this->genaraHTMLOrder( $order ), $order->getEmail() );
-
 				if( $errorEmail != null ){
 					$error['Hóa đơn'][] = $errorEmail;
 				}else{

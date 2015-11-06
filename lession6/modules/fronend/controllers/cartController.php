@@ -1,10 +1,11 @@
 <?php
 class cartController extends baseController{
+	
 	public function index( $arg= array()){
+		
 		$config_pagination = $this->registry->pagination;
 
 		$listOrder = $_COOKIE['listorder'];
-		var_dump($listOrder);
 
 		if(isset($arg[1])){
 			$config_pagination['current_page'] = $arg[1];
@@ -46,6 +47,7 @@ class cartController extends baseController{
 		if( $captcha != $_SESSION['acl']['captcha']['code'] ){
 			$error['captcha'][] = 'Chuổi captcha không đúng.';
 		}
+		
 		else{
 			// validation
 			$vail = new validation();
@@ -90,24 +92,18 @@ class cartController extends baseController{
 				$order->setCreatetime(new DateTime());
 				$order->setEmail( $email );
 				$error = $orderModel->addOrder( $order );
-
 				if( $error == null ){
 					// clean session
 					$order = new Order();
 					$account->setOrder( $order );
 				}
 			}
-
 		}
-
 		echo json_encode(
 				array( 'error' => $error )
 			);
 		exit(0);
-
 	}
-
-
 
 	public function addCart( $arg ){
 		$error = null;
