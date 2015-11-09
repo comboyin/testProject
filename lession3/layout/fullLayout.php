@@ -28,8 +28,9 @@ $user = $_SESSION['acl']['account'];
     
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
-	<script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+	<script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
+    
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jQuery.MultiFile.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/alertJquery/dalert.jquery.min.js"></script>
     

@@ -9,7 +9,7 @@ $userSession   = $_SESSION['acl']['account'];
 	<div class="col-sm-12">
 		<div class="form-group">
 		<a href="<?php echo __FOLDER . 'user/index/friendList' ?>">
-			<button class="theme_button">Favorite (<span class="total-friend"> <?php echo $totalFriend?> </span>)</button>
+			<button class="theme_button">Friend list (<span class="total-friend"> <?php echo $totalFriend?> </span>)</button>
 		</a>
 		<a href="<?php echo __FOLDER . 'user/index/favoriteList'?>">
 			<button class="theme_button">Favorite (<span class="total-favorite"> <?php echo $totalFavorite?> </span>)</button>
@@ -36,7 +36,7 @@ $userSession   = $_SESSION['acl']['account'];
 						<p class="pull-left">
 							
 							<?php if ( $userFavorite->getId() != $userSession->getId() ):?>
-							<a class="<?php 
+							<a idfriend="<?php echo $userFavorite->getId()?>" class="<?php 
 								switch ( $userFavorite->getStatusForUserSession() ) {
 									/**
 									 * 0 : add friend

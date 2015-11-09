@@ -13,7 +13,7 @@
 							<a class="pull-left" href="#"> <img class="media-object" src="<?php echo __FOLDER?><?php echo __FOLDER_UPLOADS?>/<?php echo $UserSuggestion->getAvatar()?>" alt="">
 							</a>
 							<p class="pull-left">
-									<a class="add-friend" href="#">Add Friend</a>
+									<a idfriend="<?php echo $UserSuggestion->getId()?>" class="add-friend" href="#">Add Friend</a>
 							</p>
 						</div>
 					</div>

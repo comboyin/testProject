@@ -115,16 +115,14 @@ jQuery(document).ready(function () {
 		}
 	});
 	
-	$('a.like-picture').click( function(e){
+	$(document).on('click','a.like-picture',function(e){
 		e.preventDefault();
-		
 		var IdPicture = $ ($( 'div' , $(this).parents( 'div.product-wrapper' )[0] )[0] ).attr('idpicture');
 		
 		var tag_product_details = $(this).parents( 'div.product-details' )[0];
-		console.log( IdPicture );
+		
 		likePicture( IdPicture , tag_product_details );
 	});
-	
 	
 	function likePicture( IdPicture , tag_product_details ){
 		fd = new FormData();
@@ -286,14 +284,16 @@ jQuery(document).ready(function () {
 	$(document).on( 'click', 'a.un-request', function(e){
 		e.preventDefault();
 		
-		var parent =  $(this).parents('div.media')[0];
+		var parent =  $(this).parents('div')[0];
 		
-		var idUser =  $("p a",parent).attr('idfriend');
+		var idUser =  $(this).attr('idfriend');
+		
 		var acctionSuccess = function ( parent ){
+			$( $( "a.un-request" , parent ).parents('button')[0] ).attr('class','btn btn-info');
 			$( "a.un-request" , parent ).html( "Add Friend" );
 			$( "a.un-request" , parent ).attr( 'class' , 'add-friend' );
 		};
-		unRequest( idUser , acctionSuccess, $(this).parents('div.media')[0] );
+		unRequest( idUser , acctionSuccess, $(this).parents('div')[0] );
 	} );
 	
 	function unRequest( idUser , acctionSuccess , parent ){
@@ -541,9 +541,11 @@ jQuery(document).ready(function () {
 	//= = =  = = = = =  = = = = = begin send request  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = =
 	
 	$(document).on('click',"a.add-friend",function(e){
+		console.log('aa');
 		e.preventDefault();
-		media = $(this).parents('div.media')[0];
-		IdFriend = $( $('a',media)[0] ).attr('idfriend');
+		
+		media = $( this ).parents('div')[0];
+		IdFriend = $( this ).attr('idfriend');
 		sendRequest( IdFriend , media );
 	});
 	
@@ -570,9 +572,10 @@ jQuery(document).ready(function () {
 	        		
 	        	}else{
 	        		
-        			$( $('a',media)[2] ).attr( 'class', 'un-request' );
-	        		$( $('a',media)[2] ).html( 'unRequest' );
-	                
+	        		$( $('a.add-friend',media).parents('button')[0] ).attr( 'class' , 'btn btn-danger' );
+	        		$('a.add-friend',media).html( 'unRequest' );
+        			$('a.add-friend',media).attr( 'class', 'un-request' );
+        			
 	        	}
 	        },
 	        error: function(jqXHR, textStatus, errorThrown)
@@ -589,8 +592,8 @@ jQuery(document).ready(function () {
 	$(document).on('click',"a.un-friend",function(e){
 		e.preventDefault();
 		var media    = $(this).parents("div.media")[0];
-		var tag_a    = $( 'a' , media )[0];
-		var idfriend = $( tag_a ).attr('idfriend');
+		var tag_a    = this ;
+		var idfriend = $( this ).attr('idfriend');
 		var tag_a 	 = this;
 		dalert.confirm( "Are You Sure?","Confirm !" , function( result ){
             if( result ){
@@ -602,6 +605,8 @@ jQuery(document).ready(function () {
             }
         });
 	});
+	
+	
 	
 	function unfriend( idfriend , tag_a ){
 		
@@ -623,7 +628,7 @@ jQuery(document).ready(function () {
 	        	if( error != null ){
 	        		dalert.alert(stringHtmlError(error),'Error');
 	        	}else{
-	        		
+	        		$ ( $( tag_a ).parents('button')[0] ).attr('class','btn btn-info');
 	        		$(tag_a).attr( 'class' ,'add-friend');
 	        		$(tag_a).html( "Add friend" );
 	        		

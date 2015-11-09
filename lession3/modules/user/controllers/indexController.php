@@ -181,8 +181,8 @@ class indexController extends baseController{
 			$html .= '<a  href="#" title="" data-toggle="tooltip" data-original-title="View">'; 
 			$html .= '<i class="fa fa-eye ">(' . $picture->getView() . ') |</i>'; 
 			$html .= '</a>';
-			$html .= '<a href="#" title="" data-toggle="tooltip" data-original-title="'.$data_original_title.'">';
-			$html .= '<i class="fa '. $class_icon_thumbs .' ">(' . $picture->getLikeNumber() . ')</i>';
+			$html .= '<a class="like-picture" href="#" title="" data-toggle="tooltip" data-original-title="'.$data_original_title.'">';
+			$html .= '<i class="fa '. $class_icon_thumbs .' ">(<span class="number-like">'.$picture->getLikeNumber().'</span>)</i>';
 			$html .= '</a>';
 			$html .= '</div>';
 			$html .= '</div>';

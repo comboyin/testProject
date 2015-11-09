@@ -14,9 +14,11 @@
 .product-image{
 	/* height: 370px; */
 }
+
 .list-friend{
 	padding-left: 60px;
 }
+
 .list-friend .media p{
 	line-height: 5;
 }
@@ -57,3 +59,12 @@ div.preloader{
 .ui-dialog .ui-dialog-content{
 	margin: 0 auto;
 }
+
+.profile-avatar button{
+	font-size: 11px;
+	margin-top: 8px;
+}
+.profile-avatar button.change-avatar{
+	  margin-top: 8px;
+	  font-size: 14px;
+}  

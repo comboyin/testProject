@@ -78,7 +78,10 @@ class FollowModel extends baseModel{
 				//===============
 				$userid_to  = $item->getUseridTo();
 				$useridtos  = $this->listTableByWhere( 'User' , array( " id = '$userid_to' " ));
+				
+				
 				$useridto   = $useridtos[0];
+				
 				$item->setUseridTo( $useridto );
 			}
 			

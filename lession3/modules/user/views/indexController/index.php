@@ -112,7 +112,7 @@ $pictures = $user->getPictures();
 
 
 <!--=============================BEGIN DIALOG ADD LIST PICTURE================================================-->
-		<div id="dialog-add-list-picture" title="Add Pictures">
+		<div style="display: none" id="dialog-add-list-picture" title="Add Pictures">
 			<div class="error_picture">
 			
 			</div>
@@ -137,7 +137,7 @@ $pictures = $user->getPictures();
 <!--=============================BEGIN DIALOG ADD LIST PICTURE================================================-->
 
 <!--=============================BEGIN DIALOG EDIT INTRODUCTION================================================-->
-		<div id="dialog-edit-introduction" title="EDIT INTRODUCTION">
+		<div style="display: none" id="dialog-edit-introduction" title="EDIT INTRODUCTION">
 			<div class="error_picture">
 			
 			</div>

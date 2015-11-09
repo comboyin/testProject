@@ -8,11 +8,46 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 profile-avatar">
                         <div class="text-center">
                             <img id="product-image" src="<?php echo $user->getLinkAvatar();?>" >
                         </div>
                         <button idUser="<?php echo $user->getId()?>" class="btn <?php echo ( $is_favorite == true ) ? 'unfavorite btn-danger' : 'add-favorite btn-info' ?>"><?php echo ( $is_favorite == true ) ? 'Unfavorite' : 'Add Favorite' ?></button>
+                        <button idUser="<?php echo $user->getId()?>" class="btn <?php echo ( $is_follow == true ) ? 'un-follow btn-danger' : 'add-follow btn-info' ?>"><?php echo ( $is_follow == true ) ? 'Unfollow' : 'Add Follow' ?></button>
+                        
+                        <?php if( $user->getStatusForUserSession() == 0 ):?>
+                        	<?php 
+	                        	/**
+	                        	 * 0 : add friend
+	                        	 * 1 : unfriend
+	                        	 * 2 : unRequest
+	                        	 * @var int  */
+                        	?>
+	                        		
+                        				<button class="btn btn-info">
+                        					<a idfriend="<?php echo $user->getId()?>" style="color: white;" class="add-friend" href="#">
+                        						Add Friend
+                        					</a>
+                        				</button>
+                        		
+                        	<?php elseif ( $user->getStatusForUserSession() == 1 ):?>
+                        		
+                        			<button  class="btn btn-danger">
+                        				<a style="color: white;" idfriend="<?php echo $user->getId()?>" class="un-friend" href="#">
+                        					UnFriend
+                        				</a>
+                        			</button>
+                        		
+                        	<?php elseif ( $user->getStatusForUserSession() == 2 ):?>
+                        	
+                        			<button  class="btn btn-danger">
+                        				<a style="color: white;" idfriend="<?php echo $user->getId()?>" class="un-request" href="#">
+                        					unRequest
+                        				</a>
+                        			</button>
+                        	
+                        	<?php endif;?>
+                        
                     </div>
                     <div class="col-sm-8 single-product-description">
                         <div class="product-prices">
@@ -155,9 +190,8 @@
 							src="<?php echo $userFavorite->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
-							
 							<?php if ( $userFavorite->getId() != $userSession->getId() ):?>
-							<a class="<?php 
+							<a idfriend="<?php echo $userFavorite->getId()?>" class="<?php 
 								switch ( $userFavorite->getStatusForUserSession() ) {
 									/**
 									 * 0 : add friend
@@ -174,7 +208,7 @@
 										echo 'un-request';
 									break;
 								}
-							?>" href="#">
+								?>" href="#">
 								<?php
 								switch ( $userFavorite->getStatusForUserSession() ) {
 									case 0:

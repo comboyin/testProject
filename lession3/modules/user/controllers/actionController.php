@@ -60,9 +60,45 @@ class actionController extends baseController{
 			$is_favorite = true;
 		}
 		
+		
+		//is follow
+		$sql 		= " select count(*) as 'count' from follow where user_id = '$idUserSession' and user_id_to = '$idUser' ";
+		$result 	= $UserModel->executeQuery( $sql );
+		$is_follow = false;
+		if( $result[0]['count'] != 0 ){
+			$is_follow = true;
+		}
+		
+		$idUserTo = $user->getId();
+		/**
+		 * 0 : add friend
+		 * 1 : unfriend
+		 * 2 : unRequest
+		 * @var int  */
+		// add friend
+		$user->setStatusForUserSession( 0 );
+		/* @var $user_to User */
+		// check friend_request exist
+		$friend_requests = $UserModel->listTableByWhere( 'Friend_request' , array( " user_id = '$idUserSession' and user_id_to = '$idUserTo' " ));
+			
+		if( count( $friend_requests ) > 0 ){
+			// un request
+			$user->setStatusForUserSession( 2 );
+		
+		}else{
+			/* @var $friendRelationModel FriendrelationModel */
+			$friendRelationModel = $this->model->get("Friendrelation");
+			$is_friend = $friendRelationModel->checkFriendRelation( $idUserSession, $idUserTo );
+			if(  $is_friend  == true ){
+				// is friend
+				$user->setStatusForUserSession( 1 );
+			}
+		}
+		
 		$this->getView()->content->friendRelations = $friendRelations;
 		$this->getView()->content->user = $user;
 		$this->getView()->content->is_friend = $is_friend;
+		$this->getView()->content->is_follow = $is_follow;
 		$this->getView()->content->is_favorite = $is_favorite;
 		
 		
@@ -124,7 +160,32 @@ class actionController extends baseController{
 			$is_follow = true;
 		}
 		
-		$this->getView()->content->user = $user;
+		$idUserTo = $user->getId();
+		/**
+		 * 0 : add friend
+		 * 1 : unfriend
+		 * 2 : unRequest
+		 * @var int  */
+		// add friend
+		$user->setStatusForUserSession( 0 );
+		/* @var $user_to User */
+		// check friend_request exist
+		$friend_requests = $UserModel->listTableByWhere( 'Friend_request' , array( " user_id = '$idUserSession' and user_id_to = '$idUserTo' " ));
+		 
+		if( count( $friend_requests ) > 0 ){
+			// un request
+			$user->setStatusForUserSession( 2 );
+		
+		}else{
+			/* @var $friendRelationModel FriendrelationModel */
+			$friendRelationModel = $this->model->get("Friendrelation");
+			$is_friend = $friendRelationModel->checkFriendRelation( $idUserSession, $idUserTo );
+			if(  $is_friend  == true ){
+				// is friend
+				$user->setStatusForUserSession( 1 );
+			}
+		}
+		$this->getView()->content->user 		= $user;
 		$this->getView()->content->is_friend 	= $is_friend;
 		$this->getView()->content->is_favorite  = $is_favorite;
 		$this->getView()->content->is_follow    = $is_follow;
@@ -286,9 +347,44 @@ class actionController extends baseController{
 			$is_favorite = true;
 		}
 		
+		//is follow
+		$sql 		= " select count(*) as 'count' from follow where user_id = '$idUserSession' and user_id_to = '$idUser' ";
+		$result 	= $UserModel->executeQuery( $sql );
+		$is_follow = false;
+		if( $result[0]['count'] != 0 ){
+			$is_follow = true;
+		}
+		
+		$idUserTo = $user->getId();
+		/**
+		 * 0 : add friend
+		 * 1 : unfriend
+		 * 2 : unRequest
+		 * @var int  */
+		// add friend
+		$user->setStatusForUserSession( 0 );
+		/* @var $user_to User */
+		// check friend_request exist
+		$friend_requests = $UserModel->listTableByWhere( 'Friend_request' , array( " user_id = '$idUserSession' and user_id_to = '$idUserTo' " ));
+			
+		if( count( $friend_requests ) > 0 ){
+			// un request
+			$user->setStatusForUserSession( 2 );
+		
+		}else{
+			/* @var $friendRelationModel FriendrelationModel */
+			$friendRelationModel = $this->model->get("Friendrelation");
+			$is_friend = $friendRelationModel->checkFriendRelation( $idUserSession, $idUserTo );
+			if(  $is_friend  == true ){
+				// is friend
+				$user->setStatusForUserSession( 1 );
+			}
+		}
+		
 		$this->getView()->content->listUserFavorites = $listUserFavorites;
 		$this->getView()->content->user = $user;
 		$this->getView()->content->is_friend = $is_friend;
+		$this->getView()->content->is_follow = $is_follow;
 		$this->getView()->content->is_favorite = $is_favorite;
 		
 	}

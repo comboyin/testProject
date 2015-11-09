@@ -33,7 +33,7 @@ $friendRelations = $friendRelations;
 							src="<?php echo $friendRelation->getUserTo()->getLinkAvatar()?>" alt="">
 						</a>
 						<p class="pull-left">
-								<a class="un-friend" href="#">Unfriend</a>	
+								<a idfriend="<?php echo $friendRelation->getUserTo()->getId()?>" class="un-friend" href="#">Unfriend</a>	
 						</p>
 					</div>
 				</div>
