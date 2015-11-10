@@ -13,7 +13,7 @@ $pictures = $user->getPictures();
                 			</a>
 	                    	
 	                    	<a href="<?php echo __FOLDER . 'user/index/favoriteList'?>">
-	                    		<input type="button" class="theme_button" name="update_cart" value="Favorite (<?php echo $user->getTotalFavorite()?>)">	
+                    		<input type="button" class="theme_button" name="update_cart" value="Favorite (<?php echo $user->getTotalFavorite()?>)">	
 	                    	</a>
                     		
 	               		</div>
@@ -38,7 +38,7 @@ $pictures = $user->getPictures();
                                 <div class="tab-pane fade in active" id="tab-introduction">
                                 	<div><a href="#" class="edit-introduction">Edit</a></div>
                                 	<div class="introduction-content" >
-                                		<?php echo $user->getIntroduction()?>      
+                                		<?php echo htmlspecialchars( $user->getIntroduction() )?>      
                                 	</div>
                                 </div>
 

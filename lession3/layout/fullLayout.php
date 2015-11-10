@@ -141,7 +141,6 @@ $user = $_SESSION['acl']['account'];
 	                        	$controller = $router->controller;
 	                        	$action 	= $router->action;
 	                        	
-	                        	
 	                        ?>
                             <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'index' ) ? 'active' : ''?>" >
                                 <a href="<?php echo __FOLDER . 'user/'?>"><i class="rt-icon-home" ></i> Home</a>
@@ -153,8 +152,8 @@ $user = $_SESSION['acl']['account'];
                             <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'followlist' ) ? 'active' : ''?>">
                                 <a href="<?php echo __FOLDER . 'user/index/followList'?>"><i class="rt-icon-list"></i> Follow list <span class="number-follow"></span></a>
                             </li>
-
-							<li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'suggestionList' ) ? 'active' : ''?>">
+								
+							<li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'suggestionlist' ) ? 'active' : ''?>">
                                 <a href="<?php echo __FOLDER . 'user/index/suggestionList'?>"><i class="rt-icon-list"></i> Suggestion Friend</a>
                             </li>
                             

@@ -36,9 +36,10 @@ var indexAction = function () {
 			        success: function(data, textStatus, jqXHR)
 			        {
 			        	var introduction = data.user.introduction;
-			        	$("textarea[name=introduction]").val(introduction);
+			        	$("textarea[name=introduction]").val(  introduction  );
 			        	dialogEdit.dialog('open');
 			        },
+			        
 			        error: function(jqXHR, textStatus, errorThrown)
 			        {
 			        	var error = ['ERRORS: ' + textStatus];
@@ -88,7 +89,7 @@ var indexAction = function () {
 						        success: function(data, textStatus, jqXHR)
 						        {
 						        	dalert.alert( "Edit introduction success" , 'success' , function callbackMe(){
-						        		$("div.introduction-content").html(data.user.introduction);
+						        		$("div.introduction-content").html( escapeHtml( data.user.introduction ) );
 						        		dialogEdit.dialog('close');
 					                });
 						        },

@@ -243,5 +243,21 @@ class baseModel
     	$stmt->execute();
     	return $stmt->fetchAll();
     }
+    
+    /**
+     * @return User  */
+    protected function getUserSession(){
+    	$user = $_SESSION['acl']['account'];
+    	return $user;
+    }
+    
+    protected function checkIsSession( $id ){
+    	$flag = false;
+    	$user = $this->getUserSession();
+    	if( $user->getId() == $id ){
+    		$flag = true;
+    	}
+    	return $flag;
+    }
 
 }

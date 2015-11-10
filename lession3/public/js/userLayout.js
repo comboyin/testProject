@@ -45,7 +45,7 @@ var userLayout = function () {
 			        		// error
 			        		htmlError = generateHtmlAlertError( data.is_error );
 			        		
-			        		dalert.alert( htmlError,'Error');
+			        		dalert.alert( htmlError ,'Error');
 			        		//$("div.error_change_avatar").html( htmlError );
 			        	}else if( data.is_error == null ){
 		        			$("div.error_change_avatar").html('');
@@ -127,13 +127,13 @@ var userLayout = function () {
 				// show input
 				$( 'span.product-vars input' , productPrices).css( 'display','inline' );
 				
-				if( $.trim( $( 'span.product-vars strong' , productPrices).html() ) == "Birthday :" ){
+				if( $.trim( $( 'span.product-vars strong' , productPrices ).html() ) == "Birthday :" ){
 					
 					$('input[name=birthday]').datepicker( 'update', valueText );
 					
 				}else{
-					
-					$( 'span.product-vars input' , productPrices).val( valueText );
+					console.log( valueText );
+					$( 'span.product-vars input' , productPrices).val( htmlUnescape( valueText  ) );
 					
 				}
 				// show button save and cancel
@@ -223,10 +223,8 @@ var userLayout = function () {
 						        	_value = user.sex;
 						        	_valueSex = user.stringsex;
 						        	$( ".product-vars span" , row ).html(_valueSex);
-						        	console.log(_valueSex);
 						        	$( ".product-vars span" , row ).attr('sex',_value);
 						        	cancelSex(row);
-						        	
 						        },
 						        error: function(jqXHR, textStatus, errorThrown)
 						        {
@@ -286,7 +284,7 @@ var userLayout = function () {
 						        			_value = value;
 						        		}
 						        	} );
-						        	$( ".product-vars span" , row ).html(_value);
+						        	$( ".product-vars span" , row ).html( escapeHtml( _value ) );
 						        	if( name == "address" ){
 						        		// reset google map
 						        		address = _value;

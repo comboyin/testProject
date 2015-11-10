@@ -4,16 +4,21 @@ class FriendrequestModel extends baseModel{
 	 * 
 	 * @param Friend_request $friendRequest  */
 	public function addFriendRequest( $friendRequest ){
+		
 		$kq = array(
 				'error'  => null,
 				'result' => null
-		);
+				);
+		
 		try {
 			$user_id         = $friendRequest->getUserId();
 			$user_id_to      = $friendRequest->getUserIdTo();
 			$regist_datetime = $friendRequest->getRegistDatetime();
 			
-			
+			// check user session
+			if( $this->checkIsSession( $user_id_to ) ){
+				$kq['error'][] = "Can not make friends with yourself";
+			}
 			// check user_id exist.
 			$friend_requests = $this->listTableByWhere( 'User' , array( " id = '$user_id' " ));
 			if( count( $friend_requests ) == 0 ){

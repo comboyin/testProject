@@ -11,7 +11,10 @@ class FavoriteModel extends baseModel{
 			$user_id_to 	 = $favorite->getUserIdTo();
 			$regist_datetime = $favorite->getRegistDatetime();
 			
-			
+			// check user session
+			if( $this->checkIsSession( $user_id_to ) ){
+				$is_error[] = "Can not make friends with yourself";
+			}
 			// check user_id
 			$cout = count( $this->listTableByWhere('User', array( " id = '$user_id' " ))  );
 			if( $cout == 0  ){

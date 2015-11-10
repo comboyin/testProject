@@ -587,6 +587,7 @@ class indexController extends baseController{
 		$friend_request->setRegistDatetime( utility::getDatetimeNow() );
 		$now = new DateTime();
 		$now = $now->format("Y-m-d h:i:s");
+		
 		$friend_request->setRegistDatetime( $now );
 		$kq = $model->addFriendRequest( $friend_request );
 		header('Content-Type: application/json');

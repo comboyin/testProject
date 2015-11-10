@@ -10,7 +10,10 @@ class FollowModel extends baseModel{
 			$idUserTo = $follow->getUserIdTo();
 			$regist_datetime = $follow->getRegistDatetime();
 			
-			
+			// check user session
+			if( $this->checkIsSession( $idUserTo ) ){
+				$is_error[] = "Can not make friends with yourself";
+			}
 			// check user_id
 			$cout = count( $this->listTableByWhere('User', array( " id = '$idUser' " ))  );
 			if( $cout == 0  ){

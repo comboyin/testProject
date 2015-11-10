@@ -28,9 +28,9 @@ $user = $_SESSION['acl']['account'];
     
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
-
+ 	<script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
-        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+       
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jQuery.MultiFile.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/alertJquery/dalert.jquery.min.js"></script>
@@ -124,7 +124,7 @@ $user = $_SESSION['acl']['account'];
                         </div>
                 </div>
                 <div class="col-sm-3 text-right">
-					    <h3> Hi ! <?php echo $user->getUsername()?></h3>
+					    <h3> Hi ! <?php echo htmlspecialchars( $user->getUsername() )?></h3>
                 </div>
 
 
@@ -204,7 +204,7 @@ $user = $_SESSION['acl']['account'];
 			                                    	<h1>
 			                                    		<strong>
 			                                    			<span>
-				                                    			<?php echo $user->getFullname()?>
+				                                    			<?php echo htmlspecialchars( $user->getFullname() )?>
 			                                    			</span>
 				                                    	</strong>
 			                                    	</h1>
@@ -228,7 +228,7 @@ $user = $_SESSION['acl']['account'];
 				                                		Email :
 				                            		</strong>
 			                            			
-			                            			<span><?php echo $user->getEmail()?></span>
+			                            			<span><?php echo htmlspecialchars( $user->getEmail() )?></span>
 			                            			<input style="display: none" type="text" value="" name="email" class="form-control" placeholder="">
 				                       		 	</span>
 											</div>
@@ -251,7 +251,7 @@ $user = $_SESSION['acl']['account'];
 					                                Sex :
 					                            </strong>
 			                            	
-			                            		<span sex="<?php echo $user->getSex()?>"><?php echo $user->getStringSex()?></span>
+			                            		<span sex="<?php echo $user->getSex()?>"><?php echo htmlspecialchars( $user->getStringSex() )?></span>
 			                            		
 			                            		<div style="display: none;" class="input_sex">
 			                            			<div  class="radio">
@@ -284,7 +284,7 @@ $user = $_SESSION['acl']['account'];
 			                                		Birthday :
 			                            		</strong>
 			                            			<input style="display: none" type="text" value="" name="birthday" class="form-control" placeholder="yyyy-mm-dd">
-			                            			<span><?php echo $user->getBirthday()?></span>
+			                            			<span><?php echo htmlspecialchars ( $user->getBirthday() )?></span>
 			                        		</span>
 										</div>
 			
@@ -306,7 +306,7 @@ $user = $_SESSION['acl']['account'];
 			                            		    Address :
 			                           		 </strong>
 			                           		 	<input style="display: none" type="text" value="" name="address" class="form-control" placeholder="">
-												<span><?php echo $user->getAddress()?></span>
+												<span><?php echo htmlspecialchars( $user->getAddress() )?></span>
 			
 			                        		</span>
 										</div>
@@ -327,7 +327,7 @@ $user = $_SESSION['acl']['account'];
 			                            		<strong>
 			                            		    Level :
 			                           		 	</strong>
-			                           		 	<span><?php echo $user->getGroup()->getStringLevel() ?></span>
+			                           		 	<span><?php echo htmlspecialchars( $user->getGroup()->getStringLevel() )?></span>
 			                        		</span>
 										</div>
 									</div>

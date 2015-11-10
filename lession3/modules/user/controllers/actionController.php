@@ -401,8 +401,8 @@ class actionController extends baseController{
 		$is_error = $modelFollow->addFollow( $follow );
 		header('Content-Type: application/json');
 		echo json_encode(
-					array( 'is_error' => $is_error )
-				);
+						array( 'is_error' => $is_error )
+					);
 		exit(0);
 	}
 	
