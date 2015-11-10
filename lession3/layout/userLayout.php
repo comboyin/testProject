@@ -28,8 +28,9 @@ $user = $_SESSION['acl']['account'];
     
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-1.11.1.min.js"></script>
-    <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/bootstrap.min.js"></script>
+        <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/jQuery.MultiFile.min.js"></script>
     <script src="<?php echo __FOLDER . 'public/'?>js/vendor/alertJquery/dalert.jquery.min.js"></script>
@@ -145,8 +146,6 @@ $user = $_SESSION['acl']['account'];
 	                        	$module 	= $router->module;
 	                        	$controller = $router->controller;
 	                        	$action 	= $router->action;
-	                        	
-	                        	
 	                        ?>
                             <li class="<?php echo ( $module == 'user' && $controller == 'index' && $action == 'index' ) ? 'active' : ''?>" >
                                 <a href="<?php echo __FOLDER . 'user/'?>"><i class="rt-icon-home" ></i> Home</a>
@@ -188,8 +187,12 @@ $user = $_SESSION['acl']['account'];
 			                <div class="row">
 			                    <div class="col-sm-4 profile-avatar">
 			                        <div class="text-center">
-			                            <img id="product-image" src="<?php echo $user->getLinkAvatar();?>" >
-			                            <button class="btn change-avatar">Change avatar</button>
+			                        
+			                        	<div class="avatar-img">
+			                        		<img id="product-image" src="<?php echo $user->getLinkAvatar();?>" >
+			                            	<button class="btn change-avatar">Change avatar</button>
+			                        	</div>
+			                            
 			                        </div>
 			                    </div>
 			                    <div class="col-sm-8 single-product-description">

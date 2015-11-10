@@ -102,6 +102,7 @@ $pictures = $user->getPictures();
 									
 									<div class="tab-pane fade" id="tab-Location">
                                 		<section class="grey_section" id="map"></section>
+                                		<div id="AddWaypoint"></div>
                                 	</div>
                                 	
                                 </div>

@@ -14,60 +14,152 @@ function formatNumber (num) {
 
 var geocoder;
 var map;
-var address;
-var currentMapCenter = null; 
+var default_latlng;
+var waypointMarker = null;
+var address = "";
+var markers = [];
+
 function initialize() {
-  geocoder = new google.maps.Geocoder();
-  var latlng = new google.maps.LatLng(-34.397, 150.644);
-  var myOptions = {
-    zoom: 15,
-    center: latlng,
-    mapTypeControl: true,
-    mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-    navigationControl: true,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("map"), myOptions);
-  if (geocoder) {
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
-        	map.setCenter(results[0].geometry.location);
-
-          var infowindow = new google.maps.InfoWindow(
-              { content: '<b>'+address+'</b>',
-                size: new google.maps.Size(150,50)
-              });
-
-          var marker = new google.maps.Marker({
-              position: results[0].geometry.location,
-              map: map, 
-              title:address
-          }); 
-          google.maps.event.addListener(marker, 'click', function() {
-              infowindow.open(map,marker);
-          });
-
-        } else {
-        	// alert("No results found");
-        }
-      } else {
-    	  // dalert.alert("Not find position in google map.",'Error');
-      }
+	
+  map = new google.maps.Map(
+    document.getElementById("map"), {
+      center: new google.maps.LatLng(37.4419, -122.1419),
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-  }
-  
-	google.maps.event.addListener(map, 'resize', function () {
-	    currentMapCenter = map.getCenter();
-	});
+  geocoder = new google.maps.Geocoder();
+  geocoder.geocode({
+      'address' 	: address
+    }, function( results ) {
+    	var addr_type = results[0].types[0];
+    	console.log( results[0].geometry.location );
+    	moveCenterAddress( results[0].geometry.location, address, addr_type );
+    });
+}
 
-	google.maps.event.addListener(map, 'bounds_changed', function () {
-	    if (currentMapCenter) {
-	    	// react here
-	        map.setCenter( currentMapCenter );
-	    }
-	    currentMapCenter = null;
+function actionChangeLocation( latlng ){
+		geocoder.geocode( {'location': latlng}, function(results, status) {
+			
+		if ( status == google.maps.GeocoderStatus.OK ){
+			// type of address inputted that was geocoded
+			var addr_type = results[0].types[0];
+			// edit database
+			var address = results[0].formatted_address;
+			var addr_type = results[0].types[0];
+			
+			
+			dalert.confirm("Do you want to change your address: <br/> '" + address + "'","Alert Confirm !",function(result){
+	            if(result){
+	            	fd = new FormData();
+	    			fd.append( "address" , address );
+	    			$.ajax({
+	    		        url: 'index.php?rt=user/index/editProfile',
+	    		        type: 'POST',
+	    		        data : fd,
+	    		        cache: false,
+	    		        dataType: 'json',
+	    		        processData: false, // Don't process the files
+	    		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	    		        success: function(data, textStatus, jqXHR)
+	    		        {
+	    		        	
+	    		        	if ( data.is_error != null ){
+	    		        		// error
+	    		        		dalert.alert( stringHtmlError(data.is_error) ,'Error');
+	    		        		
+	    		        	}else{
+	    		        		// success
+	    		        		moveCenterAddress( results[0].geometry.location, address, addr_type );
+	    		        		// change address 
+	    		        		$("input[name=address]").next().html(address);
+	    		        	}
+	    		        },
+	    		        error: function(jqXHR, textStatus, errorThrown)
+	    		        {
+	    		        	var error = ['ERRORS: ' + textStatus];
+	    		            // Handle errors here
+	    		        	dalert.alert( stringHtmlError(error) ,'Error');
+	    		        }
+	    		    });
+	            }
+	            else{
+	            	
+	            }
+	        });
+		}
+		else     
+			alert("Geocode was not successful for the following reason: " + status);        
 	});
+}
+
+function activeEventClickGoogleMap(){
+	google.maps.event.addListener( map , 'click', function(e) {
+		actionChangeLocation(e.latLng);
+	});
+}
+
+//Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function moveCenterAddress( default_latlng  , address , addr_type ){
+	
+	// Center the map at the specified location
+	map.setCenter( default_latlng );
+
+	setMapOnAll(null);
+	markers = [];
+	
+	waypointMarker = new google.maps.Marker({
+	    position: default_latlng,
+	    map: map,
+	    	/*draggable: true,*/
+	    	title: address
+	    });
+		//Create an InfoWindow for the marker
+		var contentString = "<b>" + address + "</b>";	// HTML text to display in the InfoWindow
+		var infowindow = new google.maps.InfoWindow( { content: contentString } );
+		// Set event to display the InfoWindow anchored to the marker when the marker is clicked.
+		google.maps.event.addListener( waypointMarker, 'click', function() { infowindow.open( map, waypointMarker ); });
+	    waypointMarker.setVisible(true);
+	    // add to markers
+	   markers.push(waypointMarker);
+	
+}
+function setupMarkerWaypoint() {
+
+  function geocodePosition( pos ) {
+	    geocoder.geocode({
+	      'address' 	: '61 nguyễn trãi'
+	    }, function(responses) {
+	      if ( responses && responses.length > 0 ) {
+	    	  updateMarkerAddress( responses[0].formatted_address );
+	      } else {
+	    	  updateMarkerAddress('Cannot determine address at this location.');
+	      }
+	    });
+	  }
+
+  function updateMarkerAddress(str) {
+	  
+	  document.getElementById('AddWaypoint').innerHTML = str;
+  }
+
+  // Update current position info.
+
+  geocodePosition(waypointMarker.getPosition());
+
+  // Add dragging event listeners.
+
+  google.maps.event.addListener( waypointMarker, 'dblclick', function() {
+	  // updateMarkerStatus('Drag ended');
+	  console.log('aaaa');
+	  geocodePosition(waypointMarker.getPosition());
+  });
+
 }
 
 //create html error alert
@@ -111,7 +203,11 @@ jQuery(document).ready(function () {
 	// 
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		if( $( e.target ).attr('href') == "#tab-Location" ){
-			google.maps.event.trigger(map, "resize");
+			
+			
+			  var center = map.getCenter();
+			  google.maps.event.trigger(map, "resize");
+			  map.setCenter(center);
 		}
 	});
 	
@@ -243,6 +339,7 @@ jQuery(document).ready(function () {
 	
 	function updateNumberRequest(){
 		$.ajax({
+			
 	        url: 'index.php?rt=user/index/getValueParameterUserSession',
 	        type: 'GET',
 	        cache: false,
@@ -278,10 +375,11 @@ jQuery(document).ready(function () {
 	
 	updateNumberRequest();
 	
-	var updateNumberRequest = setInterval( updateNumberRequest , 3000);
+	//var updateNumberRequest = setInterval( updateNumberRequest , 3000);
 	
 	// ==================================begin un request============================================================================
 	$(document).on( 'click', 'a.un-request', function(e){
+		
 		e.preventDefault();
 		
 		var parent =  $(this).parents('div')[0];

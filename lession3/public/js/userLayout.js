@@ -44,12 +44,18 @@ var userLayout = function () {
 			        	if(data.is_error != null){
 			        		// error
 			        		htmlError = generateHtmlAlertError( data.is_error );
-			        		$("div.error_change_avatar").html( htmlError );
+			        		
+			        		dalert.alert( htmlError,'Error');
+			        		//$("div.error_change_avatar").html( htmlError );
 			        	}else if( data.is_error == null ){
 		        			$("div.error_change_avatar").html('');
 		        			// success
 			        		dalert.alert("Change avatar success.","Success",function callbackMe(){
-			        			window.location.reload();
+			        			
+			        			$("div.profile-avatar img").attr("src",data.linkavatar);
+			        			$( 'input[name="avatar"]' ).MultiFile( 'reset' );
+			        			dialogChangeAvatar.dialog('close');
+			        			
 			                });	
 			        	}
 			        },
@@ -110,11 +116,13 @@ var userLayout = function () {
 			}
 						
 			$(document).on( 'click' ,'a.edit_info',function(e){
+				
 				e.preventDefault();
+				
 				productPrices = $(this).parents('.row')[0];
 				valueText =  $.trim( $( 'span.product-vars span' , productPrices).html() );
 				// hidden name and button save
-				$( 'span.product-vars span' , productPrices).css( 'display','none' );
+				$( 'span.product-vars span' , productPrices ).css( 'display','none' );
 				$( 'a.edit_info' , productPrices).css( 'display','none' );
 				// show input
 				$( 'span.product-vars input' , productPrices).css( 'display','inline' );
@@ -126,6 +134,7 @@ var userLayout = function () {
 				}else{
 					
 					$( 'span.product-vars input' , productPrices).val( valueText );
+					
 				}
 				// show button save and cancel
 				$( 'span.saveCancelInfo' , productPrices).css( 'display','inline' );
@@ -139,7 +148,7 @@ var userLayout = function () {
 				
 			});
 			
-			function CancelInfo(productPrices){
+			function CancelInfo( productPrices ){
 				
 				// show name and button save
 				$( 'span.product-vars span' , productPrices).css( 'display','inline' );
@@ -161,7 +170,7 @@ var userLayout = function () {
 				name = 'sex';
 				
 				updateSex( name, value, row);
-				cancelSex(row);
+				
 				
 			} );
 			// == == == == == == == == == == end Edit sex == == == == == == == == == == == == == == == == == == == == ==
@@ -174,7 +183,7 @@ var userLayout = function () {
 				value = $('input',row).val();
 				
 				updateFieldUser( name, value, row);
-				CancelInfo(row);
+				
 				
 			} );
 			
@@ -197,12 +206,8 @@ var userLayout = function () {
 			    		 * */
 			        	var error = data.is_error;
 			        	if( error == null ){
-			        		
-			        		
 			        		// success
 			        		dalert.alert( "Edit Success" , 'Success' );
-			        		
-			        		
 			        		$.ajax({
 						        url: 'index.php?rt=user/index/getValueParameterUserSession',
 						        type: 'GET',
@@ -212,7 +217,6 @@ var userLayout = function () {
 						        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
 						        success: function(data, textStatus, jqXHR)
 						        {
-						        	
 						        	var user = data.user;
 						        	var _value= "";
 						        	var _valueSex = "";
@@ -221,6 +225,7 @@ var userLayout = function () {
 						        	$( ".product-vars span" , row ).html(_valueSex);
 						        	console.log(_valueSex);
 						        	$( ".product-vars span" , row ).attr('sex',_value);
+						        	cancelSex(row);
 						        	
 						        },
 						        error: function(jqXHR, textStatus, errorThrown)
@@ -230,14 +235,9 @@ var userLayout = function () {
 						        	dalert.alert( stringHtmlError(error) , 'Error' );
 						        }
 						    });
-			        		
-			        		
-			        		
 			        	}else{
 			        		dalert.alert( generateHtmlAlertError( error ) , 'Error' );
 			        	}
-			        	
-
 			        },
 			        error: function(jqXHR, textStatus, errorThrown)
 			        {
@@ -291,7 +291,9 @@ var userLayout = function () {
 						        		// reset google map
 						        		address = _value;
 						        		initialize();
+						        		activeEventClickGoogleMap();
 						        	}
+						        	CancelInfo( row );
 						        },
 						        error: function(jqXHR, textStatus, errorThrown)
 						        {
@@ -301,6 +303,7 @@ var userLayout = function () {
 						        }
 						    });
 			        	}else{
+			        		
 			        		dalert.alert( generateHtmlAlertError( error ) , 'Error' );
 			        	}
 			        },
@@ -313,7 +316,14 @@ var userLayout = function () {
 			    });
 			}
 			// == == == == == == == == == == end Save user == == == == == == == == == == == == == == == == == == == == ==
+			
+			
+				
+
+			
 		}
+	
+	
 
 	};
 }();
@@ -322,3 +332,4 @@ var userLayout = function () {
 jQuery(document).ready(function () {
 	userLayout.init();
 });
+

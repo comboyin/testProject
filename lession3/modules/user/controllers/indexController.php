@@ -27,6 +27,7 @@ class indexController extends baseController{
 		$this->getView()->content->user = $user;
 		
 	}
+	
 	/**
 	 * get atrr value of user logined
 	 * Lấy giá trị thuộc tính của user đã đăng nhập  */
@@ -58,11 +59,14 @@ class indexController extends baseController{
 		'introduction' 		=> $acc->getIntroduction(),
 		'username'     		=> $acc->getUsername(),
 		'numberRequest'		=> $numberFriendRequest,
-		'numberFollow' 		=> $numberFollow		
+		'numberFollow' 		=> $numberFollow,
+				'avatar'	=> $acc->getLinkAvatar()
 		);
 		echo json_encode( array(  'user' => $kq) );
 		exit(0);
 	}
+	
+	
 	
 	public function deletePicture(){
 		$is_error = null;
@@ -219,7 +223,7 @@ class indexController extends baseController{
 		
 		// list image
 		foreach ( $listImageCustom as $imageCustom ){
-			if( ( $errorImageCustom = $valid->fileImageValidation( $imageCustom , array( 'size' => 710000 ) ) ) != null){
+			if( ( $errorImageCustom = $valid->fileImageValidation( $imageCustom , array( 'size' => 700000 ) ) ) != null){
 				if( is_array( $errorImageCustom ) ){
 					utility::pushArrayToArray( $is_error['List Pictures'][$imageCustom['name']] , $errorImageCustom);
 				}else if( is_string( $errorImageCustom ) ){
@@ -279,7 +283,8 @@ class indexController extends baseController{
 	}
 	
 	public function changeAvatar(){
-		$is_error = null;
+		$is_error 	= null;
+		$linkAvatar = null;
 		$avatar = isset($_FILES['avatar']) ? $_FILES['avatar'] : array();
 		// validation
 		
@@ -328,14 +333,18 @@ class indexController extends baseController{
 				$group = $userModel->listTableByWhere( 'Group' , array( " id = '$group_id' " ));
 				$user->setGroup( $group[0] );
 				$_SESSION['acl']['account'] = $users[0];
+				$linkAvatar = $user->getLinkAvatar();
 			}
 		}
+		
 		// $is_error == null  => success
 		// $is_error == array => error
 		header('Content-Type: application/json');
 		echo json_encode(
 				array(
-					'is_error' => $is_error )
+						'is_error' 	 => $is_error,
+						'linkavatar' => $linkAvatar
+				 	)
 				);
 		exit(0);
 	}
@@ -357,8 +366,9 @@ class indexController extends baseController{
 	}
 	
 	public function editProfile(){
+		
 		$is_error = null;
-		$stringSetValue = "";
+		$stringSetValue = null;
 		// get parameter.
 		
 		// fullname
@@ -372,13 +382,13 @@ class indexController extends baseController{
 		// address
 		$address  = isset( $_POST['address'] ) ? $_POST['address'] : null;
 		// address
-		$intro  = isset( $_POST['introduction'] ) ? $_POST['introduction'] : null;
+		$intro    = isset( $_POST['introduction'] ) ? $_POST['introduction'] : null;
 		
 		// validation
 		$valid = new validation();
 		
 		// introduction
-		if( $intro != null ){
+		if( $intro !== null ){
 			$stringSetValue .= " introduction = '$intro' , " ;
 			// empty
 			if( ( $emptyInto = $valid->checkEmpty( $intro ) ) != null )
@@ -392,7 +402,7 @@ class indexController extends baseController{
 			}
 		}
 		// fullname
-		if( $fullname != null ){
+		if( $fullname !== null ){
 			
 			$stringSetValue .= " fullname = '$fullname' , " ;
 			
@@ -409,10 +419,12 @@ class indexController extends baseController{
 			}
 		}
 		
+		
 		// email 
-		if( $email != null ){
+		if( $email !== null ){
 			
 			$stringSetValue .= " email = '$email' , ";
+			
 			// empty
 			if( ( $emptyEmail = $valid->checkEmpty( $email ) )  != null )
 			{
@@ -431,7 +443,7 @@ class indexController extends baseController{
 			}
 		}
 		// sex
-		if( $sex != null ){
+		if( $sex !== null ){
 			
 			$stringSetValue .= " sex = $sex , ";
 			// empty
@@ -453,7 +465,7 @@ class indexController extends baseController{
 		}
 		
 		// birthday 
-		if( $birthday != null ){
+		if( $birthday !== null ){
 			$stringSetValue .= " birthday = '$birthday' , ";
 			// birthday
 	        $split = array();
@@ -467,7 +479,7 @@ class indexController extends baseController{
 	        }
 		}
 		
-		if( $address != null ){
+		if( $address !== null ){
 			
 			$stringSetValue .= " address = '$address' , ";
 			// address
@@ -479,7 +491,7 @@ class indexController extends baseController{
 			}
 		}
 		
-		if( strlen( $stringSetValue ) == 0 ){
+		if( strlen( $stringSetValue ) == null ){
 			utility::pushArrayToArray($is_error['Parameter'], array( 'No parameter.' ));
 		}
 		
@@ -552,9 +564,6 @@ class indexController extends baseController{
 		
 		exit(0);
 	}
-
-	
-	
 	
 	public function searchUser(){
 		$keyWord = isset( $_GET['KeyWord'] ) ? $_GET['KeyWord'] : '';

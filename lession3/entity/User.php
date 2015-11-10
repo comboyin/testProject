@@ -30,6 +30,7 @@ class User {
 	 * 
 	 * @var array  */
 	private $friend_relation;
+	
 	/**
 	 * 
 	 * @var array  */

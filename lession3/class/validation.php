@@ -20,7 +20,7 @@ class validation {
 			$flag = false;
 		}
 
-		if( $flag == false ){
+		if( $flag != false ){
 			$error[] = 'Value include the characters a-Z and number';
 		}
 
@@ -46,7 +46,7 @@ class validation {
 	        }
 	    }
 
-	    if( $flag == false ){
+	    if( $flag != false ){
 	        $error[] = 'Value include the characters a-Z';
 	    }
 
@@ -86,30 +86,28 @@ class validation {
 	}
 
 	public function fileImageValidation( $file , $option = array()){
-
-		if( !isset( $file['name'] ) || strlen( $file['name'] ) == '' ){
+		
+		if( !isset( $file['name'] ) && strlen( $file['name'] ) == '' ){
 			$error[] = "Image not selected.";
 			return $error;
 		}
 
 		$validation_max_file_size = isset( $option['size'] ) ? $option['size'] : 140000 ;
 
-
 		$target_dir = __FOLDER_UPLOADS . "/";
-		$path_parts = pathinfo(basename($file["name"]));
+		$path_parts = pathinfo( basename( $file["name"]) );
         $fileName = $path_parts['filename'].uniqid().'.'.$path_parts['extension'];
 		$target_file = $target_dir.$fileName;
-
+		$f_type = $file['type'];
 		$imageFileType = $path_parts['extension'];
 
-		if (isset($_POST["submit"])) {
-			$check = getimagesize($file["tmp_name"]);
-			if ($check === false) {
-				$error[] = "File is not an image.";
-			}
+		$check = getimagesize( $file["tmp_name"] );
+		
+		if ( $check == false ) {
+			$error[] = "File is not an image.";
 		}
-
-		if (file_exists($target_file)) {
+		
+		if ( file_exists($target_file) ) {
 
 			$error[] = "Sorry, file already exists.";
 		}
@@ -118,11 +116,14 @@ class validation {
 			$kb = $validation_max_file_size/1000;
 			$error[] = "Sorry, your file is too large. File smaller $kb KB.";
 		}
+		if ( 
+				$imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"
+					&&
+				$f_type != "image/gif" && $f_type != "image/png" && $f_type != "image/jpeg" && $f_type != "image/JPEG" && $f_type != "image/PNG" && $f_type != "image/GIF" )
 
-		if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-
-			$error[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-		}
+				{
+					$error[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+				}
 		if(!isset($error)){
 		    if (move_uploaded_file( $file["tmp_name"] , $target_file ) ) {
 

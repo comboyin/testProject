@@ -1,70 +1,104 @@
-.shop-product{
+.shop-product {
 	min-height: 450px;
 	position: relative;
 }
-.shop-product .product-wrapper{
+
+.shop-product .product-wrapper {
 	bottom: 0px !important;
 	position: absolute;
 }
 
-.shop-product .product-wrapper img{
-	width: 100%;
+.shop-product .product-wrapper img {
+	
+	max-height: 370px;
+    max-width: 263px;
 }
 
-.product-image{
-	/* height: 370px; */
+.product-image {
+	text-align: center;
+	
 }
 
-.list-friend{
+.list-friend {
 	padding-left: 60px;
 }
 
-.list-friend .media p{
+.list-friend img.media-object{
+	max-width: 60px;
+    max-height: 60px;
+}
+
+.list-friend .media p {
 	line-height: 5;
 }
 
-.list-friend .media p:first-child { 
-    width: 140px;
-}
-.list-friend .media p:first-child a {
-    float: right;
+.list-friend .media p:first-child {
+	width: 140px;
 }
 
-.margintheme{
+.list-friend .media p:first-child a {
+	float: right;
+}
+
+.margintheme {
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
 
-div.preloader{
-	visibility: hidden!important;
+div.preloader {
+	visibility: hidden !important;
 }
 
-.table-follow-list{
+.table-follow-list {
 	width: inherit;
 	margin: 0 auto;
 }
 
-.table-follow-list img.img-new{
-	width : 50px;
+.table-follow-list img.img-new {
+	width: 50px;
 	margin-left: 10px;
 }
 
-.table-follow-list>thead>tr>th, .table-follow-list>tbody>tr>th, .table-follow-list>tfoot>tr>th, .table-follow-list>thead>tr>td, .table-follow-list>tbody>tr>td, .table-follow-list>tfoot>tr>td{
-	
-    border-top: 1px solid #F9F9F9;
+.table-follow-list>thead>tr>th, .table-follow-list>tbody>tr>th,
+	.table-follow-list>tfoot>tr>th, .table-follow-list>thead>tr>td,
+	.table-follow-list>tbody>tr>td, .table-follow-list>tfoot>tr>td {
+	border-top: 1px solid #F9F9F9;
 }
-.ui-dialog table{
-	margin: 0 auto;
-}
-.ui-dialog .ui-dialog-content{
+
+.ui-dialog table {
 	margin: 0 auto;
 }
 
-.profile-avatar button{
+.ui-dialog .ui-dialog-content {
+	margin: 0 auto;
+}
+
+.profile-avatar button {
 	font-size: 11px;
 	margin-top: 8px;
 }
-.profile-avatar button.change-avatar{
-	  margin-top: 8px;
-	  font-size: 14px;
-}  
+
+.profile-avatar div.text-center {
+	position: relative;
+}
+
+.profile-avatar button.change-avatar {
+	margin-top: 8px;
+	font-size: 14px;
+	position: absolute;
+	bottom: 0px; 
+	right : 0px ;
+	background: rgba(170, 170, 170, 0.81);
+}
+
+.profile-avatar img {
+	max-height: 380px;
+}
+
+.profile-avatar .avatar-img {
+	position: absolute;
+}
+.single-product-description .product-vars strong{
+	width: 100px;
+	display: inline-block; 
+}

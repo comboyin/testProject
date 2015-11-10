@@ -57,11 +57,12 @@ class baseModel
     	}
     }
 
-    public function closeConnection(){
+    private function closeConnection(){
         if($this->pdo != null){
             $this->pdo = null;
         }
     }
+    
     public static function getInstance($registry)
     {
 
@@ -87,9 +88,7 @@ class baseModel
     }
 
     public function __destruct(){
-    	if($this->pdo!=null){
-    		$this->pdo=null;
-    	}
+    	$this->closeConnection();
     }
     
     /**
@@ -154,6 +153,7 @@ class baseModel
     	$listObj = array();
     	
     	try {
+    		
     		// create string sql
     		$string = "";
     		if( !empty( $stringWhere ) ){
@@ -175,14 +175,14 @@ class baseModel
     			$limit = $option['limit'];
     			$sql = " SELECT * FROM $nameTable $string ORDER BY id desc LIMIT $start,$limit ";
     		}
-    
+    		
     		$sth = $this->getPdo()->prepare($sql);
     
     		$sth->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $StringTable);
     		$sth->execute();
     
     		$listObj = $sth->fetchAll();
-    
+    		
     		return $listObj;
     
     	} catch (Exception $e) {

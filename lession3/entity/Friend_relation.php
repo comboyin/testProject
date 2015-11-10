@@ -16,6 +16,7 @@ class Friend_relation {
 	 * @var User  */
 	private $user_to;
 	
+	
 	/**
 	 *
 	 * @return the unknown_type
@@ -117,4 +118,6 @@ class Friend_relation {
 		$this->user_to = $user_to;
 		return $this;
 	}
+
+	
 }

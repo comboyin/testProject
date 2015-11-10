@@ -5,6 +5,23 @@ var indexAction = function () {
 		init : function () {
 			
 			loadGoogleMap();
+			var picture = null;
+			
+			dialogAddPicture = $("#dialog-add-list-picture").dialog({
+				autoOpen: false,
+				modal: true,
+			    maxHeight: 600,
+			    maxWidth: 600
+			    
+			});
+			
+			dialogEdit = $("#dialog-edit-introduction").dialog({
+				autoOpen: false,
+				modal: true,
+				width: 450,
+			    maxHeight: 600,
+			    maxWidth: 600
+			});
 			
 			$("a.edit-introduction").click(function(e){
 				e.preventDefault();
@@ -108,9 +125,9 @@ var indexAction = function () {
 			        {
 			        	address = data.user.address
 			        	initialize();
-			        	
+			        	activeEventClickGoogleMap();
 			        },
-			        error: function(jqXHR, textStatus, errorThrown)
+			        error: function(jqXHR, textStatus , errorThrown)
 			        {
 			        	var error = ['ERRORS: ' + textStatus];
 			            // Handle errors here
@@ -119,25 +136,12 @@ var indexAction = function () {
 			    });
 			};
 			
-			dialogAddPicture = $("#dialog-add-list-picture").dialog({
-				autoOpen: false,
-				modal: true,
-			    maxHeight: 600,
-			    maxWidth: 600
-			    
-			});
 			
-			dialogEdit = $("#dialog-edit-introduction").dialog({
-				autoOpen: false,
-				modal: true,
-				width: 450,
-			    maxHeight: 600,
-			    maxWidth: 600
-			});
 			
 			// == == == == == == == == == == begin add picture == == == == == == == == == == == == == == == == == == == == ==
 			$("div.add-picture").click(function(e){
 				e.preventDefault();
+				
 				dialogAddPicture.dialog('open');
 			});
 			
@@ -202,9 +206,12 @@ var indexAction = function () {
 			        	var htmlError = '';
 			        	// error
 			        	if(data.is_error != null){
+			        		
 			        		htmlError = generateHtmlAlertError( data.is_error );
 			        		$("div.error_picture").html(htmlError);
+			        		
 			        	}else{
+			        		
 			        		$("div.error_picture").html('');
 			        		// remove image.
 			        		$( 'input[name="pictures[]"]' ).MultiFile( 'reset' );
@@ -241,17 +248,18 @@ var indexAction = function () {
 					e.preventDefault();
 					var parent = $(this).parents('a')[0];
 					var idpicture = $(parent).attr('id-picture');
+					var parentShopProduct = $(this).parents('div.shop-product')[0];
 			        dalert.confirm("Are You Sure?","Alert Confirm !",function(result){
 			            if(result){
-			            	deletePicture( idpicture );
-			            }
+			            	deletePicture( idpicture , parentShopProduct );
+			            } 
 			            else{
 			            	
 			            }
 			        });
 				});
 			
-			function deletePicture( idpicture ){
+			function deletePicture( idpicture , parentShopProduct){
 				fd = new FormData();
 				fd.append("idpicture", idpicture );
 
@@ -269,7 +277,7 @@ var indexAction = function () {
 			        	if( is_error == null ){
 			        		// success
 			        		dalert.alert("Delete picture success.","Success",function callbackMe(){
-			        			resetListPicture();
+			        			$(parentShopProduct).remove();
 			                });	
 			        		
 			        	}else{

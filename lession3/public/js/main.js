@@ -211,7 +211,7 @@ jQuery(document).ready(function() {
 		jQuery('#product_listing').toggleClass('list');
 	});
 	//zoom image
-	if (jQuery().elevateZoom) {
+	/*if (jQuery().elevateZoom) {
 		jQuery('#product-image').elevateZoom({
 			gallery: 'product-image-gallery',
 			cursor: 'pointer', 
@@ -219,7 +219,7 @@ jQuery(document).ready(function() {
 			responsive:true, 
 			loadingIcon: 'img/AjaxLoader.gif'
 		});
-	}
+	}*/
 	//add review button
 	jQuery('#add_review a').on('click', function( e ) {
 		jQuery('#product-tabs a[href="#product-reviews"]').tab('show');

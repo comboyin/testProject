@@ -30,6 +30,7 @@ class FriendrelationModel extends baseModel{
 	public function getListFriendRelation( $user_id , $idUserSession ){
 		$ListFriendRelation = array();
 		try {
+			
 			$ListFriendRelation = $this->listTableByWhere( 'Friend_relation' , array( " user_id = '$user_id' or user_id_to = '$user_id' " ));
 			/* @var $FriendRelation Friend_relation */
 			foreach ( $ListFriendRelation as $FriendRelation ){
@@ -61,6 +62,7 @@ class FriendrelationModel extends baseModel{
 						// un request
 						$user_to->setStatusForUserSession( 2 );
 					}else{
+						
 						/* $friendRelationModel = new FriendrelationModel();
 						$friendRelationModel->setPdo($this->getPdo());
 						$is_friend = $friendRelationModel->checkFriendRelation( $user_id, $user_id_to );
@@ -77,10 +79,12 @@ class FriendrelationModel extends baseModel{
 							// un request
 							$user_to->setStatusForUserSession( 1 );
 						}
+						
 					}
 				}
 			}
 		} catch (Exception $e) {
+			
 			echo $e->getMessage();
 		}
 		return $ListFriendRelation;

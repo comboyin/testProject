@@ -16,7 +16,7 @@ class UserModel extends baseModel{
     		/* @var $result User */
     		$result = $stmt->fetch();
     				
-    		if( $result  !== false ){
+    		if( $result !== false ){
     			$idGroup = $result->getGroupId();
 				$sqlGroup = "select * from `group` where `group`.id = $idGroup";
 				$stmt = $this->getPdo()->prepare ( $sqlGroup );

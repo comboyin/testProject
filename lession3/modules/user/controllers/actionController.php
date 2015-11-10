@@ -292,10 +292,7 @@ class actionController extends baseController{
 				);
 		exit(0);
 	}
-	
-	
-	
-	
+
 	
 	public function favoriteList($args){
 		
