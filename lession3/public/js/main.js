@@ -488,7 +488,7 @@ jQuery(window).scroll(function() {
 /////////////////////////////////////////////
 jQuery(window).load(function(){
 		
-		var switcherHTML = '<div id="switcher">';
+		/*var switcherHTML = '<div id="switcher">';
 		switcherHTML +=    '<span class="glyphicon glyphicon-cog"></span>';
 		switcherHTML +=    '<h6>Colors</h6>';
 		switcherHTML +=    '<ul id="switcher-colors" class="list-inline">';
@@ -512,12 +512,12 @@ jQuery(window).load(function(){
 		
 		switcherHTML +='</div>';
 
-		jQuery('body').append(switcherHTML);
+		jQuery('body').append(switcherHTML);*/
 
 		//switcher toggle
-        jQuery('#switcher span').on('click', function(){
+/*        jQuery('#switcher span').on('click', function(){
             jQuery(this).parent().toggleClass('active');
-        });
+        });*/
 
         //boxed or wide
         jQuery('#layout').on('click', function(){
@@ -534,12 +534,12 @@ jQuery(window).load(function(){
             'pattern3',
             'pattern4'
         ];
-        jQuery('#switcher-patterns').on('click', 'a', function(e){
+        /*jQuery('#switcher-patterns').on('click', 'a', function(e){
             e.preventDefault();
             e.stopPropagation();
             jQuery('body').removeClass(patternClasses.join(' '));
             jQuery('body').addClass(jQuery(this).data('pattern'));
-        });
+        });*/
         //deleting pattern
         jQuery('#remove_pattern').on('click', function(e){
             e.preventDefault();
@@ -548,15 +548,15 @@ jQuery(window).load(function(){
         });
 
         //color switcher
-        jQuery('#switcher-colors a').on('click', function(e) {
+        /*jQuery('#switcher-colors a').on('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             var color = jQuery(this).data('color');
             jQuery('#color-switcher-link').attr('href', 'css/main' + color + '.css');
-        });
+        });*/
 
 		//version switcher
-        jQuery('#switcher-version a').on('click', function(e) {
+        /*jQuery('#switcher-version a').on('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             var version = jQuery(this).attr('class');
@@ -573,6 +573,6 @@ jQuery(window).load(function(){
             		jQuery('#footer, #copyright').attr('class', '').addClass('darkgrey_section');
             		break;
             }
-        });
+        });*/
 
 });

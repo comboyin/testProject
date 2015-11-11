@@ -6,7 +6,7 @@ abstract class baseController
      */
     protected $registry;
 
-    protected $model;
+    public $model;
 
     protected $view;
 

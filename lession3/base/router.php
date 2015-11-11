@@ -142,9 +142,26 @@ class router
 		$controller->getView()->router = $this;
 		$controller->getView()->acl = $acl;
 		
+		// === update session from database ===
+		/* @var $UserModel UserModel */
+		$UserModel 	 	= $controller->model->get('User');
+		$userSession	= $_SESSION['acl']['account'];
+		$idAcc 			= $userSession->getId();
+		// update session
+		$users = $UserModel->listTableByWhere( 'User', array(" id = '$idAcc' "));
+		/* @var $user User */
+		if( isset( $users[0] ) ){
+			$user = $users[0];
+			$group_id = $user->getGroupId();
+			$group = $UserModel->listTableByWhere( 'Group' , array( " id = '$group_id' " ));
+			$user->setGroup( $group[0] );
+			$_SESSION['acl']['account'] = $users[0];
+		}
+		
 		if( isset( $_SESSION['acl']['account'] ) ){
 			$controller->getView()->user = $_SESSION['acl']['account'];
 		}
+		// === update session from database ===
 
         if (! empty($this->args))
             $controller->$action($this->args);

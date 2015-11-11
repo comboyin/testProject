@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS `favorite` (
   KEY `FK_favorite_user_to` (`user_id_to`),
   CONSTRAINT `FK_favorite_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_favorite_user_to` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.favorite: ~5 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.favorite: ~13 rows (approximately)
 /*!40000 ALTER TABLE `favorite` DISABLE KEYS */;
 INSERT INTO `favorite` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
 	(112, 1, 5, '2015-11-02 05:12:19'),
@@ -31,7 +31,14 @@ INSERT INTO `favorite` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
 	(119, 8, 1, '2015-11-05 11:17:46'),
 	(120, 5, 1, '2015-11-09 11:25:31'),
 	(122, 6, 7, '2015-11-09 01:03:56'),
-	(123, 6, 9, '2015-11-09 01:03:59');
+	(123, 6, 9, '2015-11-09 01:03:59'),
+	(126, 1, 12, '2015-11-10 08:23:51'),
+	(127, 12, 1, '2015-11-10 09:29:41'),
+	(128, 13, 13, '2015-11-10 09:42:16'),
+	(129, 13, 1, '2015-11-11 09:44:39'),
+	(130, 13, 5, '2015-11-11 09:46:07'),
+	(131, 13, 12, '2015-11-11 09:46:08'),
+	(136, 12, 9, '2015-11-11 09:47:59');
 /*!40000 ALTER TABLE `favorite` ENABLE KEYS */;
 
 
@@ -46,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `follow` (
   KEY `FK_follow_user_to` (`user_id_to`),
   CONSTRAINT `FK_follow_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_follow_user_to` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.follow: ~5 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.follow: ~11 rows (approximately)
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
 INSERT INTO `follow` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
 	(1, 1, 4, '2015-11-03 09:32:00'),
@@ -57,7 +64,11 @@ INSERT INTO `follow` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
 	(7, 1, 5, '2015-11-09 09:55:05'),
 	(8, 5, 1, '2015-11-09 11:19:38'),
 	(9, 6, 9, '2015-11-09 01:02:05'),
-	(10, 6, 7, '2015-11-09 01:02:07');
+	(10, 6, 7, '2015-11-09 01:02:07'),
+	(14, 1, 12, '2015-11-10 08:23:51'),
+	(15, 12, 1, '2015-11-10 09:31:13'),
+	(16, 13, 1, '2015-11-11 09:44:38'),
+	(25, 12, 9, '2015-11-11 09:48:00');
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 
 
@@ -74,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `follow_log` (
   KEY `fk_follow_id` (`follow_id`),
   CONSTRAINT `fk_follow_id` FOREIGN KEY (`follow_id`) REFERENCES `follow` (`id`),
   CONSTRAINT `fk_user_id_to_user` FOREIGN KEY (`userid_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=504 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=660 DEFAULT CHARSET=utf8;
 
--- Dumping data for table minh_nhut_lession_3.follow_log: ~268 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.follow_log: ~523 rows (approximately)
 /*!40000 ALTER TABLE `follow_log` DISABLE KEYS */;
 INSERT INTO `follow_log` (`id`, `follow_id`, `action`, `userid_to`, `status`, `regist_datetime`) VALUES
 	(2, 3, ' Send request to ', 5, 1, '2015-11-03 11:12:48'),
@@ -349,25 +360,25 @@ INSERT INTO `follow_log` (`id`, `follow_id`, `action`, `userid_to`, `status`, `r
 	(429, 4, ' Send request to ', 6, 0, '2015-11-09 06:31:48'),
 	(431, 3, ' Send request to ', 6, 1, '2015-11-09 06:31:50'),
 	(432, 4, ' Send request to ', 6, 0, '2015-11-09 06:31:50'),
-	(433, 7, ' NOT friend of ', 1, 0, '2015-11-09 06:38:15'),
+	(433, 7, ' NOT friend of ', 1, 1, '2015-11-09 06:38:15'),
 	(435, 3, ' NOT friend of ', 5, 1, '2015-11-09 06:38:15'),
 	(436, 4, ' NOT friend of ', 5, 0, '2015-11-09 06:38:15'),
 	(438, 3, ' Send request to ', 5, 1, '2015-11-09 06:40:37'),
 	(439, 4, ' Send request to ', 5, 0, '2015-11-09 06:40:37'),
 	(441, 3, ' Friend of ', 5, 1, '2015-11-09 06:40:42'),
 	(442, 4, ' Friend of ', 5, 0, '2015-11-09 06:40:42'),
-	(443, 7, ' Friend of ', 1, 0, '2015-11-09 06:40:42'),
+	(443, 7, ' Friend of ', 1, 1, '2015-11-09 06:40:42'),
 	(445, 3, ' NOT friend of ', 5, 1, '2015-11-09 06:40:55'),
 	(446, 4, ' NOT friend of ', 5, 0, '2015-11-09 06:40:55'),
-	(447, 7, ' NOT friend of ', 1, 0, '2015-11-09 06:40:55'),
+	(447, 7, ' NOT friend of ', 1, 1, '2015-11-09 06:40:55'),
 	(449, 3, ' Send request to ', 5, 1, '2015-11-09 06:40:57'),
 	(450, 4, ' Send request to ', 5, 0, '2015-11-09 06:40:57'),
 	(452, 3, ' Friend of ', 5, 1, '2015-11-09 06:41:01'),
 	(453, 4, ' Friend of ', 5, 0, '2015-11-09 06:41:01'),
-	(454, 7, ' Friend of ', 1, 0, '2015-11-09 06:41:01'),
+	(454, 7, ' Friend of ', 1, 1, '2015-11-09 06:41:01'),
 	(456, 3, ' NOT friend of ', 5, 1, '2015-11-09 06:41:36'),
 	(457, 4, ' NOT friend of ', 5, 0, '2015-11-09 06:41:36'),
-	(458, 7, ' NOT friend of ', 1, 0, '2015-11-09 06:41:36'),
+	(458, 7, ' NOT friend of ', 1, 1, '2015-11-09 06:41:36'),
 	(459, 3, ' Send request to ', 5, 1, '2015-11-09 06:50:14'),
 	(460, 4, ' Send request to ', 5, 0, '2015-11-09 06:50:14'),
 	(461, 8, ' Send request to ', 5, 0, '2015-11-09 06:50:14'),
@@ -377,27 +388,27 @@ INSERT INTO `follow_log` (`id`, `follow_id`, `action`, `userid_to`, `status`, `r
 	(465, 3, ' Friend of ', 5, 1, '2015-11-09 06:54:40'),
 	(466, 4, ' Friend of ', 5, 0, '2015-11-09 06:54:40'),
 	(467, 8, ' Friend of ', 5, 0, '2015-11-09 06:54:40'),
-	(468, 7, ' Friend of ', 1, 0, '2015-11-09 06:54:40'),
-	(469, 7, ' Like picture "hinh-khoi-my-14562f444e7d5b1.jpg" of ', 5, 0, '2015-11-09 06:54:54'),
-	(470, 7, ' Like picture "hinh-khoi-my-15562f444e7ed28.jpg" of ', 5, 0, '2015-11-09 06:54:55'),
-	(471, 7, ' Like picture "khoi-my-34562f444e8471d.jpg" of ', 5, 0, '2015-11-09 06:54:57'),
-	(472, 7, ' Like picture "khoi-my-33562f444e82fa5.jpg" of ', 5, 0, '2015-11-09 06:54:58'),
-	(473, 7, ' Like picture "hinh-khoi-my-17562f444e81836.jpg" of ', 5, 0, '2015-11-09 06:54:59'),
-	(474, 7, ' Send request to ', 6, 0, '2015-11-09 06:55:58'),
-	(475, 7, ' Friend of ', 6, 0, '2015-11-09 06:56:16'),
-	(476, 1, ' Friend of ', 7, 0, '2015-11-09 07:16:52'),
-	(477, 1, ' Friend of ', 8, 0, '2015-11-09 07:21:26'),
-	(478, 7, ' Friend of ', 8, 0, '2015-11-09 07:21:26'),
+	(468, 7, ' Friend of ', 1, 1, '2015-11-09 06:54:40'),
+	(469, 7, ' Like picture "hinh-khoi-my-14562f444e7d5b1.jpg" of ', 5, 1, '2015-11-09 06:54:54'),
+	(470, 7, ' Like picture "hinh-khoi-my-15562f444e7ed28.jpg" of ', 5, 1, '2015-11-09 06:54:55'),
+	(471, 7, ' Like picture "khoi-my-34562f444e8471d.jpg" of ', 5, 1, '2015-11-09 06:54:57'),
+	(472, 7, ' Like picture "khoi-my-33562f444e82fa5.jpg" of ', 5, 1, '2015-11-09 06:54:58'),
+	(473, 7, ' Like picture "hinh-khoi-my-17562f444e81836.jpg" of ', 5, 1, '2015-11-09 06:54:59'),
+	(474, 7, ' Send request to ', 6, 1, '2015-11-09 06:55:58'),
+	(475, 7, ' Friend of ', 6, 1, '2015-11-09 06:56:16'),
+	(476, 1, ' Friend of ', 7, 1, '2015-11-09 07:16:52'),
+	(477, 1, ' Friend of ', 8, 1, '2015-11-09 07:21:26'),
+	(478, 7, ' Friend of ', 8, 1, '2015-11-09 07:21:26'),
 	(479, 3, ' Friend of ', 8, 1, '2015-11-09 07:21:26'),
 	(480, 4, ' Friend of ', 8, 0, '2015-11-09 07:21:26'),
 	(481, 8, ' Friend of ', 8, 0, '2015-11-09 07:21:26'),
-	(482, 1, ' Friend of ', 8, 0, '2015-11-09 07:21:42'),
-	(483, 7, ' Friend of ', 8, 0, '2015-11-09 07:21:42'),
+	(482, 1, ' Friend of ', 8, 1, '2015-11-09 07:21:42'),
+	(483, 7, ' Friend of ', 8, 1, '2015-11-09 07:21:42'),
 	(484, 3, ' Friend of ', 8, 1, '2015-11-09 07:21:42'),
 	(485, 4, ' Friend of ', 8, 0, '2015-11-09 07:21:42'),
 	(486, 8, ' Friend of ', 8, 0, '2015-11-09 07:21:42'),
-	(487, 1, ' Friend of ', 8, 0, '2015-11-09 07:22:00'),
-	(488, 7, ' Friend of ', 8, 0, '2015-11-09 07:22:00'),
+	(487, 1, ' Friend of ', 8, 1, '2015-11-09 07:22:00'),
+	(488, 7, ' Friend of ', 8, 1, '2015-11-09 07:22:00'),
 	(489, 3, ' Friend of ', 8, 1, '2015-11-09 07:22:00'),
 	(490, 4, ' Friend of ', 8, 0, '2015-11-09 07:22:00'),
 	(491, 8, ' Friend of ', 8, 0, '2015-11-09 07:22:00'),
@@ -407,12 +418,168 @@ INSERT INTO `follow_log` (`id`, `follow_id`, `action`, `userid_to`, `status`, `r
 	(495, 3, ' NOT friend of ', 8, 1, '2015-11-09 07:24:04'),
 	(496, 4, ' NOT friend of ', 8, 0, '2015-11-09 07:24:04'),
 	(497, 8, ' NOT friend of ', 8, 0, '2015-11-09 07:24:04'),
-	(498, 1, ' NOT friend of ', 8, 0, '2015-11-09 07:24:12'),
-	(499, 1, ' NOT friend of ', 8, 0, '2015-11-09 07:24:12'),
-	(500, 7, ' NOT friend of ', 8, 0, '2015-11-09 07:24:16'),
-	(501, 7, ' NOT friend of ', 8, 0, '2015-11-09 07:24:16'),
+	(498, 1, ' NOT friend of ', 8, 1, '2015-11-09 07:24:12'),
+	(499, 1, ' NOT friend of ', 8, 1, '2015-11-09 07:24:12'),
+	(500, 7, ' NOT friend of ', 8, 1, '2015-11-09 07:24:16'),
+	(501, 7, ' NOT friend of ', 8, 1, '2015-11-09 07:24:16'),
 	(502, 10, ' Send request to ', 6, 1, '2015-11-09 08:35:54'),
-	(503, 1, ' Send request to ', 6, 0, '2015-11-09 08:36:14');
+	(503, 1, ' Send request to ', 6, 1, '2015-11-09 08:36:14'),
+	(504, 3, ' Like picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-09 12:00:08'),
+	(505, 4, ' Like picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-09 12:00:08'),
+	(506, 8, ' Like picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-09 12:00:08'),
+	(507, 3, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-09 12:00:08'),
+	(508, 4, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-09 12:00:08'),
+	(509, 8, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-09 12:00:08'),
+	(510, 3, ' Send request to ', 12, 0, '2015-11-09 12:30:06'),
+	(511, 4, ' Send request to ', 12, 0, '2015-11-09 12:30:06'),
+	(512, 8, ' Send request to ', 12, 0, '2015-11-09 12:30:06'),
+	(513, 3, ' Send request to ', 12, 0, '2015-11-10 03:53:19'),
+	(514, 4, ' Send request to ', 12, 0, '2015-11-10 03:53:19'),
+	(515, 8, ' Send request to ', 12, 0, '2015-11-10 03:53:19'),
+	(516, 3, ' Friend of ', 12, 0, '2015-11-10 03:53:56'),
+	(517, 4, ' Friend of ', 12, 0, '2015-11-10 03:53:56'),
+	(518, 8, ' Friend of ', 12, 0, '2015-11-10 03:53:56'),
+	(519, 14, ' Friend of ', 1, 1, '2015-11-10 03:53:56'),
+	(520, 14, ' Like picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:34:44'),
+	(521, 14, ' unLike picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:34:45'),
+	(522, 14, ' Like picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:35:54'),
+	(523, 14, ' unLike picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:35:55'),
+	(524, 14, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:11'),
+	(525, 14, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:13'),
+	(526, 14, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:13'),
+	(527, 14, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:14'),
+	(528, 14, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:15'),
+	(529, 14, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:15'),
+	(530, 14, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:15'),
+	(531, 14, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:36:15'),
+	(532, 14, ' Like picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:41:03'),
+	(533, 14, ' unLike picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:41:04'),
+	(534, 14, ' Like picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:41:31'),
+	(535, 14, ' unLike picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:42:08'),
+	(536, 14, ' Like picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:42:08'),
+	(537, 14, ' unLike picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:42:09'),
+	(538, 14, ' Like picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:42:10'),
+	(539, 14, ' unLike picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:42:11'),
+	(540, 14, ' Like picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:42:14'),
+	(541, 14, ' unLike picture "meo (22)563c7b758c38b.jpg" of ', 12, 1, '2015-11-10 04:42:14'),
+	(542, 14, ' Like picture "meo (23)563c7b758def1.jpg" of ', 12, 1, '2015-11-10 04:43:29'),
+	(543, 14, ' unLike picture "meo (23)563c7b758def1.jpg" of ', 12, 1, '2015-11-10 04:43:32'),
+	(544, 14, ' Like picture "meo (4)563c70c7f2190.jpg" of ', 12, 1, '2015-11-10 04:48:32'),
+	(545, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-10 04:52:04'),
+	(546, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-10 04:52:05'),
+	(547, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-10 04:52:05'),
+	(548, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-10 04:52:06'),
+	(549, 14, ' Like picture "meo (10)563c70c808569.jpg" of ', 12, 1, '2015-11-10 04:52:23'),
+	(550, 14, ' Like picture "meo (9)563c70c806dfd.jpg" of ', 12, 1, '2015-11-10 04:52:38'),
+	(551, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-10 04:54:37'),
+	(552, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-10 04:54:44'),
+	(553, 14, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:57:32'),
+	(554, 14, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 04:58:07'),
+	(555, 3, ' Send request to ', 13, 0, '2015-11-10 05:01:25'),
+	(556, 4, ' Send request to ', 13, 0, '2015-11-10 05:01:25'),
+	(557, 8, ' Send request to ', 13, 0, '2015-11-10 05:01:25'),
+	(558, 15, ' Send request to ', 13, 1, '2015-11-10 05:01:25'),
+	(559, 3, ' Send request to ', 13, 0, '2015-11-10 05:01:51'),
+	(560, 4, ' Send request to ', 13, 0, '2015-11-10 05:01:51'),
+	(561, 8, ' Send request to ', 13, 0, '2015-11-10 05:01:51'),
+	(562, 15, ' Send request to ', 13, 1, '2015-11-10 05:01:51'),
+	(563, 3, ' Friend of ', 13, 0, '2015-11-10 05:02:12'),
+	(564, 4, ' Friend of ', 13, 0, '2015-11-10 05:02:12'),
+	(565, 8, ' Friend of ', 13, 0, '2015-11-10 05:02:12'),
+	(566, 15, ' Friend of ', 13, 1, '2015-11-10 05:02:12'),
+	(567, 3, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-10 07:27:32'),
+	(568, 4, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-10 07:27:32'),
+	(569, 8, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-10 07:27:32'),
+	(570, 15, ' unLike picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 07:27:32'),
+	(571, 3, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-10 07:27:32'),
+	(572, 4, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-10 07:27:32'),
+	(573, 8, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 0, '2015-11-10 07:27:32'),
+	(574, 15, ' Like picture "20150926131009_wPpZsOz1Hd5629dc18775df.jpg" of ', 1, 1, '2015-11-10 07:27:32'),
+	(575, 14, ' Friend of ', 13, 1, '2015-11-11 05:16:46'),
+	(576, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:37'),
+	(577, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:43'),
+	(578, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:49'),
+	(579, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:50'),
+	(580, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:51'),
+	(581, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:52'),
+	(582, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:53'),
+	(583, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:54'),
+	(584, 14, ' Send request to ', 9, 1, '2015-11-11 05:17:58'),
+	(585, 14, ' Send request to ', 9, 1, '2015-11-11 05:18:00'),
+	(586, 14, ' Send request to ', 9, 1, '2015-11-11 05:18:03'),
+	(587, 14, ' Send request to ', 2, 1, '2015-11-11 05:18:18'),
+	(588, 14, ' Send request to ', 2, 1, '2015-11-11 05:18:30'),
+	(589, 14, ' Send request to ', 2, 1, '2015-11-11 05:18:40'),
+	(590, 14, ' Send request to ', 2, 1, '2015-11-11 05:18:41'),
+	(591, 14, ' Send request to ', 2, 1, '2015-11-11 05:24:44'),
+	(592, 14, ' Send request to ', 3, 1, '2015-11-11 05:25:34'),
+	(593, 14, ' Like picture "meo (7)563c70c803f2c.jpg" of ', 12, 1, '2015-11-11 06:10:51'),
+	(594, 14, ' unLike picture "meo (7)563c70c803f2c.jpg" of ', 12, 1, '2015-11-11 06:10:52'),
+	(595, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:10:54'),
+	(596, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:10:54'),
+	(597, 14, ' unLike picture "meo (4)563c70c7f2190.jpg" of ', 12, 1, '2015-11-11 06:10:55'),
+	(598, 14, ' Like picture "meo (4)563c70c7f2190.jpg" of ', 12, 1, '2015-11-11 06:10:55'),
+	(599, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:10:56'),
+	(600, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:10:57'),
+	(601, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:10:58'),
+	(602, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:10:59'),
+	(603, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:10'),
+	(604, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:12'),
+	(605, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:13'),
+	(606, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:15'),
+	(607, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:16'),
+	(608, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:17'),
+	(609, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:17'),
+	(610, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:20'),
+	(611, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:22'),
+	(612, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:24'),
+	(613, 14, ' Like picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:25'),
+	(614, 14, ' unLike picture "meo (5)563c70c801198.jpg" of ', 12, 1, '2015-11-11 06:11:26'),
+	(615, 3, ' Send request to ', 9, 0, '2015-11-11 07:24:50'),
+	(616, 4, ' Send request to ', 9, 0, '2015-11-11 07:24:50'),
+	(617, 8, ' Send request to ', 9, 0, '2015-11-11 07:24:50'),
+	(618, 15, ' Send request to ', 9, 1, '2015-11-11 07:24:50'),
+	(619, 16, ' Send request to ', 9, 0, '2015-11-11 07:24:50'),
+	(620, 3, ' unLike picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-11 09:05:49'),
+	(621, 4, ' unLike picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-11 09:05:49'),
+	(622, 8, ' unLike picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-11 09:05:49'),
+	(623, 15, ' unLike picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-11 09:05:49'),
+	(624, 16, ' unLike picture "20150926122918_nv3r3lhqWn5629dc187624f.jpg" of ', 1, 0, '2015-11-11 09:05:49'),
+	(625, 3, ' Send request to ', 11, 0, '2015-11-11 09:13:26'),
+	(626, 4, ' Send request to ', 11, 0, '2015-11-11 09:13:26'),
+	(627, 8, ' Send request to ', 11, 0, '2015-11-11 09:13:26'),
+	(628, 15, ' Send request to ', 11, 0, '2015-11-11 09:13:26'),
+	(629, 16, ' Send request to ', 11, 0, '2015-11-11 09:13:26'),
+	(630, 3, ' Send request to ', 11, 0, '2015-11-11 09:14:06'),
+	(631, 4, ' Send request to ', 11, 0, '2015-11-11 09:14:06'),
+	(632, 8, ' Send request to ', 11, 0, '2015-11-11 09:14:06'),
+	(633, 15, ' Send request to ', 11, 0, '2015-11-11 09:14:06'),
+	(634, 16, ' Send request to ', 11, 0, '2015-11-11 09:14:06'),
+	(635, 3, ' Send request to ', 11, 0, '2015-11-11 09:14:07'),
+	(636, 4, ' Send request to ', 11, 0, '2015-11-11 09:14:07'),
+	(637, 8, ' Send request to ', 11, 0, '2015-11-11 09:14:07'),
+	(638, 15, ' Send request to ', 11, 0, '2015-11-11 09:14:07'),
+	(639, 16, ' Send request to ', 11, 0, '2015-11-11 09:14:07'),
+	(640, 3, ' Send request to ', 10, 0, '2015-11-11 09:14:15'),
+	(641, 4, ' Send request to ', 10, 0, '2015-11-11 09:14:15'),
+	(642, 8, ' Send request to ', 10, 0, '2015-11-11 09:14:15'),
+	(643, 15, ' Send request to ', 10, 0, '2015-11-11 09:14:15'),
+	(644, 16, ' Send request to ', 10, 0, '2015-11-11 09:14:15'),
+	(645, 3, ' Send request to ', 7, 0, '2015-11-11 09:17:09'),
+	(646, 4, ' Send request to ', 7, 0, '2015-11-11 09:17:09'),
+	(647, 8, ' Send request to ', 7, 0, '2015-11-11 09:17:09'),
+	(648, 15, ' Send request to ', 7, 0, '2015-11-11 09:17:09'),
+	(649, 16, ' Send request to ', 7, 0, '2015-11-11 09:17:09'),
+	(650, 3, ' NOT friend of ', 8, 0, '2015-11-11 09:18:09'),
+	(651, 4, ' NOT friend of ', 8, 0, '2015-11-11 09:18:09'),
+	(652, 8, ' NOT friend of ', 8, 0, '2015-11-11 09:18:09'),
+	(653, 15, ' NOT friend of ', 8, 0, '2015-11-11 09:18:09'),
+	(654, 16, ' NOT friend of ', 8, 0, '2015-11-11 09:18:09'),
+	(655, 3, ' Send request to ', 8, 0, '2015-11-11 09:18:55'),
+	(656, 4, ' Send request to ', 8, 0, '2015-11-11 09:18:55'),
+	(657, 8, ' Send request to ', 8, 0, '2015-11-11 09:18:55'),
+	(658, 15, ' Send request to ', 8, 0, '2015-11-11 09:18:55'),
+	(659, 16, ' Send request to ', 8, 0, '2015-11-11 09:18:55');
 /*!40000 ALTER TABLE `follow_log` ENABLE KEYS */;
 
 
@@ -427,9 +594,9 @@ CREATE TABLE IF NOT EXISTS `friend_relation` (
   KEY `FK_friend_relation_user_to` (`user_id_to`),
   CONSTRAINT `FK_friend_relation_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_friend_relation_user_to` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.friend_relation: ~5 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.friend_relation: ~19 rows (approximately)
 /*!40000 ALTER TABLE `friend_relation` DISABLE KEYS */;
 INSERT INTO `friend_relation` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
 	(28, 1, 2, '2015-11-04 09:54:03'),
@@ -448,7 +615,9 @@ INSERT INTO `friend_relation` (`id`, `user_id`, `user_id_to`, `regist_datetime`)
 	(62, 8, 12, '2014-11-09 11:48:46'),
 	(63, 8, 3, '2014-11-09 11:48:46'),
 	(72, 8, 4, '2014-11-09 11:48:46'),
-	(74, 8, 1, '2014-11-09 11:48:46');
+	(75, 1, 12, '2015-11-10 08:24:11'),
+	(76, 1, 13, '2015-11-10 09:32:23'),
+	(77, 13, 12, '2015-11-11 09:46:41');
 /*!40000 ALTER TABLE `friend_relation` ENABLE KEYS */;
 
 
@@ -463,16 +632,28 @@ CREATE TABLE IF NOT EXISTS `friend_request` (
   KEY `FK_friend_request_user_to` (`user_id_to`),
   CONSTRAINT `FK_friend_request_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_friend_request_user_to` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.friend_request: ~0 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.friend_request: ~17 rows (approximately)
 /*!40000 ALTER TABLE `friend_request` DISABLE KEYS */;
 INSERT INTO `friend_request` (`id`, `user_id`, `user_id_to`, `regist_datetime`) VALUES
-	(55, 1, 6, '2015-11-09 11:01:49'),
 	(61, 7, 6, '2015-11-09 01:05:45'),
 	(62, 4, 6, '2015-11-09 01:06:05'),
 	(63, 11, 6, '2015-11-09 01:06:17'),
-	(64, 3, 6, '2015-11-09 01:06:29');
+	(64, 3, 6, '2015-11-09 01:06:29'),
+	(70, 13, 3, '2015-11-10 09:41:51'),
+	(71, 13, 5, '2015-11-10 09:41:52'),
+	(85, 12, 9, '2015-11-11 09:47:58'),
+	(90, 12, 2, '2015-11-11 09:54:39'),
+	(91, 12, 3, '2015-11-11 09:55:29'),
+	(92, 13, 8, '2015-11-11 09:58:34'),
+	(93, 13, 2, '2015-11-11 09:58:39'),
+	(96, 13, 11, '2015-11-11 10:25:02'),
+	(97, 13, 10, '2015-11-11 10:25:05'),
+	(98, 1, 9, '2015-11-11 11:54:38'),
+	(101, 1, 11, '2015-11-11 01:43:49'),
+	(102, 1, 10, '2015-11-11 01:43:57'),
+	(103, 1, 7, '2015-11-11 01:46:50');
 /*!40000 ALTER TABLE `friend_request` ENABLE KEYS */;
 
 
@@ -603,48 +784,6 @@ BEGIN
 			end BLOCK2;
 		end loop LOOP1;
 		
-		BLOCK3: begin
-				DECLARE idUserFriend int;
-				DECLARE no_more_rows3 bool default FALSE;
-				DECLARE numberLoop3 integer default -1;
-				DECLARE cursor3 CURSOR FOR
-											select `user`.id
-											from `user` 
-											where `user`.id in 
-												(
-													select `user`.id from `user` where 
-													`user`.id in  
-													( 
-														select `friend_relation`.user_id_to 
-														from `user` inner join `friend_relation` 
-														on `user`.id = `friend_relation`.user_id 
-														where `friend_relation`.user_id = idUser
-													) 
-													or
-													`user`.id in 
-													( 
-														select `friend_relation`.user_id 
-														from `user` inner join `friend_relation` 
-														on `user`.id = `friend_relation`.user_id_to 
-														where `friend_relation`.user_id_to = idUser
-													)
-												)
-											AND `user`.id not in (idUser);
-				declare continue handler for not found set no_more_rows3 = TRUE;
-				open cursor3;
-				LOOP3: loop
-					fetch cursor3 into idUserFriend;
-					if no_more_rows3 then
-						close cursor3;
-						leave LOOP3;
-					end if;
-					-- insert to tmp table
-					call insert_friend_of_friend(idUser, idUserFriend, nameTableTemp);
-				end loop LOOP3;
-											
-		end BLOCK3;
-		
-		
 		BLOCK4: begin
 			
 				set @sql_insert = "
@@ -670,7 +809,7 @@ BEGIN
 																	)
 															)
 											AND
-											`user`.id not in ( select `friend_request`.user_id from `friend_request` where `friend_request`.user_id_to = '{idA}' )
+											`user`.id not in ( select `friend_request`.user_id_to from `friend_request` where `friend_request`.user_id = '{idA}' )
 											AND
 											`user`.id not in ({idA})
 											ORDER BY `user`.id desc
@@ -774,7 +913,7 @@ BEGIN
 					)
 				)
 			AND `user`.id not in ({idC})
-			AND `user`.id in ( 
+			AND `user`.id in (
 								select `user`.id 
 								from `user` 
 								where `user`.id in 
@@ -798,7 +937,9 @@ BEGIN
 									)
 								AND `user`.id not in ({idB}) 
 							)
-			AND is_friend(`user`.id, {idA}) = 0 ;
+					
+			AND is_friend(`user`.id, {idA}) = 0 
+			AND `user`.id not in ( select `friend_request`.user_id_to from `friend_request` where `friend_request`.user_id = '{idA}' ); 
 			";
 	SELECT REPLACE( @sql_insert, '{name_table}' , nametable ) INTO @sql_insert;
 	SELECT REPLACE( @sql_insert, '{idA}' , idA ) INTO @sql_insert;
@@ -902,7 +1043,7 @@ BEGIN
 										)
 								)
 				AND
-				`user`.id not in ( select `friend_request`.user_id from `friend_request` where `friend_request`.user_id_to = '{idA}' )
+				`user`.id not in ( select `friend_request`.user_id_to from `friend_request` where `friend_request`.user_id = '{idA}' )
 				AND
 				`user`.id not in ({idA})
 				ORDER BY `user`.id desc
@@ -944,9 +1085,9 @@ CREATE TABLE IF NOT EXISTS `like` (
   KEY `FK_like_pictures` (`pictures_id`),
   CONSTRAINT `FK_like_pictures` FOREIGN KEY (`pictures_id`) REFERENCES `picture` (`id`),
   CONSTRAINT `FK_like_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.like: ~22 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.like: ~34 rows (approximately)
 /*!40000 ALTER TABLE `like` DISABLE KEYS */;
 INSERT INTO `like` (`id`, `user_id`, `pictures_id`, `time_like`) VALUES
 	(66, 6, 124, '0000-00-00 00:00:00'),
@@ -974,7 +1115,15 @@ INSERT INTO `like` (`id`, `user_id`, `pictures_id`, `time_like`) VALUES
 	(131, 5, 141, '0000-00-00 00:00:00'),
 	(132, 5, 140, '0000-00-00 00:00:00'),
 	(139, 6, 123, '0000-00-00 00:00:00'),
-	(142, 2, 199, '0000-00-00 00:00:00');
+	(142, 2, 199, '0000-00-00 00:00:00'),
+	(143, 2, 207, '0000-00-00 00:00:00'),
+	(144, 2, 208, '0000-00-00 00:00:00'),
+	(145, 2, 200, '0000-00-00 00:00:00'),
+	(146, 2, 204, '0000-00-00 00:00:00'),
+	(164, 12, 152, '0000-00-00 00:00:00'),
+	(165, 12, 151, '0000-00-00 00:00:00'),
+	(168, 1, 100, '0000-00-00 00:00:00'),
+	(171, 12, 146, '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `like` ENABLE KEYS */;
 
 
@@ -1076,16 +1225,13 @@ CREATE TABLE IF NOT EXISTS `picture` (
   PRIMARY KEY  (`id`),
   KEY `FK_pictures_user` (`user_id`),
   CONSTRAINT `FK_pictures_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=218 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.picture: ~53 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.picture: ~95 rows (approximately)
 /*!40000 ALTER TABLE `picture` DISABLE KEYS */;
 INSERT INTO `picture` (`id`, `url`, `view`, `like_number`, `regist_datetime`, `user_id`) VALUES
-	(99, '20150926122918_nv3r3lhqWn5629dc187624f.jpg', 0, 0, '2015-10-23 02:04:56', 1),
-	(100, '20150926131009_wPpZsOz1Hd5629dc18775df.jpg', 0, 0, '2015-10-23 02:04:56', 1),
-	(101, '20150928085512_BVCnzRU2iy5629dc1878965.jpg', 3, 0, '2015-10-23 02:04:56', 1),
+	(100, '20150926131009_wPpZsOz1Hd5629dc18775df.jpg', 5, 1, '2015-10-23 02:04:56', 1),
 	(102, '20150928150023_oQX6EEW7sC5629dc187a0e8.jpg', 0, 0, '2015-10-23 02:04:56', 1),
-	(103, '20150928172425_im4tqkRmlj5629dc187b469.jpg', 0, 0, '2015-10-23 02:04:56', 1),
 	(104, '20150928181611_Cu4ZXzxSGF5629dc187c800.jpg', 0, 0, '2015-10-23 02:04:56', 1),
 	(105, '2Q==(1)562de5e700f07.jpg', 6, 0, '2015-10-26 03:35:51', 6),
 	(106, '2Q==(2)562de5e702295.jpg', 1, 0, '2015-10-26 03:35:51', 6),
@@ -1120,18 +1266,12 @@ INSERT INTO `picture` (`id`, `url`, `view`, `like_number`, `regist_datetime`, `u
 	(140, 'hinh-khoi-my-17562f444e81836.jpg', 0, 2, '2015-10-27 04:30:54', 5),
 	(141, 'khoi-my-33562f444e82fa5.jpg', 0, 2, '2015-10-27 04:30:54', 5),
 	(142, 'khoi-my-34562f444e8471d.jpg', 0, 2, '2015-10-27 04:30:54', 5),
-	(144, 'meo (2)563c70c7ee870.jpg', 0, 0, '2015-11-06 04:20:08', 12),
-	(146, 'meo (4)563c70c7f2190.jpg', 0, 0, '2015-11-06 04:20:08', 12),
+	(146, 'meo (4)563c70c7f2190.jpg', 0, 1, '2015-11-06 04:20:08', 12),
 	(147, 'meo (5)563c70c801198.jpg', 0, 0, '2015-11-06 04:20:08', 12),
-	(148, 'meo (6)563c70c80290f.jpg', 0, 0, '2015-11-06 04:20:08', 12),
 	(149, 'meo (7)563c70c803f2c.jpg', 0, 0, '2015-11-06 04:20:08', 12),
 	(150, 'meo (8)563c70c805a1d.jpg', 0, 0, '2015-11-06 04:20:08', 12),
-	(151, 'meo (9)563c70c806dfd.jpg', 0, 0, '2015-11-06 04:20:08', 12),
-	(152, 'meo (10)563c70c808569.jpg', 0, 0, '2015-11-06 04:20:08', 12),
-	(154, 'meo (31)563c71e04ec46.jpg', 0, 0, '2015-11-06 04:24:48', 12),
-	(156, 'meo (21)563c7b758ac12.jpg', 0, 0, '2015-11-06 05:05:41', 12),
-	(157, 'meo (22)563c7b758c38b.jpg', 0, 0, '2015-11-06 05:05:41', 12),
-	(158, 'meo (23)563c7b758def1.jpg', 0, 0, '2015-11-06 05:05:41', 12),
+	(151, 'meo (9)563c70c806dfd.jpg', 0, 1, '2015-11-06 04:20:08', 12),
+	(152, 'meo (10)563c70c808569.jpg', 0, 1, '2015-11-06 04:20:08', 12),
 	(159, 'thehung (1)564006a496541.jpg', 0, 0, '2015-11-09 09:36:20', 10),
 	(160, 'thehung (2)564006a4980ee.jpg', 0, 0, '2015-11-09 09:36:20', 10),
 	(161, 'thehung (3)564006a499be9.jpg', 0, 0, '2015-11-09 09:36:20', 10),
@@ -1142,7 +1282,6 @@ INSERT INTO `picture` (`id`, `url`, `view`, `like_number`, `regist_datetime`, `u
 	(166, 'thehung (8)564006a4a3469.jpg', 0, 0, '2015-11-09 09:36:20', 10),
 	(167, 'thehung (9)564006a4a4bda.jpg', 0, 0, '2015-11-09 09:36:20', 10),
 	(168, 'thehung (10)564006a4a675e.jpg', 0, 0, '2015-11-09 09:36:20', 10),
-	(169, 'dantruong (1)564006fe29732.jpg', 0, 0, '2015-11-09 09:37:50', 13),
 	(170, 'dantruong (2)564006fe2b206.jpg', 0, 0, '2015-11-09 09:37:50', 13),
 	(171, 'dantruong (3)564006fe2cc25.jpg', 0, 0, '2015-11-09 09:37:50', 13),
 	(172, 'dantruong (4)564006fe2e19c.jpg', 0, 0, '2015-11-09 09:37:50', 13),
@@ -1172,13 +1311,20 @@ INSERT INTO `picture` (`id`, `url`, `view`, `like_number`, `regist_datetime`, `u
 	(197, 'Z(6)564036ca239a0.jpg', 0, 0, '2015-11-09 01:01:46', 6),
 	(198, 'Z564036ca24d5a.jpg', 0, 0, '2015-11-09 01:01:46', 6),
 	(199, 'lyhai (4)56403ecc2e1e3.jpg', 0, 1, '2015-11-09 01:35:56', 2),
-	(200, 'tangthanhha56403ecc2fb42.jpg', 0, 0, '2015-11-09 01:35:56', 2),
+	(200, 'tangthanhha56403ecc2fb42.jpg', 0, 1, '2015-11-09 01:35:56', 2),
 	(201, 'lamhung56403ecc3cc8a.jpg', 0, 0, '2015-11-09 01:35:56', 2),
 	(202, 'dantruong (32)56403ecc3e012.jpg', 0, 0, '2015-11-09 01:35:56', 2),
 	(203, 'dantruong (24)56403ecc3f78d.jpg', 0, 0, '2015-11-09 01:35:56', 2),
-	(204, 'Untitled56403ecc40b12.png', 0, 0, '2015-11-09 01:35:56', 2),
+	(204, 'Untitled56403ecc40b12.png', 0, 1, '2015-11-09 01:35:56', 2),
 	(205, 'hanquoc (91)56403ecc42e45.jpg', 0, 0, '2015-11-09 01:35:56', 2),
-	(206, 'hanquoc (92)56403ecc441ce.jpg', 0, 0, '2015-11-09 01:35:56', 2);
+	(206, 'hanquoc (92)56403ecc441ce.jpg', 0, 0, '2015-11-09 01:35:56', 2),
+	(207, 'hanquoc (33)5640421772d73.jpg', 0, 1, '2015-11-09 01:49:59', 2),
+	(208, 'hanquoc (45)5640421774101.jpg', 0, 1, '2015-11-09 01:49:59', 2),
+	(209, 'hanquoc (47)564042177587a.jpg', 0, 0, '2015-11-09 01:49:59', 2),
+	(214, '2015-11-10_0905135642e01312d7e.jpg', 0, 0, '2015-11-11 01:28:35', 1),
+	(215, 'Capture5642e05d81bd7.PNG', 0, 0, '2015-11-11 01:29:49', 1),
+	(216, '24315642e0972846a.jpg', 0, 0, '2015-11-11 01:30:47', 1),
+	(217, 'Capture15642e0be98266.PNG', 0, 0, '2015-11-11 01:31:26', 1);
 /*!40000 ALTER TABLE `picture` ENABLE KEYS */;
 
 
@@ -1259,11 +1405,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `FK_user_group` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table minh_nhut_lession_3.user: ~12 rows (approximately)
+-- Dumping data for table minh_nhut_lession_3.user: ~13 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `password`, `fullname`, `sex`, `birthday`, `address`, `introduction`, `avatar`, `email`, `group_id`) VALUES
-	(1, 'comboyin', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 0, '1992-11-03', '61 nguyễn trãi, phường 1, tp cao lãnh, tỉnh đồng tháp', 'asd asjnsdf dsajkfb dskafbsdjabf jksdabf kjsdbfk jbsdfkj bdsakjf bsdjkfabsjdka bfasdkj bfksjadfb askjdfb k', 'administrator562df010ec4cd.png', 'admin@gmail.com', 1),
-	(2, 'comboyinA', 'e10adc3949ba59abbe56e057f20f883e', 'comboyin A', 1, '2015-10-23', 'Lý Thái Tổ, tp hồ chí minh', ' asd asd as fsdagdg afdg fdagfd gdfgg', 'lyhai (3)56403e8032031.jpg', 'asdasdasdas@gmail.com', 2),
+	(1, 'comboyin', 'e10adc3949ba59abbe56e057f20f883e', '<input>', 1, '2015-07-05', '9/8/17 nguyen si co quan 8', 'asd asjnsdf dsajkfb dskafbsdjabf jksdabf kjsdbfk jbsdfkj bdsakjf bsdjkfabsjdka bfasdkj bfksjadfb askjdfb k\r\n\r\n<input>', '1410536171605642dfaedbe51.jpg', 'input1@gmail.com', 1),
+	(2, 'comboyinA', 'e10adc3949ba59abbe56e057f20f883e', 'comboyin A', 1, '2015-10-23', 'Lý Thái Tổ, tp hồ chí minh', ' asd asd as fsdagdg afdg fdagfd gdfgg', 'dantruong (12)5640425086d7e.jpg', 'asdasdasdas@gmail.com', 2),
 	(3, 'sontung', 'e10adc3949ba59abbe56e057f20f883e', 'Sơn Tùng MTP', 1, '1992-01-01', 'Thái Bình', 'jh sdfbjhasdv fjhdsvaf jhsadvfjhasv', '2015-10-26_154102562de70cc8fdd.jpg', 'sontung@gmail.com', 2),
 	(4, 'camly', 'e10adc3949ba59abbe56e057f20f883e', 'Cẩm Ly', 0, '1980-01-01', 'tp cao lanh, tỉnh Đồng tháp', 'asdasdasd asdad asd a d asd a d asd a', 'cam-ly-2562de896830c8.jpg', 'camly@gmail.com', 2),
 	(5, 'khoimy', 'e10adc3949ba59abbe56e057f20f883e', 'Khởi my', 0, '1991-03-03', 'Ở đâu', 'ádasdasdasdasda', 'Untitled562efd221261e.png', 'đâsdasđ@gmail.com', 2),
@@ -1273,8 +1419,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `fullname`, `sex`, `birthday`,
 	(9, 'lamhung', 'e10adc3949ba59abbe56e057f20f883e', 'lâm hùng', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'ádasdasdasdasdasd', 'lamhung564007be5cc5a.jpg', 'lamhung@gmail.com', 2),
 	(10, 'nguyenthehung', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Thế Hùng', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'ádasdasdasdasdasd', 'thehung (7)5640068a69b7a.jpg', 'nguyenthehung@gmail.com', 2),
 	(11, 'lyhai', 'e10adc3949ba59abbe56e057f20f883e', 'lý hải', 1, '2015-10-27', 'nguyễn trãi, tp hồ chí minh', 'ádasdasdasdasdasd', 'lyhai (10)56403e1660620.jpg', 'lyhai@gmail.com', 2),
-	(12, 'meo', 'e10adc3949ba59abbe56e057f20f883e', 'meomeo', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'Meo meo meo meo meo mèo mèo mèo mèo ', 'meo (33)563c707de726c.jpg', 'meomeo@gmail.com', 2),
-	(13, 'dantruong', 'e10adc3949ba59abbe56e057f20f883e', 'Đan trường', 1, '2015-10-27', 'Trần Hưng Đạo, tp hồ chí minh', 'ádasdasdasdasdasd', 'dantruong (2)564006eb601cc.jpg', 'dantruong@gmail.com', 2);
+	(12, 'meo', 'e10adc3949ba59abbe56e057f20f883e', 'con mèo', 0, '2015-07-23', 'Ngô Quyền, Thọ Quang, Sơn Trà, Đà Nẵng, Vietnam', '<input type="text">', '2015-11-10_0900245642b8fbe1411.jpg', 'meomeo1@gmail.com', 2),
+	(13, 'dantruong', 'e10adc3949ba59abbe56e057f20f883e', '<input>', 1, '1992-11-03', '61 Nguyễn Trãi, Phường 1, tp. Cao Lãnh, Đồng Tháp, Vietnam', 'ádasdasdasdasdasd', 'dantruong (13)5642ab48ee780.jpg', 'dantruong@gmail.com', 2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 

@@ -52,11 +52,10 @@ var indexAction = function () {
 			$("input[name=submit_edit_introduction]").click(function (e){
 				e.preventDefault();
 				var value = $("textarea[name=introduction]").val();
-				// success
-        		dalert.alert( "Are you sure ?" , 'confirm' , function call(){
-        			changeIntroduction( value );
-        		});
 				
+				// success
+				changeIntroduction( value );
+        		
 			});
 			
 			function changeIntroduction(value){

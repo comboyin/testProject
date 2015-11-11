@@ -10,12 +10,12 @@
 				<?php /* @var $followlog Follow_log */?>
 				<?php foreach ( $listFollow as $followlog ):?>
 					<tr>
-						<td style="width: 140px"><a href="<?php echo __FOLDER . 'user/action/profile/' . $followlog->getFollow()->getUserto()->getUsername()?>"><?php echo $followlog->getFollow()->getUserto()->getFullname()?></a></td>
+						<td style="width: 140px"><a href="<?php echo __FOLDER . 'user/action/profile/' . $followlog->getFollow()->getUserto()->getUsername()?>"><?php echo htmlspecialchars( $followlog->getFollow()->getUserto()->getFullname() )?></a></td>
 						<td style="width: 180px"><span><?php echo $followlog->getAction()?></span></td>
-						<td style="width: 190px"><a href="<?php echo __FOLDER . 'user/action/profile/' . $followlog->getUseridTo()->getUsername()?>"><?php echo $followlog->getUseridTo()->getFullname()?></a>
+						<td style="width: 190px"><a href="<?php echo __FOLDER . 'user/action/profile/' . $followlog->getUseridTo()->getUsername()?>"><?php echo htmlspecialchars($followlog->getUseridTo()->getFullname())?></a>
 						</td>
 						
-						<td style="width: 190px"> <?php echo $followlog->getRegistDatetime()?> </td>
+						<td style="width: 190px"> <?php echo htmlspecialchars( $followlog->getRegistDatetime() )?> </td>
 						
 						<td>
 							<?php if( $followlog->getStatus() == 0 ):?>

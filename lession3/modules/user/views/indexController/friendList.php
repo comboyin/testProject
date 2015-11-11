@@ -27,7 +27,7 @@ $friendRelations = $friendRelations;
 				<div class="list-friend">
 					<div class="media">
 						<p class="pull-left">
-							<a idfriend="<?php echo $friendRelation->getUserTo()->getId()?>" href="<?php echo __FOLDER . 'user/action/profile/' . $friendRelation->getUserTo()->getUsername()?>"><?php echo $friendRelation->getUserTo()->getFullname()?></a>
+							<a idfriend="<?php echo $friendRelation->getUserTo()->getId()?>" href="<?php echo __FOLDER . 'user/action/profile/' . $friendRelation->getUserTo()->getUsername()?>"><?php echo htmlspecialchars( $friendRelation->getUserTo()->getFullname() )?></a>
 						</p>
 						<a class="pull-left" href="#"> <img class="media-object"
 							src="<?php echo $friendRelation->getUserTo()->getLinkAvatar()?>" alt="">

@@ -20,15 +20,15 @@
                         <button idUser="<?php echo $user->getId()?>" class="btn <?php echo ( $is_follow == true ) ? 'un-follow btn-danger' : 'add-follow btn-info' ?>"><?php echo ( $is_follow == true ) ? 'Unfollow' : 'Add Follow' ?></button>
                             
                         	<?php if( $user->getStatusForUserSession() == 0 ):?>
-                        	<?php 
-	                        	/**
-	                        	 * 0 : add friend
-	                        	 * 1 : unfriend
-	                        	 * 2 : unRequest
-	                        	 * @var int  */
-                        	?>
+			                        	<?php 
+				                        	/**
+				                        	 * 0 : add friend
+				                        	 * 1 : unfriend
+				                        	 * 2 : unRequest
+				                        	 * @var int  */
+			                        	?>
 	                        		
-                        				<button class="btn btn-info">
+                        				<button class="btn btn-info add-friend">
                         					<a idfriend="<?php echo $user->getId()?>" style="color: white;" class="add-friend" href="#">
                         						Add Friend
                         					</a>
@@ -36,7 +36,7 @@
                         		
                         	<?php elseif ( $user->getStatusForUserSession() == 1 ):?>
                         		
-                        			<button  class="btn btn-danger">
+                        			<button  class="btn btn-danger un-friend">
                         				<a style="color: white;" idfriend="<?php echo $user->getId()?>" class="un-friend" href="#">
                         					UnFriend
                         				</a>
@@ -44,7 +44,7 @@
                         		
                         	<?php elseif ( $user->getStatusForUserSession() == 2 ):?>
                         	
-                        			<button  class="btn btn-danger">
+                        			<button  class="btn btn-danger un-request">
                         				<a style="color: white;" idfriend="<?php echo $user->getId()?>" class="un-request" href="#">
                         					unRequest
                         				</a>
@@ -65,7 +65,7 @@
                                     	<h1>
                                     		<strong>
                                     			<span>
-	                                    			<?php echo $user->getFullname()?>
+	                                    			<?php echo htmlspecialchars( $user->getFullname() )?>
                                     			</span>
 	                                    	</strong>
                                     	</h1>
@@ -82,7 +82,7 @@
 	                                		Email :
 	                            		</strong>
                             			
-                            			<span><?php echo $user->getEmail()?></span>
+                            			<span><?php echo htmlspecialchars( $user->getEmail() )?></span>
                             			<input style="display: none" type="text" value="" name="email" class="form-control" placeholder="">
 	                       		 	</span>
 								</div>
@@ -124,7 +124,7 @@
                                 		Birthday :
                             		</strong>
                             			<input style="display: none" type="text" value="" name="birthday" class="form-control" placeholder="yyyy-mm-dd">
-                            			<span><?php echo $user->getBirthday()?></span>
+                            			<span><?php echo htmlspecialchars( $user->getBirthday() )?></span>
                         		</span>
 							</div>
 
@@ -140,7 +140,7 @@
                             		    Address :
                            		 </strong>
                            		 	<input style="display: none" type="text" value="" name="address" class="form-control" placeholder="">
-									<span><?php echo $user->getAddress()?></span>
+									<span><?php echo htmlspecialchars( $user->getAddress() )?></span>
 
                         		</span>
 							</div>
@@ -153,7 +153,7 @@
                             		<strong>
                             		    Level :
                            		 	</strong>
-                           		 	<span><?php echo $user->getGroup()->getStringLevel() ?></span>
+                           		 	<span><?php echo htmlspecialchars( $user->getGroup()->getStringLevel() ) ?></span>
                         		</span>
 							</div>
 						</div>

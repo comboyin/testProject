@@ -58,7 +58,7 @@
                                     	<h1>
                                     		<strong>
                                     			<span>
-	                                    			<?php echo $user->getFullname()?>
+	                                    			<?php echo htmlspecialchars( $user->getFullname() )?>
                                     			</span>
 	                                    	</strong>
                                     	</h1>
@@ -184,7 +184,7 @@
 				<div class="list-friend">
 					<div class="media">
 						<p class="pull-left">
-							<a idfriend="<?php echo $userFavorite->getId()?>" href="<?php echo __FOLDER . 'user/action/profile/' . $userFavorite->getUsername()?>"><?php echo $userFavorite->getFullname()?></a>
+							<a idfriend="<?php echo $userFavorite->getId()?>" href="<?php echo __FOLDER . 'user/action/profile/' . $userFavorite->getUsername()?>"><?php echo htmlspecialchars( $userFavorite->getFullname() )?></a>
 						</p>
 						<a class="pull-left" href="#"> <img class="media-object"
 							src="<?php echo $userFavorite->getLinkAvatar()?>" alt="">

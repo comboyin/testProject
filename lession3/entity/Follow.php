@@ -4,7 +4,6 @@ class Follow {
 	private $user_id;
 	private $user_id_to;
 	private $regist_datetime;
-	
 	private $user;
 	private $userto;
 	
@@ -52,8 +51,5 @@ class Follow {
 		$this->userto = $userto;
 		return $this;
 	}
-	
-	
-	
 	
 }

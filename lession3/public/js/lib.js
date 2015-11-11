@@ -1,7 +1,22 @@
 
-function escapeHtml(str) {
+var entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+  };
+
+  function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+      return entityMap[s];
+    });
+  }
+
+/*function escapeHtml(str) {
 		return str.replace('&', '&amp;').replace('"', '&quot;').replace("'", '&#039;').replace('<', '&lt;').replace('>', '&gt;');
-	}
+	}*/
 //I needed the opposite function today, so adding here too:
 function htmlUnescape(value){
     return String(value)
@@ -138,7 +153,8 @@ function actionChangeLocation( latlng ){
 	        });
 		}
 		else     
-			alert("Geocode was not successful for the following reason: " + status);        
+			
+			dalert.alert( stringHtmlError( "Geocode was not successful for the following reason: " + status ) ,'Error');
 	});
 }
 
@@ -657,9 +673,8 @@ jQuery(document).ready(function () {
 	//= = =  = = = = =  = = = = = begin send request  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = = = = =  = =
 	
 	$(document).on('click',"a.add-friend",function(e){
-		console.log('aa');
-		e.preventDefault();
 		
+		e.preventDefault();
 		media = $( this ).parents('div')[0];
 		IdFriend = $( this ).attr('idfriend');
 		sendRequest( IdFriend , media );
@@ -722,8 +737,6 @@ jQuery(document).ready(function () {
         });
 	});
 	
-	
-	
 	function unfriend( idfriend , tag_a ){
 		
 		var fd = new FormData();
@@ -758,8 +771,5 @@ jQuery(document).ready(function () {
 	        }
 	    });
 	}
-	
-	
-	
 });
 

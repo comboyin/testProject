@@ -132,8 +132,9 @@ var userLayout = function () {
 					$('input[name=birthday]').datepicker( 'update', valueText );
 					
 				}else{
-					console.log( valueText );
+					
 					$( 'span.product-vars input' , productPrices).val( htmlUnescape( valueText  ) );
+					
 					
 				}
 				// show button save and cancel
@@ -144,7 +145,7 @@ var userLayout = function () {
 			$(document).on( 'click' ,'a.Cancel_info',function(e){
 				e.preventDefault();
 				productPrices = $(this).parents('.row')[0];
-				CancelInfo(productPrices);
+				CancelInfo( productPrices );
 				
 			});
 			
@@ -247,6 +248,7 @@ var userLayout = function () {
 			}
 
 			function updateFieldUser( name , value, row ){
+				
 				fd = new FormData();
 				fd.append( name , value );
 				$.ajax({
@@ -284,7 +286,9 @@ var userLayout = function () {
 						        			_value = value;
 						        		}
 						        	} );
+						        	console.log(escapeHtml(_value));
 						        	$( ".product-vars span" , row ).html( escapeHtml( _value ) );
+						        	
 						        	if( name == "address" ){
 						        		// reset google map
 						        		address = _value;

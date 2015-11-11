@@ -92,13 +92,16 @@ div.preloader {
 }
 
 .profile-avatar img {
-	max-height: 380px;
+	max-height: 330px;
 }
 
 .profile-avatar .avatar-img {
 	position: absolute;
+	    right: 10px;
+    margin-top: 32px;
+	
 }
-.single-product-description .product-vars strong{
+.single-product-description .product-items strong{
 	width: 100px;
 	display: inline-block; 
 }
