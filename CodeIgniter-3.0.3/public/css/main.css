@@ -51,13 +51,13 @@ form.form_theme img.captcha{
     border: 1px solid black;
 }
 
-form.form_theme input[name=texcaptcha]{
-	    width: 247px;
+form.form_theme input[name=captcha]{
+	width: 247px;
 }
 
 form.form_theme img.icon-reset{
-	    margin-bottom: -6px;
-	    
+	margin-bottom: -6px;
+
 }
 
 .pull-right{

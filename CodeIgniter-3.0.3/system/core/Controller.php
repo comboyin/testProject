@@ -93,4 +93,12 @@ class CI_Controller {
 		return self::$instance;
 	}
 
+	protected function checkLogin(){
+		$result = false;
+		if( isset( $this->session->username ) ){
+			$result = true;
+		}
+		return $result;
+	}
+
 }
